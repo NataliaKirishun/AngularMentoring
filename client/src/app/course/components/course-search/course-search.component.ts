@@ -14,7 +14,7 @@ export class CourseSearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  public handleSearch(){
+  public handleSearch(): void{
     console.log('searchValue', this.searchValue);
   }
 

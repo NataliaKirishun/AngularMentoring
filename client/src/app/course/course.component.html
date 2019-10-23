@@ -2,7 +2,7 @@
   <div class="course-page__content">
     <app-course-search></app-course-search>
     <button class="course-page__add-btn">Add course</button>
-    <app-course-list></app-course-list>
+    <app-course-item *ngFor="let course of courseList" [courseItem]="course" (onDelete)="deleteCourse($event)"></app-course-item>
     <button class="course-page__load-btn">Load more</button>
   </div>
 </div>
