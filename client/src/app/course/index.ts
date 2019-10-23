@@ -9,8 +9,5 @@ export const course = {
     CourseListComponent,
     CourseItemComponent,
     CourseComponent,
-  ],
-  exports: [
-    CourseComponent,
-  ],
+  ]
 };

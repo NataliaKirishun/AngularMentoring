@@ -11,6 +11,5 @@ import { course } from './';
     CommonModule,
     FontAwesomeModule
   ],
-  exports: [...course.exports],
 })
 export class CourseModule { }
