@@ -1,0 +1,119 @@
+@import "~src/app/app-variables";
+
+.course-item {
+  font-family: Source Sans Pro, sans-serif;
+  background-color: @white;
+  border-radius: 8px;
+  box-shadow: 0 1px 24px 0 rgba(18, 21, 35, 0.08);
+  padding: 24px;
+  margin-bottom: 24px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 70%;
+  }
+
+  &__title {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+    color: @dark;
+    margin-bottom: 8px;
+  }
+
+  &__info-wrapper {
+    flex-shrink: 0;
+    font-size: 12px;
+    line-height: 30px;
+    color: @cloudy-blue;
+  }
+
+  &__duration, &__date {
+    padding: 0 8px;
+  }
+
+  &__icon:not(:first-of-type) {
+    padding-left: 8px;
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  &__description  {
+    flex: 1 1 85%;
+    font-size: 14px;
+    line-height: 24px;
+    color: @slate-grey;
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 25%;
+  }
+
+  &__edit-btn, &__delete-btn {
+    font: 12px/24px Source Sans Pro, sans-serif;
+    color: @white;
+    height: 24px;
+    background-color: @dark-sky-blue;
+    border: 0;
+    border-radius: 3px;
+    padding:0 18px;
+    outline: none;
+    margin: 0 6px;
+
+    fa-icon {
+      padding-right: 8px;
+    }
+  }
+}
+
+@media @tablet {
+
+  .course-item {
+
+    &__header {
+      width: 100%;
+    }
+
+    &__control {
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-left: 30px;
+    }
+
+    &__edit-btn, &__delete-btn {
+      width: 100%;
+    }
+
+    &__edit-btn {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+@media @mobile {
+
+  .course-item {
+
+    &__title {
+      width: 100%;
+    }
+
+    &__content {
+      flex-direction: column;
+    }
+
+    &__control {
+      margin-top: 20px;
+      padding-left: 0;
+    }
+  }
+}
+
