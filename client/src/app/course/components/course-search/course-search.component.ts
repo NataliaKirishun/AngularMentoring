@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgModel} from '@angular/forms';
 
 @Component({
   selector: 'app-course-search',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./course-search.component.less']
 })
 export class CourseSearchComponent implements OnInit {
+  public searchValue: string="";
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public handleSearch(){
+    console.log('searchValue', this.searchValue);
   }
 
 }

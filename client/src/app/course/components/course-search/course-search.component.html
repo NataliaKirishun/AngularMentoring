@@ -1,5 +1,4 @@
 <form class="course-search__form">
-  <input class="course-search__input" type="text" placeholder="Text to search"/>
-  <button class="course-search__button" type="button">Search</button>
+  <input [(ngModel)]="searchValue" name="searchValue" class="course-search__input" placeholder="Text to search"/>
+  <button class="course-search__button" (click)="handleSearch()">Search</button>
 </form>
-
