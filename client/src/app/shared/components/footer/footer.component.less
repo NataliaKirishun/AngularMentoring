@@ -1,21 +1,21 @@
 @import "~src/app/app-variables";
 
-.breadcrumbs {
-  width: 100%;
+.footer {
   height: 64px;
-  background-color: @white;
+  background-color: @charcoal-grey;
 }
 
-.breadcrumbs-content {
-  font: 600 14px/24px SourceSansPro, sans-serif;
-  color: @dark;
+.footer-content {
+  text-align: right;
+  font: 14px/16px SourceSansPro, sans-serif;
+  color: @pale-grey;
   margin: 0 auto;
   padding: 20px 0;
 }
 
 @media @big-desktop {
 
-  .breadcrumbs-content {
+  .footer-content {
     width: 90%;
     max-width: @max-layout-width;
   }
@@ -23,14 +23,14 @@
 
 @media @desktop {
 
-  .breadcrumbs-content {
+  .footer-content {
     margin: 0 40px;
   }
 }
 
 @media @mobile {
 
-  .breadcrumbs-content {
+  .footer-content {
     margin: 0 20px;
   }
 }

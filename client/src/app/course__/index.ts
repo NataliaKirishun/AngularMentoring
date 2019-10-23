@@ -7,8 +7,5 @@ export const course = {
     CourseSearchComponent,
     CourseListComponent,
     CourseItemComponent,
-  ],
-  exports: [
-    CourseListComponent,
-  ],
+  ]
 };
