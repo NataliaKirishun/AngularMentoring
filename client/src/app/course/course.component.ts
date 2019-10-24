@@ -1,24 +1,69 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  OnInit,
+  DoCheck,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy
+} from '@angular/core';
 import { CourseListItem } from './models/course-list-item';
-import { CourseService } from "./course.service";
+import { CourseService } from './services/course.service';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.less']
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent implements
+    OnChanges,
+    OnInit,
+    DoCheck,
+    AfterContentInit,
+    AfterContentChecked,
+    AfterViewInit,
+    AfterViewChecked,
+    OnDestroy {
   public courseList: CourseListItem[] = [];
 
-  constructor(private courseService: CourseService) { }
+  constructor(private courseService: CourseService) {}
+
+  ngOnChanges() {
+    console.log('ngOnChanges');
+  }
 
   ngOnInit() {
+    console.log('ngOnInit');
     this.courseList = this.courseService.getCourseList();
-    console.log(this.courseList);
   }
 
-  public deleteCourse(courseId){
-    console.log('course to delete',courseId);
+  ngDoCheck() {
+    console.log('ngDoCheck');
   }
 
+  ngAfterContentInit() {
+    console.log('ngAfterContentInit');
+  }
+
+  ngAfterContentChecked() {
+    console.log('ngAfterContentChecked');
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit');
+  }
+
+  ngAfterViewChecked() {
+    console.log('ngAfterViewChecked');
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy');
+  }
+
+  public deleteCourse(courseId: string): void {
+    console.log('course to delete', courseId);
+  }
 }

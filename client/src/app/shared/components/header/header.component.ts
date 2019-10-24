@@ -9,11 +9,10 @@ import { HEADER_CONFIG } from 'src/app/config/header.config';
 })
 export class HeaderComponent implements OnInit {
   public logoPath: string;
-
-  constructor() { }
+  public logoText: string;
 
   ngOnInit() {
     this.logoPath = HEADER_CONFIG.LOGO_PATH;
+    this.logoText = HEADER_CONFIG.LOGO_TEXT;
   }
-
 }

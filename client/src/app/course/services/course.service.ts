@@ -1,13 +1,8 @@
-import {Injectable} from '@angular/core';
-import {CourseListItem} from './models/course-list-item';
+import { Injectable } from '@angular/core';
+import { CourseListItem } from '../models/course-list-item';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CourseService {
-
-  constructor() {
-  }
 
   getCourseList(): CourseListItem[] {
     return [

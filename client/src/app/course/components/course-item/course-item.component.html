@@ -13,7 +13,7 @@
       {{courseItem.description}}
     </div>
     <div class="course-item__control">
-      <button class="course-item__edit-btn"><fa-icon [icon]="faPencilAlt"></fa-icon>Edit</button>
+      <button class="course-item__edit-btn" (click)="editCourse()"><fa-icon [icon]="faPencilAlt"></fa-icon>Edit</button>
       <button class="course-item__delete-btn" (click)="deleteCourse()"><fa-icon [icon]="faTrashAlt"></fa-icon>Delete</button>
     </div>
   </div>

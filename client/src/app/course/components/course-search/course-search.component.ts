@@ -1,21 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { NgModel} from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-course-search',
   templateUrl: './course-search.component.html',
   styleUrls: ['./course-search.component.less']
 })
-export class CourseSearchComponent implements OnInit {
-  public searchValue: string="";
+export class CourseSearchComponent {
+  public searchValue: string;
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  public handleSearch(): void{
+  public handleSearch(): void {
     console.log('searchValue', this.searchValue);
   }
-
 }
