@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CourseListItem } from '../../models/course-list-item';
+import { ICourseListItem } from '../../models/course-list-item';
 
 import { faClock, faCalendarAlt, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,7 +9,7 @@ import { faClock, faCalendarAlt, faPencilAlt, faTrashAlt } from '@fortawesome/fr
   styleUrls: ['./course-item.component.less']
 })
 export class CourseItemComponent {
-  @Input() courseItem: CourseListItem;
+  @Input() courseItem: ICourseListItem;
   @Output() delete: EventEmitter<string> = new EventEmitter<string>();
 
   public faClock = faClock;

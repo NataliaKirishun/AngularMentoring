@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CourseListItem } from '../models/course-list-item';
+import { ICourseListItem } from '../models/course-list-item';
 
 @Injectable()
 export class CourseService {
 
-  getCourseList(): CourseListItem[] {
+  getCourseList(): ICourseListItem[] {
     return [
       {
         id: '9adged87',

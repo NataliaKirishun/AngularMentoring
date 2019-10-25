@@ -9,7 +9,7 @@ import {
   AfterViewChecked,
   OnDestroy
 } from '@angular/core';
-import { CourseListItem } from './models/course-list-item';
+import { ICourseListItem } from './models/course-list-item';
 import { CourseService } from './services/course.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class CourseComponent implements
     AfterViewInit,
     AfterViewChecked,
     OnDestroy {
-  public courseList: CourseListItem[] = [];
+  public courseList: ICourseListItem[] = [];
 
   constructor(private courseService: CourseService) {}
 
