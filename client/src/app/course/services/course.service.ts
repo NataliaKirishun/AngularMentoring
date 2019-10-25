@@ -7,7 +7,7 @@ export class CourseService {
   getCourseList(): ICourseListItem[] {
     return [
       {
-        id: '9adged87',
+        id: '9adged88',
         title: 'Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag',
         duration: '1h 28 min',
         date: '9 Nov, 2018',
@@ -23,4 +23,3 @@ export class CourseService {
     ];
   }
 }
-
