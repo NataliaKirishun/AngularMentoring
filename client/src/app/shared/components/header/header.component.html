@@ -1,2 +1,14 @@
-<p>header works!</p>
-<app-logo></app-logo>
+<header class="header">
+  <div class="header-content">
+    <a class="logo">
+      <img class="logo__image" src="{{logoPath}}">
+      <h1 class="logo__text">{{logoText}}</h1>
+    </a>
+    <div class="auth-menu">
+      <div class="auth-menu__user-login">User login</div>
+      <button class="auth-menu__log-off">
+        <span>Log Off</span>
+      </button>
+    </div>
+  </div>
+</header>

@@ -1,1 +1,4 @@
-<p>course-search works!</p>
+<form class="course-search__form">
+  <input [(ngModel)]="searchValue" name="searchValue" class="course-search__input" placeholder="Text to search"/>
+  <button class="course-search__button" (click)="handleSearch()">Search</button>
+</form>

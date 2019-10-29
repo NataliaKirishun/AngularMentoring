@@ -1,0 +1,126 @@
+@import "~src/app/color";
+@import "~src/app/layout";
+
+.header {
+  width: 100%;
+  height: 64px;
+  background-color: @charcoal-grey;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  display: block;
+  cursor: pointer;
+
+  &__text {
+    display: inline-block;
+    font: 500 20px/32px Oswald, sans-serif;
+    color: @white;
+    margin-left: 20px;
+    text-transform: uppercase;
+    vertical-align: top;
+  }
+}
+
+.auth-menu {
+
+  &__user-login, &__log-off {
+    font: 500 14px/18px SourceSansPro, sans-serif;
+    color: @white;
+    position: relative;
+  }
+
+  &__user-login {
+    display: inline-block;
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: -20px;
+      top: 2px;
+      width: 10px;
+      height: 12px;
+      background-image: url("/assets/images/ic-user.svg");
+    }
+  }
+
+  &__log-off {
+    position: relative;
+    margin-left: 60px;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:before {
+      content: "";
+      left: -20px;
+      top: 4px;
+      position: absolute;
+      width: 16px;
+      height: 12px;
+      background-image: url("/assets/images/ic-exit.svg");
+    }
+  }
+}
+
+@media @big-desktop {
+
+  .header {
+    position: relative;
+  }
+
+  .header-content {
+    width: 90%;
+    max-width: @max-layout-width;
+    margin: 0 auto;
+  }
+
+  .auth-menu {
+    position: absolute;
+    right: 60px;
+  }
+}
+
+@media @desktop {
+
+  .header-content {
+    margin: 0 40px;
+  }
+}
+
+@media @tablet {
+
+  .auth-menu {
+
+    &__log-off {
+      height: 16px;
+      margin-left: 40px;
+      padding: 0;
+
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+@media @mobile {
+
+  .header-content {
+    margin: 0 20px;
+  }
+
+  .logo {
+
+    &__text {
+      display: none;
+    }
+  }
+}

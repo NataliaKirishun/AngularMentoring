@@ -1,0 +1,37 @@
+@import "~src/app/color";
+@import "~src/app/layout";
+
+.footer {
+  height: 64px;
+  background-color: @charcoal-grey;
+}
+
+.footer-content {
+  text-align: right;
+  font: 14px/16px SourceSansPro, sans-serif;
+  color: @pale-grey;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+@media @big-desktop {
+
+  .footer-content {
+    width: 90%;
+    max-width: @max-layout-width;
+  }
+}
+
+@media @desktop {
+
+  .footer-content {
+    margin: 0 40px;
+  }
+}
+
+@media @mobile {
+
+  .footer-content {
+    margin: 0 20px;
+  }
+}

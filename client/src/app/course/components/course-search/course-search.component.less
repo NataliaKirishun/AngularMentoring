@@ -1,0 +1,64 @@
+@import "~src/app/color";
+@import "~src/app/layout";
+
+.course-search {
+
+  &__form {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 14px;
+      width: 24px;
+      height: 24px;
+      z-index: 1;
+      background-image: url("/assets/images/ic-search.svg");
+    }
+  }
+
+  &__input {
+    font: 14px/24px SourceSansPro, sans-serif;
+    height: 48px;
+    width: 360px;
+    border-radius: 3px;
+    border: solid 1px @grey;
+    outline: none;
+    padding-left: 42px;
+    position: relative;
+    box-sizing: border-box;
+    vertical-align: top;
+
+    &::placeholder {
+      color: @silver;
+    }
+  }
+
+  &__button {
+    font: 600 18px Source Sans Pro, san-serif;
+    color: @white;
+    height: 48px;
+    padding: 0 24px;
+    background-color: @sick-green;
+    margin-left: 6px;
+    border: 0;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+  }
+}
+
+@media @tablet {
+
+  .course-search {
+
+    &__form {
+      display: flex;
+    }
+
+    &__input {
+      flex: auto;
+    }
+  }
+}
