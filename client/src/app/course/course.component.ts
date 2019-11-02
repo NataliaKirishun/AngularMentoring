@@ -15,7 +15,7 @@ import { CourseService } from './services/course.service';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.less']
+  styleUrls: ['./course.component.less'],
 })
 export class CourseComponent implements
     OnChanges,
