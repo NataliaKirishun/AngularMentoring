@@ -76,6 +76,21 @@ describe('CourseItemComponent', () => {
     courseDe.triggerEventHandler('click', null);
     expect(selectedCourseId).toBe(expectedCourseItem.id);
   });
+
+  it('should call edit course handler when click on the edit button', () => {
+    const componentSpy = spyOn(component, 'editCourse');
+    courseDe  = fixture.debugElement.query(By.css('.course-item__edit-btn'));
+    courseEl = courseDe.nativeElement;
+    fixture.detectChanges();
+    courseEl.click();
+    expect(componentSpy).toHaveBeenCalled();
+  });
+
+  it('should call edit course handler when click on the edit button', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.editCourse();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
 });
 
 // Component class testing as a component with @Input and @Output
