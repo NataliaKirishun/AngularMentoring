@@ -48,7 +48,7 @@ describe('CourseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should inject and then call courseService on ngOnInit', () => {
+  it('should inject and call courseService on ngOnIni', () => {
     const getCourseListSpy = spyOn(courseService, 'getCourseList').and.returnValue(of([]));
     component.ngOnInit();
     expect(getCourseListSpy).toHaveBeenCalled();
@@ -67,12 +67,6 @@ describe('CourseComponent', () => {
   });
 
   it('should log message ngDoCheck', () => {
-    const consoleSpy = spyOn(console, 'log');
-    component.ngDoCheck();
-    expect(consoleSpy).toHaveBeenCalled();
-  });
-
-  it('should log message on ngDoCheck', () => {
     const consoleSpy = spyOn(console, 'log');
     component.ngDoCheck();
     expect(consoleSpy).toHaveBeenCalled();
@@ -108,11 +102,9 @@ describe('CourseComponent', () => {
     expect(consoleSpy).toHaveBeenCalled();
   });
 
-  it('should log message on triggering delete handler method', () => {
+  it('should log message on calling delete Method', () => {
     const consoleSpy = spyOn(console, 'log');
-    fixture.debugElement.query(By.css('.course-page'))
-      .triggerEventHandler('delete', null);
-    fixture.detectChanges();
+    component.deleteCourse('test_id');
     expect(consoleSpy).toHaveBeenCalled();
   });
 });
