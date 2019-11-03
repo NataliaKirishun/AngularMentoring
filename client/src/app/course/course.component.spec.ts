@@ -5,7 +5,6 @@ import { CourseComponent } from './course.component';
 import { CourseService } from './services/course.service';
 
 import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
 
 describe('CourseComponent', () => {
   let component: CourseComponent;

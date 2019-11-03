@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-import { CourseItemComponent } from './course-item.component';
-import {ICourseListItem} from '../../models/course-list-item';
 import { By } from '@angular/platform-browser';
 import { Component, DebugElement } from '@angular/core';
+
+import { CourseItemComponent } from './course-item.component';
+import { ICourseListItem } from '../../models/course-list-item';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -107,7 +107,6 @@ describe('CourseItemComponent testing with class approach ', () => {
       description: 'test_description',
     };
     component.courseItem = courseItem;
-
     component.delete.subscribe((selectedCourseId: string) => expect(selectedCourseId).toBe(courseItem.id));
     component.deleteCourse();
   });
@@ -154,33 +153,33 @@ describe('CourseItemComponent testing using host testing approach', () => {
   }));
 
   beforeEach(() => {
-    fixture  = TestBed.createComponent(TestHostComponent);
+    fixture = TestBed.createComponent(TestHostComponent);
     testHost = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should display course title', () => {
-    courseTitle   = fixture.nativeElement.querySelector('.course-item__title');
+    courseTitle = fixture.nativeElement.querySelector('.course-item__title');
     expect(courseTitle.textContent).toContain(testHost.course.title);
   });
 
   it('should display course duration', () => {
-    courseDuration   = fixture.nativeElement.querySelector('.course-item__duration');
+    courseDuration = fixture.nativeElement.querySelector('.course-item__duration');
     expect(courseDuration.textContent).toContain(testHost.course.duration);
   });
 
   it('should display course duration', () => {
-    courseDate   = fixture.nativeElement.querySelector('.course-item__date');
+    courseDate = fixture.nativeElement.querySelector('.course-item__date');
     expect(courseDate.textContent).toContain(testHost.course.date);
   });
 
   it('should display course description', () => {
-    courseDescription   = fixture.nativeElement.querySelector('.course-item__description');
+    courseDescription = fixture.nativeElement.querySelector('.course-item__description');
     expect(courseDescription .textContent).toContain(testHost.course.description);
   });
 
   it('should raise delete event when clicked delete button', () => {
-    courseDeleteButton  = fixture.nativeElement.querySelector('.course-item__delete-btn');
+    courseDeleteButton = fixture.nativeElement.querySelector('.course-item__delete-btn');
     courseDeleteButton.click();
     expect(testHost.selectedCourseId).toBe(testHost.course.id);
   });
