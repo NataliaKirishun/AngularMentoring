@@ -86,7 +86,7 @@ describe('CourseItemComponent', () => {
     expect(componentSpy).toHaveBeenCalled();
   });
 
-  it('should call edit course handler when click on the edit button', () => {
+  it('should console log message when calling editCourse', () => {
     const consoleSpy = spyOn(console, 'log');
     component.editCourse();
     expect(consoleSpy).toHaveBeenCalled();
