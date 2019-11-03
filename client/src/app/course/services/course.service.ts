@@ -5,7 +5,7 @@ import { ICourseListItem } from '../models/course-list-item';
 
 @Injectable()
 export class CourseService {
-  private courseList: ICourseListItem[] = [
+  courseList: ICourseListItem[] = [
     {
       id: '9adged88',
       title: 'Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag',

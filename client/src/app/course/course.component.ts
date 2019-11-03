@@ -65,6 +65,6 @@ export class CourseComponent implements
   }
 
   public deleteCourse(courseId: string): void {
-    console.log('course to delete ', courseId);
+    console.log('course to delete', courseId);
   }
 }
