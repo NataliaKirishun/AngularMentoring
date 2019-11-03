@@ -36,7 +36,8 @@ export class CourseComponent implements
 
   ngOnInit() {
     console.log('ngOnInit');
-    this.courseList = this.courseService.getCourseList();
+    this.courseService.getCourseList()
+      .subscribe((courseList: ICourseListItem[]) => this.courseList = courseList);
   }
 
   ngDoCheck() {

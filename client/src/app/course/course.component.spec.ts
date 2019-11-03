@@ -4,6 +4,9 @@ import { Component, Input } from '@angular/core';
 import { CourseComponent } from './course.component';
 import { CourseService } from './services/course.service';
 
+import { of } from 'rxjs';
+import { By } from '@angular/platform-browser';
+
 describe('CourseComponent', () => {
   let component: CourseComponent;
   let fixture: ComponentFixture<CourseComponent>;
@@ -20,7 +23,7 @@ describe('CourseComponent', () => {
 
   beforeEach(async(() => {
     const CourseServiceStub = {
-      getCourseList: () => []
+      getCourseList: () => of([])
     };
 
     TestBed.configureTestingModule({
@@ -45,9 +48,71 @@ describe('CourseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call courseService', () => {
-    const getCourseListSpy = spyOn(courseService, 'getCourseList')
+  it('should inject and then call courseService on ngOnInit', () => {
+    const getCourseListSpy = spyOn(courseService, 'getCourseList').and.returnValue(of([]));
     component.ngOnInit();
     expect(getCourseListSpy).toHaveBeenCalled();
+  });
+
+  it('should log message on ngOnChanges', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.ngOnChanges();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should log message on ngOnInit', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.ngOnInit();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should log message ngDoCheck', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.ngDoCheck();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should log message on ngDoCheck', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.ngDoCheck();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should log message on ngAfterContentInit', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.ngAfterContentInit();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should log message on ngAfterContentChecked', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.ngAfterContentChecked();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should log message on ngAfterViewInit', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.ngAfterViewInit();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should log message on ngAfterViewChecked', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.ngAfterViewChecked();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should log message on ngOnDestroy', () => {
+    const consoleSpy = spyOn(console, 'log');
+    component.ngOnDestroy();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should log message on triggering delete handler method', () => {
+    const consoleSpy = spyOn(console, 'log');
+    fixture.debugElement.query(By.css('.course-page'))
+      .triggerEventHandler('delete', null);
+    fixture.detectChanges();
+    expect(consoleSpy).toHaveBeenCalled();
   });
 });
