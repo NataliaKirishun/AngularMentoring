@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-
-import { CourseSearchComponent } from './course-search.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
+import { CourseSearchComponent } from './course-search.component';
 
 describe('CourseSearchComponent', () => {
   let component: CourseSearchComponent;
