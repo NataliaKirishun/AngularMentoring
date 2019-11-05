@@ -1,7 +1,8 @@
-<div class="course-item" [appCircleRound]="color">
-<!--<div class="course-item">-->
+<div class="course-item" [appCircleRound]="color" [ngClass]="{'top-rated': topRated}">
   <div class="course-item__header">
-    <h3 class="course-item__title">{{courseItem.title}}</h3>
+    <h3 class="course-item__title">{{courseItem.title}}
+      <fa-icon *ngIf="topRated" class="course-item__star-icon" [icon]="faStar"></fa-icon>
+    </h3>
     <div class="course-item__info-wrapper">
       <fa-icon class="course-item__icon" [icon]="faClock"></fa-icon>
       <span class="course-item__duration">{{courseItem.duration}}</span>

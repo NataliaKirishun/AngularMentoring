@@ -9,6 +9,10 @@
   padding: 24px;
   margin-bottom: 24px;
 
+  &.top-rated {
+    background-color: lighten(@gold, 48%);
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -22,6 +26,13 @@
     font-weight: 600;
     color: @dark;
     margin-bottom: 8px;
+  }
+
+  &__star-icon {
+    position: relative;
+    top: -10px;
+    color: @gold;
+    font-size: 12px;
   }
 
   &__info-wrapper {

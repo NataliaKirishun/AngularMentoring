@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output, OnChanges, } from '@angular/core';
+import {Component, EventEmitter, Input, Output, OnChanges, OnInit } from '@angular/core';
 import { ICourseListItem } from '../../models/course-list-item';
 
-import { faClock, faCalendarAlt, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faCalendarAlt, faPencilAlt, faTrashAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 
 import { COLORS } from '../../../config/colors.config';
 
@@ -10,7 +10,7 @@ import { COLORS } from '../../../config/colors.config';
   templateUrl: './course-item.component.html',
   styleUrls: ['./course-item.component.less']
 })
-export class CourseItemComponent implements OnChanges{
+export class CourseItemComponent implements OnInit, OnChanges {
   @Input() courseItem: ICourseListItem;
   @Output() delete: EventEmitter<string> = new EventEmitter<string>();
 
@@ -18,8 +18,10 @@ export class CourseItemComponent implements OnChanges{
   public faCalendarAlt = faCalendarAlt;
   public faPencilAlt = faPencilAlt;
   public faTrashAlt = faTrashAlt;
+  public faStar = faStar;
 
   public color: string = null;
+  public topRated: boolean;
 
   ngOnChanges(): void {
     const dateDiff = this.getDateDifferance();
@@ -29,6 +31,10 @@ export class CourseItemComponent implements OnChanges{
     if ( dateDiff < 0 ) {
       this.color = COLORS.BLUE;
     }
+  }
+
+  ngOnInit(): void {
+    this.topRated = this.courseItem.topRated;
   }
 
   private getDateDifferance(): number {
