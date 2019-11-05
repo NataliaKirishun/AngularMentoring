@@ -2,7 +2,10 @@
   <div class="course-page__content">
     <app-course-search></app-course-search>
     <button class="course-page__add-btn">Add course</button>
+    <div *ngIf="!courseListLength; else elseBlock" class="course-page__empty-block">NO DATA, FELL FREE TO ADD NEW COURSE...</div>
+  <ng-template #elseBlock>
     <app-course-item *ngFor="let course of courseList" [courseItem]="course" (delete)="deleteCourse($event)"></app-course-item>
     <button class="course-page__load-btn">Load more</button>
+  </ng-template>
   </div>
 </div>

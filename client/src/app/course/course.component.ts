@@ -27,6 +27,7 @@ export class CourseComponent implements
     AfterViewChecked,
     OnDestroy {
   public courseList: ICourseListItem[] = [];
+  public courseListLength = 0;
 
   constructor(private courseService: CourseService) {}
 
@@ -37,7 +38,10 @@ export class CourseComponent implements
   ngOnInit() {
     console.log('ngOnInit');
     this.courseService.getCourseList()
-      .subscribe((courseList: ICourseListItem[]) => this.courseList = courseList);
+      .subscribe((courseList: ICourseListItem[]) => {
+        this.courseList = courseList;
+        this.courseListLength = courseList.length;
+      });
   }
 
   ngDoCheck() {
