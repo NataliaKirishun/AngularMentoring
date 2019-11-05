@@ -5,7 +5,7 @@
     </h3>
     <div class="course-item__info-wrapper">
       <fa-icon class="course-item__icon" [icon]="faClock"></fa-icon>
-      <span class="course-item__duration">{{courseItem.duration}}</span>
+      <span class="course-item__duration">{{courseItem.duration | duration}}</span>
       <fa-icon class="course-item__icon" [icon]="faCalendarAlt"></fa-icon>
       <span class="course-item__date">{{courseItem.date}}</span>
     </div>

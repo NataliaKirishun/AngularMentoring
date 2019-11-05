@@ -9,6 +9,7 @@ import { CourseSearchComponent } from './components/course-search/course-search.
 import { CourseItemComponent } from './components/course-item/course-item.component';
 import { CourseComponent } from './course.component';
 import { CircleRoundDirective } from './directives/circle-round.directive';
+import { DurationPipe } from './pipes/duration.pipe';
 
 @NgModule({
   providers: [ CourseService ],
@@ -17,6 +18,7 @@ import { CircleRoundDirective } from './directives/circle-round.directive';
     CourseItemComponent,
     CourseComponent,
     CircleRoundDirective,
+    DurationPipe,
   ],
   imports: [
     CommonModule,
