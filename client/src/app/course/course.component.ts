@@ -11,14 +11,14 @@ import {
 } from '@angular/core';
 import { ICourseListItem } from './models/course-list-item';
 import { CourseService } from './services/course.service';
-import { FilterService } from '../shared/services/filter/filter.service';
 import { OrderByPipe } from '../shared/pipes/order-by/order-by.pipe';
+import { FilterPipe } from '../shared/pipes/filter/filter.pipe';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.less'],
-  providers: [OrderByPipe],
+  providers: [OrderByPipe, FilterPipe],
 })
 export class CourseComponent implements
     OnChanges,
@@ -37,7 +37,7 @@ export class CourseComponent implements
   constructor(
     private courseService: CourseService,
     private orderByPipe: OrderByPipe,
-    private filterService: FilterService,
+    private filterPipe: FilterPipe,
   ) {}
 
   ngOnChanges() {
@@ -83,6 +83,6 @@ export class CourseComponent implements
   }
 
   public searchCourse(searchValue: string): void {
-    this.filteredList = this.filterService.filterData(this.courseList, searchValue, 'title');
+    this.filteredList = this.filterPipe.transform(this.courseList, searchValue, 'title');
   }
 }
