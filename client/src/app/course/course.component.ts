@@ -12,6 +12,7 @@ import {
 import { ICourseListItem } from './models/course-list-item';
 import { CourseService } from './services/course.service';
 import { OrderByService } from '../shared/services/order-by/order-by.service';
+import { FilterService } from '../shared/services/filter/filter.service';
 
 @Component({
   selector: 'app-course',
@@ -28,11 +29,15 @@ export class CourseComponent implements
     AfterViewChecked,
     OnDestroy {
   public courseList: ICourseListItem[] = [];
-  public sortedList: ICourseListItem[] = [];
+  public filteredList: ICourseListItem[] = [];
   public courseListLength = 0;
   public sortField = 'date';
 
-  constructor(private courseService: CourseService, private orderByService: OrderByService) {}
+  constructor(
+    private courseService: CourseService,
+    private orderByService: OrderByService,
+    private filterService: FilterService,
+  ) {}
 
   ngOnChanges() {
     console.log('ngOnChanges');
@@ -42,9 +47,9 @@ export class CourseComponent implements
     console.log('ngOnInit');
     this.courseService.getCourseList()
       .subscribe((courseList: ICourseListItem[]) => {
-        this.courseList = courseList;
         this.courseListLength = courseList.length;
-        this.sortedList = this.orderByService.setOrderByField(this.courseList, this.sortField);
+        this.courseList = this.orderByService.setOrderByField(courseList, this.sortField);
+        this.filteredList = this.courseList;
       });
   }
 
@@ -74,5 +79,9 @@ export class CourseComponent implements
 
   public deleteCourse(courseId: string): void {
     console.log('course to delete', courseId);
+  }
+
+  public searchCourse(searchValue: string): void {
+    this.filteredList = this.filterService.filterData(this.courseList, searchValue, 'title');
   }
 }
