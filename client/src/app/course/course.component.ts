@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { ICourseListItem } from './models/course-list-item';
 import { CourseService } from './services/course.service';
+import { OrderByService } from '../shared/services/order-by/order-by.service';
 
 @Component({
   selector: 'app-course',
@@ -27,9 +28,11 @@ export class CourseComponent implements
     AfterViewChecked,
     OnDestroy {
   public courseList: ICourseListItem[] = [];
+  public sortedList: ICourseListItem[] = [];
   public courseListLength = 0;
+  public sortField = 'date';
 
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService, private orderByService: OrderByService) {}
 
   ngOnChanges() {
     console.log('ngOnChanges');
@@ -41,6 +44,7 @@ export class CourseComponent implements
       .subscribe((courseList: ICourseListItem[]) => {
         this.courseList = courseList;
         this.courseListLength = courseList.length;
+        this.sortedList = this.orderByService.setOrderByField(this.courseList, this.sortField);
       });
   }
 
