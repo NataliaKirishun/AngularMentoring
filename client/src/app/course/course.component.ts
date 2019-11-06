@@ -11,13 +11,14 @@ import {
 } from '@angular/core';
 import { ICourseListItem } from './models/course-list-item';
 import { CourseService } from './services/course.service';
-import { OrderByService } from '../shared/services/order-by/order-by.service';
 import { FilterService } from '../shared/services/filter/filter.service';
+import { OrderByPipe } from '../shared/pipes/order-by/order-by.pipe';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.less'],
+  providers: [OrderByPipe],
 })
 export class CourseComponent implements
     OnChanges,
@@ -35,7 +36,7 @@ export class CourseComponent implements
 
   constructor(
     private courseService: CourseService,
-    private orderByService: OrderByService,
+    private orderByPipe: OrderByPipe,
     private filterService: FilterService,
   ) {}
 
@@ -48,7 +49,7 @@ export class CourseComponent implements
     this.courseService.getCourseList()
       .subscribe((courseList: ICourseListItem[]) => {
         this.courseListLength = courseList.length;
-        this.courseList = this.orderByService.setOrderByField(courseList, this.sortField);
+        this.courseList = this.orderByPipe.transform(courseList, this.sortField);
         this.filteredList = this.courseList;
       });
   }
