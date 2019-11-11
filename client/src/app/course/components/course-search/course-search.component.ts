@@ -8,7 +8,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class CourseSearchComponent {
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
-  public searchValue: string;
+  public searchValue = '';
 
   public handleSearch(): void {
     console.log('search');

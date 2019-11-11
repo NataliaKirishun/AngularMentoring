@@ -5,13 +5,17 @@ import { By } from '@angular/platform-browser';
 import { CircleRoundDirective } from './circle-round.directive';
 
 @Component({
-  template: `
-  <div appCircleRound="red">Something with Red border</div>
-  <div appCircleRound="null">No Border</div>
-  <div>No Border</div>
-  <input #test [appCircleRound]="test.value" value="yellow"/>`
+  template: `<div [appCircleRound]="freshCourseDate">Something with Green border</div>
+  <div [appCircleRound]="upcomingCourseDate">Something with Blue border</div>
+  <div [appCircleRound]="nowCourseDate">Something with Green border</div>
+  <div>No Border</div>`
 })
-class TestComponent { }
+class TestComponent {
+  public currentDate = Date.now().valueOf();
+  public upcomingCourseDate = (new Date(this.currentDate + 1000 * 60 * 60 * 24)).toString();
+  public freshCourseDate = (new Date(this.currentDate - 1000 * 60 * 60 * 24)).toString();
+  public nowCourseDate = (new Date(this.currentDate)).toString();
+}
 
 describe('CircleRoundDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
@@ -35,49 +39,30 @@ describe('CircleRoundDirective', () => {
   beforeEach(() => {
     fixture.detectChanges();
     highlightedDivs = fixture.debugElement.queryAll(By.directive(CircleRoundDirective));
-    bareDiv = fixture.debugElement.query(By.css('div:not([appCircleRound])'));
   });
 
   it('should have three highlighted elements', () => {
     expect(highlightedDivs.length).toBe(3);
   });
 
-  it('should circle 1st div with 2px solid red color border', () => {
-    const firstDiv = highlightedDivs[0];
-    const borderColor = firstDiv.nativeElement.style.borderColor;
-    const borderWidth = firstDiv.nativeElement.style.borderWidth;
-    const borderStyle = firstDiv.nativeElement.style.borderStyle;
-    expect(borderColor).toBe('red');
-    expect(borderWidth).toBe('2px');
-    expect(borderStyle).toBe('solid');
+  it('should add to the first test div, which represents fresh course item, className "green"', () => {
+    const freshCourseDiv = highlightedDivs[0];
+    expect(freshCourseDiv.nativeElement.classList.contains('green')).toBe(true);
   });
 
-  it('shouldn\'t circle 2st div with any border', () => {
-    const secondDiv = highlightedDivs[1];
-    const borderWidth = secondDiv.nativeElement.style.borderWidth;
-    const borderColor = secondDiv.nativeElement.style.borderClor;
-    const borderStyle = secondDiv.nativeElement.style.borderStyle;
-    expect(borderWidth).toBe('');
-    expect(borderColor).toBe(undefined);
-    expect(borderStyle).toBe('');
+  it('should add to the second test div, which represents upcoming course item, className "blue"', () => {
+    const upcomingCourseDiv = highlightedDivs[1];
+    expect(upcomingCourseDiv.nativeElement.classList.contains('blue')).toBe(true);
   });
 
-  it('should bind <input> color to border color', () => {
-    const input = highlightedDivs[2].nativeElement as HTMLInputElement;
-    input.value = 'green';
-    input.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(input.style.borderColor).toBe('green');
-    expect(input.style.borderWidth).toBe('2px');
-    expect(input.style.borderStyle).toBe('solid');
+  it('should add to the third test div, which represents today\'s course item, className "green"', () => {
+    const todayCourseDiv = highlightedDivs[2];
+    expect(todayCourseDiv.nativeElement.classList.contains('green')).toBe(true);
   });
 
-  it('should not have border element without CircleRoundDirective', () => {
-    const borderWidth = bareDiv.nativeElement.style.borderWidth;
-    const borderColor = bareDiv.nativeElement.style.borderClor;
-    const borderStyle = bareDiv.nativeElement.style.borderStyle;
-    expect(borderWidth).toBe('');
-    expect(borderColor).toBe(undefined);
-    expect(borderStyle).toBe('');
+  it('should not add to the forth test div, which represents old course item any colors classNames', () => {
+    bareDiv = fixture.debugElement.query(By.css('div:last-child'));
+    expect(bareDiv.nativeElement.classList.contains('green')).toBe(false);
+    expect(bareDiv.nativeElement.classList.contains('blue')).toBe(false);
   });
 });

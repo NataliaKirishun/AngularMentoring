@@ -31,7 +31,6 @@ export class CourseComponent implements
     OnDestroy {
   public courseList: ICourseListItem[] = [];
   public filteredList: ICourseListItem[] = [];
-  public courseListLength = 0;
   public sortField = 'date';
 
   constructor(
@@ -48,7 +47,6 @@ export class CourseComponent implements
     console.log('ngOnInit');
     this.courseService.getCourseList()
       .subscribe((courseList: ICourseListItem[]) => {
-        this.courseListLength = courseList.length;
         this.courseList = this.orderByPipe.transform(courseList, this.sortField);
         this.filteredList = this.courseList;
       });
@@ -76,6 +74,10 @@ export class CourseComponent implements
 
   ngOnDestroy() {
     console.log('ngOnDestroy');
+  }
+
+  get courseListLength() {
+    return this.courseList.length;
   }
 
   public deleteCourse(courseId: string): void {
