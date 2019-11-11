@@ -1,14 +1,15 @@
 import {Component, EventEmitter, Input, Output, OnChanges, OnInit } from '@angular/core';
-import { ICourseListItem } from '../../models/course-list-item';
-
 import { faClock, faCalendarAlt, faPencilAlt, faTrashAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 
+import { ICourseListItem } from '../../models/course-list-item';
+
 import { COLORS } from '../../../config/colors.config';
+import { getDateDifference } from '../../../helpers/date-helper';
 
 @Component({
   selector: 'app-course-item',
   templateUrl: './course-item.component.html',
-  styleUrls: ['./course-item.component.less']
+  styleUrls: ['./course-item.component.less'],
 })
 export class CourseItemComponent implements OnInit, OnChanges {
   @Input() courseItem: ICourseListItem;
@@ -23,24 +24,17 @@ export class CourseItemComponent implements OnInit, OnChanges {
   public color: string = null;
   public topRated: boolean;
 
+  constructor() {}
+
   ngOnChanges(): void {
-    const dateDiff = this.getDateDifferance();
-    if ( dateDiff <= 14 && dateDiff >= 0 ) {
-      this.color = COLORS.GREEN;
-    }
-    if ( dateDiff < 0 ) {
-      this.color = COLORS.BLUE;
-    }
+    const date = new Date(this.courseItem.date);
+    const dateNow = Date.now();
+    const dateDiff = getDateDifference(dateNow, date );
+    this.setBorderColor(dateDiff);
   }
 
   ngOnInit(): void {
     this.topRated = this.courseItem.topRated;
-  }
-
-  private getDateDifferance(): number {
-    const date = new Date(this.courseItem.date);
-    const dateNow = Date.now();
-    return Math.round((dateNow.valueOf() - date.valueOf()) / (1000 * 60 * 60 * 24));
   }
 
   public editCourse(): void {
@@ -49,5 +43,14 @@ export class CourseItemComponent implements OnInit, OnChanges {
 
   public deleteCourse(): void {
     this.delete.emit(this.courseItem.id);
+  }
+
+  private setBorderColor(dateDiff): void {
+    if ( dateDiff <= 14 && dateDiff >= 0 ) {
+      this.color = COLORS.GREEN;
+    }
+    if ( dateDiff < 0 ) {
+      this.color = COLORS.BLUE;
+    }
   }
 }

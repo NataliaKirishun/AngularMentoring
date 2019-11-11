@@ -1,10 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { By } from '@angular/platform-browser';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { UpperCasePipe } from '@angular/common';
 
-import { CourseItemComponent } from './course-item.component';
 import { ICourseListItem } from '../../models/course-list-item';
+import { CourseItemComponent } from './course-item.component';
+import { DurationPipe } from '../../pipes/duration.pipe';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -15,15 +17,17 @@ describe('CourseItemComponent', () => {
   const expectedCourseItem = {
     id: '9adged88',
     title: 'Video Course 1',
-    duration: '1h 28 min',
+    duration: 88,
     date: '9 Nov, 2018',
-    description: 'about various components of a course description.'
+    description: 'about various components of a course description.',
+    topRated: true,
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FontAwesomeModule ],
-      declarations: [ CourseItemComponent ]
+      imports: [FontAwesomeModule],
+      declarations: [CourseItemComponent, DurationPipe],
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));
@@ -44,15 +48,17 @@ describe('CourseItemComponent', () => {
   it('should display course title', () => {
     courseDe  = fixture.debugElement.query(By.css('.course-item__title'));
     courseEl = courseDe.nativeElement;
+    const upperCasePipe = new UpperCasePipe();
     fixture.detectChanges();
-    expect(courseEl.textContent).toContain(expectedCourseItem.title);
+    expect(courseEl.textContent).toContain(upperCasePipe.transform(expectedCourseItem.title));
   });
 
   it('should display course duration', () => {
     courseDe  = fixture.debugElement.query(By.css('.course-item__duration'));
     courseEl = courseDe.nativeElement;
     fixture.detectChanges();
-    expect(courseEl.textContent).toContain(expectedCourseItem.duration);
+    const durationPipe = new DurationPipe();
+    expect(courseEl.textContent).toContain(durationPipe.transform(expectedCourseItem.duration));
   });
 
   it('should display course date', () => {
@@ -102,9 +108,10 @@ describe('CourseItemComponent testing with class approach ', () => {
     const courseItem: ICourseListItem = {
       id: 'test_id',
       title: 'test_title',
-      duration: 'test_duration',
+      duration: 88,
       date: 'test_date',
       description: 'test_description',
+      topRated: true,
     };
     component.courseItem = courseItem;
     component.delete.subscribe((selectedCourseId: string) => expect(selectedCourseId).toBe(courseItem.id));
@@ -124,9 +131,10 @@ class TestHostComponent {
   course: ICourseListItem = {
     id: '9adged88',
     title: 'Video Course 1',
-    duration: '1h 28 min',
+    duration: 88,
     date: '9 Nov, 2018',
-    description: 'about various components of a course description.'
+    description: 'about various components of a course description.',
+    topRated: true,
   };
   selectedCourseId: string;
 
@@ -147,7 +155,8 @@ describe('CourseItemComponent testing using host testing approach', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FontAwesomeModule ],
-      declarations: [ CourseItemComponent, TestHostComponent ]
+      declarations: [ CourseItemComponent, TestHostComponent, DurationPipe ],
+      schemas: [ NO_ERRORS_SCHEMA ],
     })
       .compileComponents();
   }));
@@ -160,12 +169,14 @@ describe('CourseItemComponent testing using host testing approach', () => {
 
   it('should display course title', () => {
     courseTitle = fixture.nativeElement.querySelector('.course-item__title');
-    expect(courseTitle.textContent).toContain(testHost.course.title);
+    const upperCasePipe = new UpperCasePipe();
+    expect(courseTitle.textContent).toContain(upperCasePipe.transform(testHost.course.title));
   });
 
   it('should display course duration', () => {
     courseDuration = fixture.nativeElement.querySelector('.course-item__duration');
-    expect(courseDuration.textContent).toContain(testHost.course.duration);
+    const durationPipe = new DurationPipe();
+    expect(courseDuration.textContent).toContain(durationPipe.transform(testHost.course.duration));
   });
 
   it('should display course duration', () => {

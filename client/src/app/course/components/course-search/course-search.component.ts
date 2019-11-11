@@ -11,6 +11,7 @@ export class CourseSearchComponent {
   public searchValue: string;
 
   public handleSearch(): void {
+    console.log('search');
     this.search.emit(this.searchValue);
   }
 }
