@@ -11,11 +11,14 @@ import {
 } from '@angular/core';
 import { ICourseListItem } from './models/course-list-item';
 import { CourseService } from './services/course.service';
+import { OrderByPipe } from '../shared/pipes/order-by/order-by.pipe';
+import { FilterPipe } from '../shared/pipes/filter/filter.pipe';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.less'],
+  providers: [OrderByPipe, FilterPipe],
 })
 export class CourseComponent implements
     OnChanges,
@@ -27,8 +30,14 @@ export class CourseComponent implements
     AfterViewChecked,
     OnDestroy {
   public courseList: ICourseListItem[] = [];
+  public filteredList: ICourseListItem[] = [];
+  public sortField = 'date';
 
-  constructor(private courseService: CourseService) {}
+  constructor(
+    private courseService: CourseService,
+    private orderByPipe: OrderByPipe,
+    private filterPipe: FilterPipe,
+  ) {}
 
   ngOnChanges() {
     console.log('ngOnChanges');
@@ -37,7 +46,10 @@ export class CourseComponent implements
   ngOnInit() {
     console.log('ngOnInit');
     this.courseService.getCourseList()
-      .subscribe((courseList: ICourseListItem[]) => this.courseList = courseList);
+      .subscribe((courseList: ICourseListItem[]) => {
+        this.courseList = this.orderByPipe.transform(courseList, this.sortField);
+        this.filteredList = this.courseList;
+      });
   }
 
   ngDoCheck() {
@@ -64,7 +76,15 @@ export class CourseComponent implements
     console.log('ngOnDestroy');
   }
 
+  get courseListLength() {
+    return this.courseList.length;
+  }
+
   public deleteCourse(courseId: string): void {
     console.log('course to delete', courseId);
+  }
+
+  public searchCourse(searchValue: string): void {
+    this.filteredList = this.filterPipe.transform(this.courseList, searchValue, 'title');
   }
 }

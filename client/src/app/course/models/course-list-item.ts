@@ -1,7 +1,8 @@
 export interface ICourseListItem {
   id: string;
   title: string;
-  duration: string;
+  duration: number;
   date: string;
   description: string;
+  topRated: boolean;
 }

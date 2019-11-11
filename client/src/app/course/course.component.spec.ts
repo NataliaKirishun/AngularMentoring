@@ -1,17 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Input } from '@angular/core';
+import { Component, DebugElement, Input } from '@angular/core';
 
 import { CourseComponent } from './course.component';
 import { CourseService } from './services/course.service';
 
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { FilterPipe } from '../shared/pipes/filter/filter.pipe';
+import { ICourseListItem } from './models/course-list-item';
 
 describe('CourseComponent', () => {
   let component: CourseComponent;
   let fixture: ComponentFixture<CourseComponent>;
   let courseService: CourseService;
   let courseServiceStub: Partial<CourseService>;
+  let courseComponent: DebugElement;
 
   @Component({selector: 'app-course-item', template: ''})
   class CourseItemStubComponent {
@@ -20,6 +23,33 @@ describe('CourseComponent', () => {
 
   @Component({selector: 'app-course-search', template: ''})
   class CourseSearchStubComponent {}
+
+  const courseListTest: ICourseListItem[] = [
+    {
+      id: '9adged88',
+      title: 'TEST',
+      duration: 88,
+      date: 'Tue Nov 05 2019 13:58:23 GMT',
+      description: 'Text1',
+      topRated: true,
+    },
+    {
+      id: '9adged87',
+      title: 'Video Course 1.',
+      duration: 88,
+      date: 'Sun Nov 12 2019 13:58:23 GMT',
+      description: 'Text2',
+      topRated: true,
+    },
+    {
+      id: '9adged87',
+      title: 'Video Course 3.',
+      duration: 88,
+      date: 'Jan 09 2018 13:58:23 GMT',
+      description: 'Text3',
+      topRated: false,
+    }
+  ];
 
   beforeEach(async(() => {
     const CourseServiceStub = {
@@ -107,4 +137,24 @@ describe('CourseComponent', () => {
     component.deleteCourse('test_id');
     expect(consoleSpy).toHaveBeenCalled();
   });
+
+  it('should call searchCourse method when search event emitted', () => {
+    const searchValue = 'test';
+    courseComponent  = fixture.debugElement.query(By.css('app-course-search'));
+    const searchCourseSpy = spyOn(component, 'searchCourse');
+    courseComponent.triggerEventHandler('search', searchValue);
+    fixture.detectChanges();
+    expect(searchCourseSpy).toHaveBeenCalledWith(searchValue);
+  });
+
+  it('should filter course list according to search value ', () => {
+    const searchValue = 'test';
+    const filterPipe = new FilterPipe();
+    component.courseList = courseListTest;
+    component.searchCourse(searchValue);
+    fixture.detectChanges();
+    const result = courseListTest[0];
+    expect(component.filteredList[0].title).toBe(courseListTest[0].title);
+  });
+
 });

@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-
-import { CourseSearchComponent } from './course-search.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
+import { CourseSearchComponent } from './course-search.component';
 
 describe('CourseSearchComponent', () => {
   let component: CourseSearchComponent;
@@ -13,8 +13,8 @@ describe('CourseSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
-      declarations: [ CourseSearchComponent ]
+      imports: [FormsModule],
+      declarations: [CourseSearchComponent]
     })
     .compileComponents();
   }));
@@ -37,9 +37,20 @@ describe('CourseSearchComponent', () => {
     expect(componentSpy).toHaveBeenCalled();
   });
 
-  it('should console log message when calling search handler', () => {
+  it('should console log message when search started', () => {
     const consoleSpy = spyOn( console,'log');
     component.handleSearch();
     expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it('should raise search event when searched button clicked', () => {
+    let searchedValue: string;
+    component.search.subscribe((value: string) => searchedValue = value);
+    component.searchValue = 'test';
+    searchBtnDe  = fixture.debugElement.query(By.css('.course-search__button'));
+    searchBtnEl = searchBtnDe.nativeElement;
+    searchBtnEl.click();
+    fixture.detectChanges();
+    expect(searchedValue).toBe('test');
   });
 });

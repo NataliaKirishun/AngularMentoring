@@ -8,6 +8,8 @@ import { CourseService } from './services/course.service';
 import { CourseSearchComponent } from './components/course-search/course-search.component';
 import { CourseItemComponent } from './components/course-item/course-item.component';
 import { CourseComponent } from './course.component';
+import { CircleRoundDirective } from './directives/circle-round.directive';
+import { DurationPipe } from './pipes/duration.pipe';
 
 @NgModule({
   providers: [ CourseService ],
@@ -15,6 +17,8 @@ import { CourseComponent } from './course.component';
     CourseSearchComponent,
     CourseItemComponent,
     CourseComponent,
+    CircleRoundDirective,
+    DurationPipe,
   ],
   imports: [
     CommonModule,
