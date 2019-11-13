@@ -45,7 +45,7 @@ export class CourseComponent implements
 
   ngOnInit() {
     console.log('ngOnInit');
-    this.courseService.getCourseList()
+    this.courseService.getList()
       .subscribe((courseList: ICourseListItem[]) => {
         this.courseList = this.orderByPipe.transform(courseList, this.sortField);
         this.filteredList = this.courseList;

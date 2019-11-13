@@ -53,7 +53,7 @@ describe('CourseComponent', () => {
 
   beforeEach(async(() => {
     const CourseServiceStub = {
-      getCourseList: () => of([])
+      getList: () => of([])
     };
 
     TestBed.configureTestingModule({
@@ -79,9 +79,9 @@ describe('CourseComponent', () => {
   });
 
   it('should inject and call courseService on ngOnIni', () => {
-    const getCourseListSpy = spyOn(courseService, 'getCourseList').and.returnValue(of([]));
+    const getListSpy = spyOn(courseService, 'getList').and.returnValue(of([]));
     component.ngOnInit();
-    expect(getCourseListSpy).toHaveBeenCalled();
+    expect(getListSpy).toHaveBeenCalled();
   });
 
   it('should log message on ngOnChanges', () => {
