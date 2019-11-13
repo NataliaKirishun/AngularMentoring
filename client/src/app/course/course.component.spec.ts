@@ -6,14 +6,13 @@ import { CourseService } from './services/course.service';
 
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { FilterPipe } from '../shared/pipes/filter/filter.pipe';
 import { ICourseListItem } from './models/course-list-item';
 
 describe('CourseComponent', () => {
   let component: CourseComponent;
   let fixture: ComponentFixture<CourseComponent>;
   let courseService: CourseService;
-  let courseServiceStub: Partial<CourseService>;
+  let CourseServiceStub: Partial<CourseService>;
   let courseComponent: DebugElement;
 
   @Component({selector: 'app-course-item', template: ''})
@@ -52,8 +51,9 @@ describe('CourseComponent', () => {
   ];
 
   beforeEach(async(() => {
-    const CourseServiceStub = {
-      getList: () => of([])
+    CourseServiceStub = {
+      getList: () => of([]),
+      removeItem: () => of(''),
     };
 
     TestBed.configureTestingModule({
@@ -134,8 +134,11 @@ describe('CourseComponent', () => {
 
   it('should log message on calling delete Method', () => {
     const consoleSpy = spyOn(console, 'log');
+    const removeItem = spyOn(courseService, 'removeItem');
     component.deleteCourse('test_id');
+    fixture.detectChanges();
     expect(consoleSpy).toHaveBeenCalled();
+    expect(removeItem).toHaveBeenCalled();
   });
 
   it('should call searchCourse method when search event emitted', () => {
@@ -149,7 +152,6 @@ describe('CourseComponent', () => {
 
   it('should filter course list according to search value ', () => {
     const searchValue = 'test';
-    const filterPipe = new FilterPipe();
     component.courseList = courseListTest;
     component.searchCourse(searchValue);
     fixture.detectChanges();
