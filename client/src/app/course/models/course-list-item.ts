@@ -6,3 +6,8 @@ export interface ICourseListItem {
   description: string;
   topRated: boolean;
 }
+
+export interface  IDeleteCourseEventData {
+  id: string;
+  title: string;
+}

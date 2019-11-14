@@ -11,12 +11,12 @@ export class CircleRoundDirective implements OnChanges {
 
   private dateDiff: number;
 
-  constructor(private element: ElementRef) {}
+  constructor() {}
 
   ngOnChanges(): void {
-      const courseDate = new Date(this.date);
-      const dateNow = Date.now();
-      this.dateDiff = getDateDifference(dateNow, courseDate);
+    const courseDate = new Date(this.date);
+    const dateNow = Date.now();
+    this.dateDiff = getDateDifference(dateNow, courseDate);
   }
 
   @HostBinding('class.blue')
