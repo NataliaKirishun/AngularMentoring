@@ -11,18 +11,18 @@ import {
 } from '@angular/core';
 import { ICourseListItem, IDeleteCourseEventData } from './models/course-list-item';
 import { CourseService } from './services/course.service';
-import { OrderByPipe } from '../shared/pipes/order-by/order-by.pipe';
-import { FilterPipe } from '../shared/pipes/filter/filter.pipe';
+import { OrderByPipe } from '../../shared/pipes/order-by/order-by.pipe';
+import { FilterPipe } from '../../shared/pipes/filter/filter.pipe';
 
-import { ModalService } from '../modal/service/modal.service';
+import { ModalService } from '../../shared/modules/modal/service/modal.service';
 
-import { MODAL_TYPES } from '../config/modal.config';
+import { MODAL_TYPES } from '../../config/modal.config';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.less'],
-  providers: [OrderByPipe, FilterPipe],
+  providers: [ ModalService, OrderByPipe, FilterPipe],
 })
 export class CourseComponent implements
     OnChanges,

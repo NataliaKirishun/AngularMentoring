@@ -10,7 +10,7 @@ import { CourseItemComponent } from './components/course-item/course-item.compon
 import { CourseComponent } from './course.component';
 import { CircleRoundDirective } from './directives/circle-round.directive';
 import { DurationPipe } from './pipes/duration.pipe';
-import { ModalModule } from '../modal/modal.module';
+import { ModalModule } from '../../shared/modules/modal/modal.module';
 
 @NgModule({
   providers: [ CourseService ],
