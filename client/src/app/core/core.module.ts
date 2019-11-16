@@ -1,4 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { AuthorizationService } from './authorization/authorization.service';
 
 @NgModule({
   imports: [],
@@ -10,7 +11,7 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
-        // AuthService,
+        AuthorizationService,
       ]
     };
   }
