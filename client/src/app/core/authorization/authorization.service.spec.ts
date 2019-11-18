@@ -38,8 +38,8 @@ describe('AuthorizationService', () => {
   it('should login new user when login method is called', () => {
     const consoleSpy = spyOn( console, 'log');
     const setTokenToLocalStorageSpy = spyOn( authorizationService, 'setTokenToLocalStorage');
-    const getUserInfoSpy = spyOn( authorizationService, 'getUserInfo');
-    authorizationService.login( testEmail, testPassword);
+    const getUserInfoSpy = spyOn( authorizationService, 'setUserInfo');
+    authorizationService.login( testLoginUserData );
     expect(consoleSpy).toHaveBeenCalled();
     expect(setTokenToLocalStorageSpy).toHaveBeenCalled();
     expect(getUserInfoSpy).toHaveBeenCalled();
@@ -88,8 +88,8 @@ describe('AuthorizationService', () => {
     expect(JSON.parse(localStorage.getItem(L_STORAGE_USER_KEY))).toEqual(testUser);
   });
 
-  it('should call user setter when calling  getUserInfo method of Authorization Service', () => {
-    authorizationService.getUserInfo();
+  it('should call user setter when calling  setUserInfo method of Authorization Service', () => {
+    authorizationService.setUserInfo();
     expect(authorizationService.user).toEqual(testUser);
   });
 

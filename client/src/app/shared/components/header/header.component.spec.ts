@@ -35,7 +35,7 @@ describe('HeaderComponent', () => {
       set user(testUser: User) {},
       login: () => {},
       setTokenToLocalStorage: () => {},
-      getUserInfo: () => {},
+      setUserInfo: () => {},
       logout: () => {},
     };
 

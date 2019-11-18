@@ -42,7 +42,7 @@ export class AuthorizationService {
     console.log('login');
     // TODO: send post request to the server with email and password in body and get token in the response
     this.setTokenToLocalStorage(MOCKED_TOKEN);
-    this.getUserInfo();
+    this.setUserInfo();
   }
 
   setTokenToLocalStorage(token: string): void {
@@ -50,7 +50,7 @@ export class AuthorizationService {
     // TODO: after saving the token send emit sending get request in order to get all required information about the user
   }
 
-  getUserInfo(): void {
+  setUserInfo(): void {
     // TODO: send get request in order to get user information from the server in the response
     this.user = new User(MOCKED_USER);
   }
