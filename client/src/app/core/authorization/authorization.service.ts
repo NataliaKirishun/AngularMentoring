@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { ILoginUserData, User } from '../models/user';
 
 const L_STORAGE_AUTH_KEY = 'AUTH_TOKEN';
 const L_STORAGE_USER_KEY = 'USER_DATA';
@@ -38,7 +38,7 @@ export class AuthorizationService {
     localStorage.setItem(L_STORAGE_USER_KEY, JSON.stringify(user));
   }
 
-  login(email: string, password: string): void {
+  login({userEmail, userPassword}: ILoginUserData): void {
     console.log('login');
     // TODO: send post request to the server with email and password in body and get token in the response
     this.setTokenToLocalStorage(MOCKED_TOKEN);

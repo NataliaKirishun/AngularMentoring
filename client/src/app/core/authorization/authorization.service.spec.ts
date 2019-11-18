@@ -8,8 +8,11 @@ describe('AuthorizationService', () => {
   const L_STORAGE_AUTH_KEY = 'AUTH_TOKEN';
   const L_STORAGE_USER_KEY = 'USER_DATA';
 
-  const testEmail = 'test@test.test';
-  const testPassword = 'test';
+  const testLoginUserData = {
+    userEmail: 'test@test.test',
+    userPassword: 'test',
+  };
+
   const testToken = 'test_token';
   const testUser = {
     id: 'dsdkwo8ewe',

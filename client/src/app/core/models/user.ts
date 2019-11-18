@@ -1,3 +1,8 @@
+export interface ILoginUserData {
+  userEmail: string;
+  userPassword: string;
+}
+
 export interface IName {
   first: string;
   last?: string;

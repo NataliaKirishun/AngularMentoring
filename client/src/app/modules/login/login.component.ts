@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
-import { AuthorizationService } from '../../core/authorization/authorization.service';
 import { Router } from '@angular/router';
+
+import { AuthorizationService } from '../../core/authorization/authorization.service';
 
 @Component({
   selector: 'app-login',
@@ -25,9 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    const email = this.loginForm.value.userEmail;
-    const password = this.loginForm.value.userPassword;
-    this.authService.login(email, password);
+    this.authService.login(this.loginForm.value);
     console.log('form submitted');
     this.router.navigate(['course']);
   }
