@@ -18,10 +18,6 @@ const MOCKED_USER = {
 @Injectable()
 export class AuthorizationService {
 
-  constructor(
-    private router: Router,
-  ) { }
-
   get authToken(): string {
     const authToken = localStorage.getItem(L_STORAGE_AUTH_KEY);
     if (authToken) {
@@ -48,7 +44,6 @@ export class AuthorizationService {
     // TODO: send post request to the server with email and password in body and get token in the response
     this.setTokenToLocalStorage(MOCKED_TOKEN);
     this.getUserInfo();
-    this.router.navigate(['course']);
   }
 
   setTokenToLocalStorage(token: string): void {
@@ -67,6 +62,5 @@ export class AuthorizationService {
       localStorage.removeItem(L_STORAGE_AUTH_KEY);
       localStorage.removeItem(L_STORAGE_USER_KEY);
     }
-    this.router.navigate(['login']);
   }
 }

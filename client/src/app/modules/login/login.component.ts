@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthorizationService,
-
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.userPassword;
     this.authService.login(email, password);
     console.log('form submitted');
+    this.router.navigate(['course']);
   }
 
 }

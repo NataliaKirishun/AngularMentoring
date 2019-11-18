@@ -14,22 +14,20 @@ import { User } from '../../../core/models/user';
 export class HeaderComponent implements OnInit {
   public logoPath: string;
   public logoText: string;
-  public user: User;
 
   constructor(
     private authService: AuthorizationService,
     private router: Router,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.logoPath = HEADER_CONFIG.LOGO_PATH;
     this.logoText = HEADER_CONFIG.LOGO_TEXT;
-    this.user = this.authService.user;
   }
 
   logOut(): void {
     this.authService.logout();
+    this.router.navigate(['login']);
   }
 
   logIn(): void {
@@ -39,5 +37,9 @@ export class HeaderComponent implements OnInit {
 
   get isAuth(): boolean {
     return this.authService.isAuth();
+  }
+
+  get user(): User {
+    return this.authService.user;
   }
 }
