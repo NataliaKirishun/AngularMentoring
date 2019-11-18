@@ -5,12 +5,14 @@
       <h1 class="logo__text">{{logoText}}</h1>
     </a>
     <div class="auth-menu">
-      <div *ngIf="isAuth" class="auth-menu__user-login">{{user?.name.first}} {{user?.name.last}}</div>
+      <div *ngIf="isAuth">
+        <div class="auth-menu__user-login">{{user?.name.first}} {{user?.name.last}}</div>
+        <button class="auth-menu__log-off" (click)="logOut()">
+          <span>Log off</span>
+        </button>
+      </div>
       <button *ngIf="!isAuth" class="auth-menu__log-in" (click)="logIn()">
         <span>Login</span>
-      </button>
-      <button *ngIf="isAuth" class="auth-menu__log-off" (click)="logOut()">
-        <span>Log off</span>
       </button>
     </div>
   </div>
