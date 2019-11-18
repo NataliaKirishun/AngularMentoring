@@ -20,7 +20,7 @@ export class User implements IUser {
   public name;
   public photo;
 
-  constructor(user) {
+  constructor(user: IUser) {
     this.id = user.id;
     this.name = user.name;
     this.photo = user.photo;
