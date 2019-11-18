@@ -38,10 +38,8 @@ export class CourseService {
 
   createCourse(course: ICourseListItem): Observable<ICourseListItem> {
     const newId = (new Date()).getTime().toString();
-    const newCourse = course;
-    newCourse.id = newId;
-    this.courseList.push(newCourse);
-    return of(newCourse);
+    this.courseList.push({...course, id: newId});
+    return of(this.courseList[this.courseList.length - 1]);
   }
 
   getItemById(id: string): Observable<ICourseListItem> {
