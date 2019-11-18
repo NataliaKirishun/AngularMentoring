@@ -22,11 +22,7 @@ export class User implements IUser {
 
   constructor(user) {
     this.id = user.id;
-    this.name = {
-      first: user.name.first,
-      last: user.name.last,
-      middle: user.name.middle,
-    };
+    this.name = user.name;
     this.photo = user.photo;
   }
 }
