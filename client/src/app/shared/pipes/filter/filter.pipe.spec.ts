@@ -1,5 +1,5 @@
 import { FilterPipe } from './filter.pipe';
-import { ICourseListItem } from '../../../course/models/course-list-item';
+import { ICourseListItem } from '../../../modules/course/models/course-list-item';
 
 describe('FilterPipe', () => {
   const filterPipe = new FilterPipe();
@@ -36,12 +36,12 @@ describe('FilterPipe', () => {
   });
 
   it('filter CourseItemsList by value "1" in the field "title"', () => {
-    const filtered = filterPipe.transform(courseListTest,'1', 'title');
+    const filtered = filterPipe.transform(courseListTest, '1', 'title');
     expect(filtered[0].id).toEqual(courseListTest[0].id);
   });
 
   it('length of filtered CourseItemsList by value "video" in the field "title" should be equal 3', () => {
-    const filtered = filterPipe.transform(courseListTest,'video', 'title');
+    const filtered = filterPipe.transform(courseListTest, 'video', 'title');
     expect(filtered.length).toBe(3);
   });
 

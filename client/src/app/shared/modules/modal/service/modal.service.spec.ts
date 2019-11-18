@@ -3,10 +3,17 @@ import { TestBed } from '@angular/core/testing';
 import { ModalService } from './modal.service';
 
 describe('ModalService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let modalService: ModalService;
+
+  beforeEach(() => TestBed.configureTestingModule({
+    providers: [ ModalService ],
+  }));
+
+  beforeEach(() => {
+    modalService = TestBed.get(ModalService);
+  });
 
   it('should be created', () => {
-    const service: ModalService = TestBed.get(ModalService);
-    expect(service).toBeTruthy();
+    expect(modalService).toBeTruthy();
   });
 });

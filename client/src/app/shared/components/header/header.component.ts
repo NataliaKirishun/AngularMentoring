@@ -1,10 +1,9 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
-
-import { HEADER_CONFIG } from 'src/app/config/header.config';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthorizationService } from '../../../core/authorization/authorization.service';
-import { Router } from '@angular/router';
 import { User } from '../../../core/models/user';
+import { HEADER_CONFIG } from 'src/app/config/header.config';
 
 @Component({
   selector: 'app-header',

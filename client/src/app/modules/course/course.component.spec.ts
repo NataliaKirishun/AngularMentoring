@@ -1,11 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {Component, DebugElement, Input, NO_ERRORS_SCHEMA} from '@angular/core';
+import { Component, DebugElement, Input, NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 
 import { CourseComponent } from './course.component';
 import { CourseService } from './services/course.service';
-
-import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
 import { ICourseListItem } from './models/course-list-item';
 
 describe('CourseComponent', () => {

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostBinding, Input, OnChanges } from '@angular/core';
+import { Directive, HostBinding, Input, OnChanges } from '@angular/core';
 
 import { getDateDifference } from '../../../helpers/date-helper';
 import { COURSE_ITEM } from '../../../config/course-item.config';

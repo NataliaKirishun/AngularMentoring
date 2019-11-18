@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { Router } from '@angular/router';
 
 const L_STORAGE_AUTH_KEY = 'AUTH_TOKEN';
 const L_STORAGE_USER_KEY = 'USER_DATA';

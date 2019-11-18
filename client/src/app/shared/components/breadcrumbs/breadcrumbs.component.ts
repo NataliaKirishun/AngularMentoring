@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthorizationService} from "../../../core/authorization/authorization.service";
+import { AuthorizationService } from '../../../core/authorization/authorization.service';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -10,7 +10,7 @@ export class BreadcrumbsComponent {
 
   constructor(private authService: AuthorizationService) {}
 
-  get isAuth(): boolean{
+  get isAuth(): boolean {
     return this.authService.isAuth();
   }
 }
