@@ -1,0 +1,25 @@
+<div class="course-page">
+  <div class="course-page__content">
+    <app-course-search (search)="searchCourse($event)"></app-course-search>
+    <button class="course-page__add-btn">Add course</button>
+    <div *ngIf="!courseListLength; else elseBlock" class="course-page__empty-block">NO DATA, FELL FREE TO ADD NEW COURSE...</div>
+  <ng-template #elseBlock>
+    <app-course-item *ngFor="let course of filteredList" [courseItem]="course" (delete)="deleteCourse($event)"></app-course-item>
+    <button class="course-page__load-btn">Load more</button>
+  </ng-template>
+  </div>
+</div>
+<app-modal [type]="modalType">
+  <div class="modal-header">
+    <h2 class="modal-header__title">Delete course?</h2>
+    <div class="modal-header__close-btn" (click)="closeModal(modalType);"></div>
+  </div>
+  <div class="modal-content">
+    <div class="modal-content__message">Are you sure you want to delete</div>
+    <div class="modal-content__message">{{courseTitleToDelete}} ?</div>
+    <div class="modal-content__btn-group">
+      <button class="modal-content__cancel-btn" (click)="closeModal(modalType);">Cancel</button>
+      <button class="modal-content__confirm-btn" (click)="removeCourse()">Yes, delete</button>
+    </div>
+  </div>
+</app-modal>

@@ -1,19 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, DebugElement, Input } from '@angular/core';
+import { Component, DebugElement, Input, NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 
 import { CourseComponent } from './course.component';
 import { CourseService } from './services/course.service';
-
-import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { FilterPipe } from '../shared/pipes/filter/filter.pipe';
 import { ICourseListItem } from './models/course-list-item';
 
 describe('CourseComponent', () => {
   let component: CourseComponent;
   let fixture: ComponentFixture<CourseComponent>;
   let courseService: CourseService;
-  let courseServiceStub: Partial<CourseService>;
+  let CourseServiceStub: Partial<CourseService>;
   let courseComponent: DebugElement;
 
   @Component({selector: 'app-course-item', template: ''})
@@ -52,8 +50,9 @@ describe('CourseComponent', () => {
   ];
 
   beforeEach(async(() => {
-    const CourseServiceStub = {
-      getCourseList: () => of([])
+    CourseServiceStub = {
+      getList: () => of([]),
+      removeItem: () => of(''),
     };
 
     TestBed.configureTestingModule({
@@ -63,6 +62,7 @@ describe('CourseComponent', () => {
         CourseSearchStubComponent,
         ],
       providers: [{provide: CourseService, useValue: CourseServiceStub}],
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));
@@ -79,9 +79,9 @@ describe('CourseComponent', () => {
   });
 
   it('should inject and call courseService on ngOnIni', () => {
-    const getCourseListSpy = spyOn(courseService, 'getCourseList').and.returnValue(of([]));
+    const getListSpy = spyOn(courseService, 'getList').and.returnValue(of([]));
     component.ngOnInit();
-    expect(getCourseListSpy).toHaveBeenCalled();
+    expect(getListSpy).toHaveBeenCalled();
   });
 
   it('should log message on ngOnChanges', () => {
@@ -132,11 +132,14 @@ describe('CourseComponent', () => {
     expect(consoleSpy).toHaveBeenCalled();
   });
 
-  it('should log message on calling delete Method', () => {
-    const consoleSpy = spyOn(console, 'log');
-    component.deleteCourse('test_id');
-    expect(consoleSpy).toHaveBeenCalled();
-  });
+  // it('should log message on calling delete Method', () => {
+  //   const consoleSpy = spyOn(console, 'log');
+    // const removeItem = spyOn(courseService, 'removeItem');
+    // component.deleteCourse({id: 'test_id', title: 'test_title'});
+    // fixture.detectChanges();
+    // expect(consoleSpy).toHaveBeenCalled();
+    // expect(removeItem).toHaveBeenCalled();
+  // });
 
   it('should call searchCourse method when search event emitted', () => {
     const searchValue = 'test';
@@ -149,7 +152,6 @@ describe('CourseComponent', () => {
 
   it('should filter course list according to search value ', () => {
     const searchValue = 'test';
-    const filterPipe = new FilterPipe();
     component.courseList = courseListTest;
     component.searchCourse(searchValue);
     fixture.detectChanges();

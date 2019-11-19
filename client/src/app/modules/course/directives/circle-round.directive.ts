@@ -1,7 +1,7 @@
-import {Directive, ElementRef, HostBinding, Input, OnChanges } from '@angular/core';
+import { Directive, HostBinding, Input, OnChanges } from '@angular/core';
 
-import { getDateDifference } from '../../helpers/date-helper';
-import { COURSE_ITEM } from '../../config/course-item.config';
+import { getDateDifference } from '../../../helpers/date-helper';
+import { COURSE_ITEM } from '../../../config/course-item.config';
 
 @Directive({
   selector: '[appCircleRound]'
@@ -11,12 +11,12 @@ export class CircleRoundDirective implements OnChanges {
 
   private dateDiff: number;
 
-  constructor(private element: ElementRef) {}
+  constructor() {}
 
   ngOnChanges(): void {
-      const courseDate = new Date(this.date);
-      const dateNow = Date.now();
-      this.dateDiff = getDateDifference(dateNow, courseDate);
+    const courseDate = new Date(this.date);
+    const dateNow = Date.now();
+    this.dateDiff = getDateDifference(dateNow, courseDate);
   }
 
   @HostBinding('class.blue')

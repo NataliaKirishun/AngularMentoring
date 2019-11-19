@@ -32,7 +32,33 @@ export class CourseService {
     }
   ];
 
-  getCourseList(): Observable<ICourseListItem[]> {
+  getList(): Observable<ICourseListItem[]> {
     return of(this.courseList);
+  }
+
+  createCourse(course: ICourseListItem): Observable<ICourseListItem> {
+    const newId = (new Date()).getTime().toString();
+    this.courseList.push({...course, id: newId});
+    return of(this.courseList[this.courseList.length - 1]);
+  }
+
+  getItemById(id: string): Observable<ICourseListItem> {
+    return of(this.courseList.find( item => item.id === id ));
+  }
+
+  updateItem(course: ICourseListItem): Observable<ICourseListItem> {
+    const courseIndex = this.getCourseIndex(course.id);
+    this.courseList.splice(courseIndex, 1, course);
+    return of(course);
+  }
+
+  removeItem(id: string): Observable<any> {
+    const courseIndex = this.getCourseIndex(id);
+    this.courseList.splice(courseIndex, 1);
+    return of('');
+  }
+
+  private getCourseIndex(id: string): number {
+    return this.courseList.findIndex( item => item.id === id);
   }
 }

@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { UpperCasePipe } from '@angular/common';
 
-import { ICourseListItem } from '../../models/course-list-item';
+import {ICourseListItem, IDeleteCourseEventData} from '../../models/course-list-item';
 import { CourseItemComponent } from './course-item.component';
 import { DurationPipe } from '../../pipes/duration.pipe';
 
@@ -77,10 +77,15 @@ describe('CourseItemComponent', () => {
 
   it('should raise delete event when clicked delete button (triggerEventHandler)', () => {
     let selectedCourseId: string;
+    let selectedCourseTitle: string;
     courseDe  = fixture.debugElement.query(By.css('.course-item__delete-btn'));
-    component.delete.subscribe((courseId: string) => selectedCourseId = courseId);
+    component.delete.subscribe((selectedCourseData: IDeleteCourseEventData) => {
+      selectedCourseId = selectedCourseData.id;
+      selectedCourseTitle = selectedCourseData.title;
+    });
     courseDe.triggerEventHandler('click', null);
     expect(selectedCourseId).toBe(expectedCourseItem.id);
+    expect(selectedCourseTitle).toBe(expectedCourseItem.title);
   });
 
   it('should call edit course handler when click on the edit button', () => {
@@ -114,7 +119,7 @@ describe('CourseItemComponent testing with class approach ', () => {
       topRated: true,
     };
     component.courseItem = courseItem;
-    component.delete.subscribe((selectedCourseId: string) => expect(selectedCourseId).toBe(courseItem.id));
+    component.delete.subscribe((selectedCourseData: IDeleteCourseEventData) => expect(selectedCourseData.id).toBe(courseItem.id));
     component.deleteCourse();
   });
 });
@@ -137,9 +142,11 @@ class TestHostComponent {
     topRated: true,
   };
   selectedCourseId: string;
+  selectedCourseTitle: string;
 
-  deleteCourse(courseId: string) {
-    this.selectedCourseId = courseId;
+  deleteCourse(selectedCourseData: IDeleteCourseEventData) {
+    this.selectedCourseId = selectedCourseData.id;
+    this.selectedCourseTitle = selectedCourseData.title;
   }
 }
 
@@ -193,5 +200,6 @@ describe('CourseItemComponent testing using host testing approach', () => {
     courseDeleteButton = fixture.nativeElement.querySelector('.course-item__delete-btn');
     courseDeleteButton.click();
     expect(testHost.selectedCourseId).toBe(testHost.course.id);
+    expect(testHost.selectedCourseTitle).toBe(testHost.course.title);
   });
 });
