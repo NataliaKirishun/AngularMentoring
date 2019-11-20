@@ -38,7 +38,7 @@ export class CourseComponent implements
   public sortField = 'date';
   public modalType = MODAL_TYPES.DELETE_CONFIRMATION;
   private courseIdToDelete: string = null;
-  private courseTitleToDelete: string = null;
+  public courseTitleToDelete: string = null;
 
   constructor(
     private courseService: CourseService,

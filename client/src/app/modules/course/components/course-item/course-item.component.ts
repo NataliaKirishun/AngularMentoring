@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { faClock, faCalendarAlt, faPencilAlt, faTrashAlt, faStar } from '@fortawesome/free-solid-svg-icons';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {faCalendarAlt, faClock, faPencilAlt, faStar, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
-import { ICourseListItem, IDeleteCourseEventData } from '../../models/course-list-item';
+import {ICourseListItem, IDeleteCourseEventData} from '../../models/course-list-item';
 
 @Component({
   selector: 'app-course-item',
   templateUrl: './course-item.component.html',
   styleUrls: ['./course-item.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseItemComponent implements OnInit {
   @Input() courseItem: ICourseListItem;

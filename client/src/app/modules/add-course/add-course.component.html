@@ -1,0 +1,14 @@
+<div class="add-course">
+  <form [formGroup]="addCourseForm" class="add-course-form" (ngSubmit)="onSubmit()">
+    <h3 class="add-course-form__title">New course</h3>
+    <div class="add-course-form__field">
+      <label class="add-course-form__label" for="title">Title:</label>
+      <input formControlName="titleInput" class="add-course-form__title" type="text" name="title" placeholder="Text input" required>
+    </div>
+    <div class="add-course-form__field">
+      <label class="add-course-form__label" for="description">Description:</label>
+      <textarea formControlName="descriptionField" class="add-course-form__description" name="description" placeholder="Enter password" required></textarea>
+    </div>
+<!--    <button class="login-form__login-btn" type="submit" [disabled]="loginForm.invalid">Login</button>-->
+  </form>
+</div>
