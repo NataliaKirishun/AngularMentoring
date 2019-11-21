@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { AddCourseComponent } from './add-course.component';
+import { CourseAuthorsComponent } from './course-authors.component';
 
-describe('AddCourseComponent', () => {
-  let component: AddCourseComponent;
-  let fixture: ComponentFixture<AddCourseComponent>;
+describe('CourseAuthorsComponent', () => {
+  let component: CourseAuthorsComponent;
+  let fixture: ComponentFixture<CourseAuthorsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCourseComponent ],
+      declarations: [ CourseAuthorsComponent ],
       schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddCourseComponent);
+    fixture = TestBed.createComponent(CourseAuthorsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

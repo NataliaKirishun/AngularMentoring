@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {faCalendarAlt, faClock, faPencilAlt, faStar, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { faCalendarAlt, faClock, faPencilAlt, faStar, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-import {ICourseListItem, IDeleteCourseEventData} from '../../models/course-list-item';
+import { ICourseListItem, IDeleteCourseEventData } from '../../models/course-list-item';
 
 @Component({
   selector: 'app-course-item',

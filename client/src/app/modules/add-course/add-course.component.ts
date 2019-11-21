@@ -1,26 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.less']
 })
-export class AddCourseComponent implements OnInit {
-  public addCourseForm: FormGroup;
+export class AddCourseComponent {
+  public courseTitle = '';
+  public courseDescription = '';
+  public courseDuration = null;
+  public courseDate = '';
+  public courseAuthors = '';
 
-  constructor(
-    private fb: FormBuilder,
-  ) { }
+  handleDuration(duration: number) {
+    this.courseDuration = duration;
+  }
 
-  ngOnInit() {
-    this.addCourseForm = this.fb.group({
-      titleInput: ['', [Validators.required]],
-      descriptionField: ['', [Validators.required]],
-    });
+  handleDate(date: string) {
+    this.courseDate = date;
+  }
+
+  handleAuthors(authors: string) {
+    this.courseAuthors = authors;
   }
 
   onSubmit() {
-    console.log('form submitted');
+    console.log('add course form submitted');
+    console.log('courseTitle', this.courseTitle);
+    console.log('courseDescription', this.courseDescription);
+    console.log('courseDuration', this.courseDuration);
+    console.log('courseDate', this.courseDate);
+    console.log('courseAuthors', this.courseAuthors);
   }
 }

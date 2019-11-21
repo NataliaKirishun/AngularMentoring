@@ -1,22 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { AddCourseComponent } from './add-course.component';
+import { CourseDurationComponent } from './course-duration.component';
+import { DurationPipe } from '../../../../shared/pipes/duration/duration.pipe';
 
-describe('AddCourseComponent', () => {
-  let component: AddCourseComponent;
-  let fixture: ComponentFixture<AddCourseComponent>;
+describe('CourseDurationComponent', () => {
+  let component: CourseDurationComponent;
+  let fixture: ComponentFixture<CourseDurationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCourseComponent ],
+      declarations: [ CourseDurationComponent, DurationPipe ],
       schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddCourseComponent);
+    fixture = TestBed.createComponent(CourseDurationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,23 +7,74 @@
   align-items: center;
   width: 100%;
   min-height: calc(100vh - 128px);
-  background-color: @pale-grey-two;
+  background-color: @pale-grey-two;;
 
   &-form {
     background-color: @white;
     padding: 24px;
+    margin: 24px 0;
     border-radius: 8px;
     box-shadow: 0 1px 24px 0 rgba(18, 21, 35, 0.08);
 
     &__title {
       font: 600 24px/30px Source Sans Pro, sans-serif;
       color: @dark;
-      margin-bottom: 22px;
+      margin-bottom: 10px;
+    }
+
+    &__field {
+      margin-top: 12px;
     }
 
     &__label {
+      font: 600 14px Source Sans Pro, sans-serif;
+      color: @slate-grey;
       display: block;
+      margin-bottom: 9px;
     }
+
+    &__title-input, &__description {
+      font: 14px/36px Source Sans Pro, sans-serif;
+      border: solid 1px @grey;
+      border-radius: 3px;
+      padding: 0 12px;
+
+      &::placeholder {
+        color: @silver;
+      }
+    }
+
+    &__title-input, &__description {
+      width: 680px;
+    }
+
+    &__description {
+      resize: none;
+    }
+
+    &__btn-group {
+      float: right;
+    }
+
+    &__cancel-btn, &__save-btn {
+      font: 600 14px/36px Source Sans Pro, sans-serif;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 3px;
+      outline: none;
+    }
+
+    &__save-btn {
+      color: @white;
+      background-color: @sick-green;
+      margin-left: 12px;
+    }
+
+    &__cancel-btn {
+      color: @slate-grey-two;
+      background-color: @grey;
+    }
+
   }
 }
 

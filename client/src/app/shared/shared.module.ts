@@ -7,6 +7,7 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
 import { FooterComponent } from './components/footer/footer.component';
 import { OrderByPipe } from './pipes/order-by/order-by.pipe';
 import { FilterPipe } from './pipes/filter/filter.pipe';
+import { DurationPipe } from './pipes/duration/duration.pipe';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FilterPipe } from './pipes/filter/filter.pipe';
     FooterComponent,
     OrderByPipe,
     FilterPipe,
+    DurationPipe,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { FilterPipe } from './pipes/filter/filter.pipe';
     FooterComponent,
     OrderByPipe,
     FilterPipe,
+    DurationPipe,
   ],
 })
 export class SharedModule { }

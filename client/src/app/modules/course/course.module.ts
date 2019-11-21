@@ -9,8 +9,8 @@ import { CourseSearchComponent } from './components/course-search/course-search.
 import { CourseItemComponent } from './components/course-item/course-item.component';
 import { CourseComponent } from './course.component';
 import { CircleRoundDirective } from './directives/circle-round.directive';
-import { DurationPipe } from './pipes/duration.pipe';
 import { ModalModule } from '../../shared/modules/modal/modal.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   providers: [ CourseService ],
@@ -19,13 +19,12 @@ import { ModalModule } from '../../shared/modules/modal/modal.module';
     CourseItemComponent,
     CourseComponent,
     CircleRoundDirective,
-    DurationPipe,
   ],
   imports: [
     CommonModule,
     FormsModule,
     FontAwesomeModule,
-    ModalModule,
+    SharedModule,
   ],
 })
 export class CourseModule { }
