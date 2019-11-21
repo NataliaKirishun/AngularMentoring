@@ -8,9 +8,21 @@ import { Component } from '@angular/core';
 export class AddCourseComponent {
   public courseTitle = '';
   public courseDescription = '';
-  public courseDuration = '';
+  public courseDuration = null;
   public courseDate = '';
   public courseAuthors = '';
+
+  handleDuration(duration: number) {
+    this.courseDuration = duration;
+  }
+
+  handleDate(date: string) {
+    this.courseDate = date;
+  }
+
+  handleAuthors(authors: string) {
+    this.courseAuthors = authors;
+  }
 
   onSubmit() {
     console.log('add course form submitted');

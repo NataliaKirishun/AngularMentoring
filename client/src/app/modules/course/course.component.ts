@@ -22,7 +22,7 @@ import { MODAL_TYPES } from '../../config/modal.config';
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.less'],
-  providers: [ ModalService, OrderByPipe, FilterPipe],
+  providers: [ ModalService, OrderByPipe, FilterPipe ],
 })
 export class CourseComponent implements
     OnChanges,

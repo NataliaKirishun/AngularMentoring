@@ -1,4 +1,4 @@
 <div class="date-field">
   <label class="date-field__label" for="date">Date:</label>
-  <input [(ngModel)]="courseDate" class="date-field__input" name="date" placeholder="mm-dd-yyyy" required>
+  <input [(ngModel)]="courseDate" class="date-field__input" (change)="handleDate()" name="date" placeholder="mm-dd-yyyy" required>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-course-authors',
@@ -6,5 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./course-authors.component.less']
 })
 export class CourseAuthorsComponent {
-  @Input() courseAuthors;
+  @Output() changeAuthors: EventEmitter<string> = new EventEmitter<string>();
+
+  public courseAuthors = '';
+
+  handleAuthors(): void {
+    this.changeAuthors.emit(this.courseAuthors);
+  }
 }
