@@ -9,9 +9,9 @@
       <label class="add-course-form__label" for="description">Description:</label>
       <textarea [(ngModel)]="courseDescription" class="add-course-form__description" name="description" placeholder="Add description" required></textarea>
     </div>
-    <app-course-duration (changeDuration)="handleDuration($event)"></app-course-duration>
-    <app-course-date (changeDate)="handleDate($event)"></app-course-date>
-    <app-course-authors (changeAuthors)="handleAuthors($event)"></app-course-authors>
+    <app-course-duration (inputChange)="handleDuration($event)"></app-course-duration>
+    <app-course-date (inputChange)="handleDate($event)"></app-course-date>
+    <app-course-authors (inputChange)="handleAuthors($event)"></app-course-authors>
     <div class="add-course-form__btn-group">
       <button class="add-course-form__cancel-btn" type="reset">Cancel</button>
       <button class="add-course-form__save-btn" type="submit">Save</button>

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { CourseDurationComponent } from './course-duration.component';
-import { DurationPipe } from '../../../../shared/pipes/duration/duration.pipe';
+import { DurationPipe } from '../../../../../shared/pipes/duration/duration.pipe';
 
 describe('CourseDurationComponent', () => {
   let component: CourseDurationComponent;
