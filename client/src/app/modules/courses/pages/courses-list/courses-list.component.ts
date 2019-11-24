@@ -9,30 +9,30 @@ import {
   AfterViewChecked,
   OnDestroy
 } from '@angular/core';
-import { ICourseListItem, IDeleteCourseEventData } from './models/course-list-item';
-import { CourseService } from './services/course.service';
-import { OrderByPipe } from '../../shared/pipes/order-by/order-by.pipe';
-import { FilterPipe } from '../../shared/pipes/filter/filter.pipe';
+import { Router } from '@angular/router';
+import { CourseService } from '../../services/course.service';
+import { ModalService } from '../../../../shared/modules/modal/service/modal.service';
+import { OrderByPipe } from '../../../../shared/pipes/order-by/order-by.pipe';
+import { FilterPipe } from '../../../../shared/pipes/filter/filter.pipe';
+import { ICourseListItem, IDeleteCourseEventData } from '../../models/course-list-item';
 
-import { ModalService } from '../../shared/modules/modal/service/modal.service';
-
-import { MODAL_TYPES } from '../../config/modal.config';
+import { MODAL_TYPES } from '../../../../config/modal.config';
 
 @Component({
-  selector: 'app-course',
-  templateUrl: './course.component.html',
-  styleUrls: ['./course.component.less'],
+  selector: 'app-courses-list',
+  templateUrl: './courses-list.component.html',
+  styleUrls: ['./courses-list.component.less'],
   providers: [ ModalService, OrderByPipe, FilterPipe ],
 })
-export class CourseComponent implements
-    OnChanges,
-    OnInit,
-    DoCheck,
-    AfterContentInit,
-    AfterContentChecked,
-    AfterViewInit,
-    AfterViewChecked,
-    OnDestroy {
+export class CoursesListComponent implements
+  OnChanges,
+  OnInit,
+  DoCheck,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy {
   public courseList: ICourseListItem[] = [];
   public filteredList: ICourseListItem[] = [];
   public sortField = 'date';
@@ -45,6 +45,7 @@ export class CourseComponent implements
     private orderByPipe: OrderByPipe,
     private filterPipe: FilterPipe,
     private modalService: ModalService,
+    private router: Router,
   ) {}
 
   ngOnChanges() {
@@ -113,4 +114,12 @@ export class CourseComponent implements
     this.modalService.close(type);
     this.courseIdToDelete = null;
   }
+
+  public addNewCourse(): void {
+    this.router.navigate(['/courses', 'new']);
+  }
 }
+
+
+
+

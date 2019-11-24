@@ -3,13 +3,13 @@ import { Component, DebugElement, Input, NO_ERRORS_SCHEMA } from '@angular/core'
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 
-import { CourseComponent } from './course.component';
-import { CourseService } from './services/course.service';
-import { ICourseListItem } from './models/course-list-item';
+import { CoursesListComponent } from './courses-list.component';
+import { CourseService } from '../../services/course.service';
+import { ICourseListItem } from '../../models/course-list-item';
 
 describe('CourseComponent', () => {
-  let component: CourseComponent;
-  let fixture: ComponentFixture<CourseComponent>;
+  let component: CoursesListComponent;
+  let fixture: ComponentFixture<CoursesListComponent>;
   let courseService: CourseService;
   let CourseServiceStub: Partial<CourseService>;
   let courseComponent: DebugElement;
@@ -57,18 +57,18 @@ describe('CourseComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [
-        CourseComponent,
+        CoursesListComponent,
         CourseItemStubComponent,
         CourseSearchStubComponent,
-        ],
+      ],
       providers: [{provide: CourseService, useValue: CourseServiceStub}],
       schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CourseComponent);
+    fixture = TestBed.createComponent(CoursesListComponent);
     component = fixture.componentInstance;
     courseService = fixture.debugElement.injector.get(CourseService);
     fixture.detectChanges();
@@ -134,11 +134,11 @@ describe('CourseComponent', () => {
 
   // it('should log message on calling delete Method', () => {
   //   const consoleSpy = spyOn(console, 'log');
-    // const removeItem = spyOn(courseService, 'removeItem');
-    // component.deleteCourse({id: 'test_id', title: 'test_title'});
-    // fixture.detectChanges();
-    // expect(consoleSpy).toHaveBeenCalled();
-    // expect(removeItem).toHaveBeenCalled();
+  // const removeItem = spyOn(courseService, 'removeItem');
+  // component.deleteCourse({id: 'test_id', title: 'test_title'});
+  // fixture.detectChanges();
+  // expect(consoleSpy).toHaveBeenCalled();
+  // expect(removeItem).toHaveBeenCalled();
   // });
 
   it('should call searchCourse method when search event emitted', () => {
@@ -160,3 +160,4 @@ describe('CourseComponent', () => {
   });
 
 });
+
