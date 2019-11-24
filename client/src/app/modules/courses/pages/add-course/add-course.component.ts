@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { CourseListItem, ICourseListItem } from '../../models/course-list-item';
+import { CourseService } from '../../services/course.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-course',
@@ -6,30 +9,41 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-course.component.less']
 })
 export class AddCourseComponent {
-  public courseTitle = '';
-  public courseDescription = '';
-  public courseDuration = null;
-  public courseDate = '';
-  public courseAuthors = '';
+  public courseData: ICourseListItem = {
+    title: '',
+    description: '',
+    duration: null,
+    date: '',
+    authors: '',
+  };
+
+  constructor(
+    private courseService: CourseService,
+    private router: Router,
+  ) {}
 
   handleDuration(duration: number) {
-    this.courseDuration = duration;
+    this.courseData.duration = duration;
   }
 
   handleDate(date: string) {
-    this.courseDate = date;
+    this.courseData.date = date;
   }
 
   handleAuthors(authors: string) {
-    this.courseAuthors = authors;
+    this.courseData.authors = authors;
   }
 
   onSubmit() {
     console.log('add course form submitted');
-    console.log('courseTitle', this.courseTitle);
-    console.log('courseDescription', this.courseDescription);
-    console.log('courseDuration', this.courseDuration);
-    console.log('courseDate', this.courseDate);
-    console.log('courseAuthors', this.courseAuthors);
+    console.log('courseTitle', new CourseListItem(this.courseData));
+    this.courseService.createCourse( new CourseListItem(this.courseData))
+      .subscribe(() =>  {
+        this.router.navigate(['courses']);
+      })
+  }
+
+  closeAddForm() {
+    this.router.navigate(['courses']);
   }
 }

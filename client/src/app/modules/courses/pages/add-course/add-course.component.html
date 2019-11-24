@@ -3,17 +3,17 @@
     <h3 class="add-course-form__title">New course</h3>
     <div class="add-course-form__field">
       <label class="add-course-form__label" for="title">Title:</label>
-      <input [(ngModel)]="courseTitle" class="add-course-form__title-input" type="text" name="title" placeholder="Add title" required>
+      <input [(ngModel)]="courseData.title" class="add-course-form__title-input" type="text" name="title" placeholder="Add title" required>
     </div>
     <div class="add-course-form__field">
       <label class="add-course-form__label" for="description">Description:</label>
-      <textarea [(ngModel)]="courseDescription" class="add-course-form__description" name="description" placeholder="Add description" required></textarea>
+      <textarea [(ngModel)]="courseData.description" class="add-course-form__description" name="description" placeholder="Add description" required></textarea>
     </div>
     <app-course-duration (inputChange)="handleDuration($event)"></app-course-duration>
     <app-course-date (inputChange)="handleDate($event)"></app-course-date>
     <app-course-authors (inputChange)="handleAuthors($event)"></app-course-authors>
     <div class="add-course-form__btn-group">
-      <button class="add-course-form__cancel-btn" type="reset">Cancel</button>
+      <button class="add-course-form__cancel-btn" type="reset" (click)="closeAddForm()">Cancel</button>
       <button class="add-course-form__save-btn" type="submit">Save</button>
     </div>
   </form>
