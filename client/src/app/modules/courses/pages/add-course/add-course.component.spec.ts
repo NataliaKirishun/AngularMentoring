@@ -12,7 +12,7 @@ describe('AddCourseComponent', () => {
       declarations: [ AddCourseComponent ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
