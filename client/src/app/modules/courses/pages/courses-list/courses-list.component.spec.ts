@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, DebugElement, Input, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 
@@ -7,12 +8,13 @@ import { CoursesListComponent } from './courses-list.component';
 import { CourseService } from '../../services/course.service';
 import { ICourseListItem } from '../../models/course-list-item';
 
-describe('CourseComponent', () => {
+describe('CourseListComponent', () => {
   let component: CoursesListComponent;
   let fixture: ComponentFixture<CoursesListComponent>;
   let courseService: CourseService;
   let CourseServiceStub: Partial<CourseService>;
   let courseComponent: DebugElement;
+  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
   @Component({selector: 'app-course-item', template: ''})
   class CourseItemStubComponent {
@@ -61,7 +63,10 @@ describe('CourseComponent', () => {
         CourseItemStubComponent,
         CourseSearchStubComponent,
       ],
-      providers: [{provide: CourseService, useValue: CourseServiceStub}],
+      providers: [
+          {provide: CourseService, useValue: CourseServiceStub},
+          {provide: Router, useValue: routerSpy},
+        ],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();

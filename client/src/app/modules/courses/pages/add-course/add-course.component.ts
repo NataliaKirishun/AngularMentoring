@@ -40,7 +40,7 @@ export class AddCourseComponent {
     this.courseService.createCourse( new CourseListItem(this.courseData))
       .subscribe(() =>  {
         this.router.navigate(['courses']);
-      })
+      });
   }
 
   closeAddForm() {
