@@ -1,0 +1,35 @@
+@import "~src/app/color";
+@import "~src/app/layout";
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 192px);
+  background-color: @pale-grey;
+
+  &__content {
+    color: @dark;
+
+    &:first-of-type {
+      font: 600 60px Oswald, sans-serif;
+    }
+
+    &:last-of-type {
+      font: 600 60px Oswald, sans-serif;
+      text-transform: uppercase;
+    }
+  }
+
+  &__home-link {
+    font: 600 18px Oswald, sans-serif;
+    color: @white;
+    background-color: @dark-sky-blue;
+    border-radius: 3px;
+    text-decoration: none;
+    padding: 10px 16px;
+    margin-top: 30px;
+  }
+}

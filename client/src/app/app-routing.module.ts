@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './modules/login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'courses',
     loadChildren: './modules/courses/courses.module#CoursesModule',
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 

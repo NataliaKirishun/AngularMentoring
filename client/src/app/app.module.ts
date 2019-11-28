@@ -7,10 +7,12 @@ import { CoreModule } from './core/core.module';
 import { CoursesModule } from './modules/courses/courses.module';
 import { LoginModule } from './modules/login/login.module';
 import { AppComponent } from './app.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
