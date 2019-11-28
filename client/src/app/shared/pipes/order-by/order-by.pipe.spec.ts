@@ -1,5 +1,5 @@
 import { OrderByPipe } from './order-by.pipe';
-import { ICourseListItem } from '../../../modules/course/models/course-list-item';
+import { ICourseListItem } from '../../../modules/courses/models/course-list-item';
 
 
 describe('OrderByPipe', () => {

@@ -1,7 +1,7 @@
 @import "~src/app/color";
 @import "~src/app/layout";
 
-.course-page {
+.courses-list {
   width: 100%;
   min-height: calc(100vh - 192px);
   background-color: @pale-grey;
@@ -70,6 +70,10 @@
 
 app-modal {
 
+  .modal-wrapper {
+    width: 394px;
+  }
+
   .modal-header {
     display: flex;
     justify-content: space-between;
@@ -96,8 +100,8 @@ app-modal {
       }
 
       &:before {
-         transform: rotate(-45deg);
-       }
+        transform: rotate(-45deg);
+      }
 
       &:after {
         transform: rotate(45deg);
@@ -143,7 +147,7 @@ app-modal {
 
 @media @big-desktop {
 
-  .course-page {
+  .courses-list {
 
     &__content {
       width: 90%;
@@ -155,7 +159,7 @@ app-modal {
 
 @media @desktop {
 
-  .course-page {
+  .courses-list {
 
     &__content {
       margin: 0 40px;
@@ -165,10 +169,16 @@ app-modal {
 
 @media @mobile {
 
-  .course-page {
+  .courses-list {
 
     &__content {
       margin: 0 20px;
+    }
+  }
+
+  app-modal {
+    .modal-wrapper {
+      width: 350px;
     }
   }
 }

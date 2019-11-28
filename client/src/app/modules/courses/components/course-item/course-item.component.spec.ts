@@ -4,9 +4,9 @@ import { By } from '@angular/platform-browser';
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { UpperCasePipe } from '@angular/common';
 
-import {ICourseListItem, IDeleteCourseEventData} from '../../models/course-list-item';
+import { ICourseListItem, IDeleteCourseEventData } from '../../models/course-list-item';
 import { CourseItemComponent } from './course-item.component';
-import { DurationPipe } from '../../pipes/duration.pipe';
+import { DurationPipe } from '../../../../shared/pipes/duration/duration.pipe';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;

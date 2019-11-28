@@ -4,9 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { CourseModule } from './modules/course/course.module';
+import { CoursesModule } from './modules/courses/courses.module';
 import { LoginModule } from './modules/login/login.module';
-
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -18,7 +17,7 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     CoreModule.forRoot(),
     SharedModule,
-    CourseModule,
+    CoursesModule,
     LoginModule,
   ],
   providers: [],

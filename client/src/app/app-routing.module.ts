@@ -1,12 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CourseComponent } from './modules/course/course.component';
 import { LoginComponent } from './modules/login/login.component';
 
 const routes: Routes = [
-  {path: 'course', component: CourseComponent},
-  {path: 'login', component: LoginComponent},
-  {path: '', redirectTo: 'login', pathMatch: 'full'}
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'courses',
+    loadChildren: './modules/courses/courses.module#CoursesModule',
+  },
 ];
 
 @NgModule({

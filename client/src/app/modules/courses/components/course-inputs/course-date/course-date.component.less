@@ -1,0 +1,24 @@
+@import "~src/app/color";
+@import "~src/app/layout";
+
+.date-field {
+  margin-top: 12px;
+
+  &__label {
+    font: 600 14px Source Sans Pro, sans-serif;
+    color: @slate-grey;
+    display: block;
+  }
+
+  &__input {
+    font: 14px/36px Source Sans Pro, sans-serif;
+    border: solid 1px @grey;
+    border-radius: 3px;
+    padding-left: 12px;
+    margin-top: 9px;
+
+    &::placeholder {
+      color: @silver;
+    }
+  }
+}
