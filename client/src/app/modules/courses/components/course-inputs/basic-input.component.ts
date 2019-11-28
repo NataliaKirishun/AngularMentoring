@@ -1,9 +1,8 @@
-import { EventEmitter, Output } from '@angular/core';
+import {EventEmitter, Input, Output} from '@angular/core';
 
 export class BasicInputComponent<T> {
+  @Input() inputValue: T;
   @Output() inputChange: EventEmitter<T> = new EventEmitter<T>();
-
-  public inputValue = null;
 
   public handleChange(): void {
     this.inputChange.emit(this.inputValue);

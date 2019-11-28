@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { CourseListItem, ICourseListItem } from '../../models/course-list-item';
 import { CourseService } from '../../services/course.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.less']
 })
-export class AddCourseComponent {
+export class AddCourseComponent implements OnInit {
   public courseData: ICourseListItem = {
     title: '',
     description: '',
@@ -20,7 +21,19 @@ export class AddCourseComponent {
   constructor(
     private courseService: CourseService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe( (data) => {
+      if (data.id) {
+        this.courseService.getItemById(data['id'])
+          .subscribe((courseData) => {
+            this.courseData = courseData;
+        });
+      }
+    });
+  }
 
   handleDuration(duration: number) {
     this.courseData.duration = duration;

@@ -10,8 +10,19 @@ const routes: Routes = [
     path: '',
     component: CoursesComponent,
     children: [
-      { path: '', component: CoursesListComponent },
-      { path: 'new', component: AddCourseComponent },
+      {
+        path: '',
+        component: CoursesListComponent,
+      },
+      {
+        path: 'new',
+        component: AddCourseComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: ':id',
+        component: AddCourseComponent,
+      },
     ]
   }
 ];

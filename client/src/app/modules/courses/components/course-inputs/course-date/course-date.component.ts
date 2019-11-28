@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BasicInputComponent } from '../basic-input.component';
 
 @Component({
@@ -6,4 +6,6 @@ import { BasicInputComponent } from '../basic-input.component';
   templateUrl: './course-date.component.html',
   styleUrls: ['./course-date.component.less']
 })
-export class CourseDateComponent extends BasicInputComponent<string> {}
+export class CourseDateComponent extends BasicInputComponent<string> {
+
+}

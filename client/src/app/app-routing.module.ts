@@ -5,7 +5,7 @@ import { LoginComponent } from './modules/login/login.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'courses',
     pathMatch: 'full'
   },
   {
