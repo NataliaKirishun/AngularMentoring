@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CourseListItem, ICourseListItem } from '../../models/course-list-item';
 import { CourseService } from '../../services/course.service';
 
+import { formatDate } from '../../../../helpers/date-helper';
+
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
@@ -58,5 +60,9 @@ export class AddCourseComponent implements OnInit {
 
   closeAddForm() {
     this.router.navigate(['courses']);
+  }
+
+  get courseDate() {
+    return formatDate(this.courseData.date);
   }
 }
