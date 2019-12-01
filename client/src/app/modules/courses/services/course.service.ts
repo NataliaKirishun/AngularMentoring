@@ -3,7 +3,9 @@ import { Observable, of } from 'rxjs';
 
 import { ICourseListItem } from '../models/course-list-item';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CourseService {
   courseList: ICourseListItem[] = [
     {

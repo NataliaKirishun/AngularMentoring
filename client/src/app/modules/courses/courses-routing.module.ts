@@ -4,6 +4,7 @@ import { CoursesComponent } from './courses.component';
 
 import { AddCourseComponent } from './pages/add-course/add-course.component';
 import { CoursesListComponent } from './pages/courses-list/courses-list.component';
+import { AuthGuard } from '../../shared/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       },
       {
         path: 'new',
+        canActivate: [AuthGuard],
         component: AddCourseComponent,
         pathMatch: 'full',
         data: {
@@ -30,6 +32,7 @@ const routes: Routes = [
       },
       {
         path: ':id',
+        canActivate: [AuthGuard],
         component: AddCourseComponent,
         data: {
           breadcrumb: null,

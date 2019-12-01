@@ -18,7 +18,6 @@ import { CourseDateComponent } from './components/course-inputs/course-date/cour
 import { CourseDurationComponent } from './components/course-inputs/course-duration/course-duration.component';
 
 @NgModule({
-  providers: [ CourseService ],
   declarations: [
     CourseSearchComponent,
     CourseItemComponent,
