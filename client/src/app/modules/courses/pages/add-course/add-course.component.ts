@@ -6,6 +6,9 @@ import { CourseService } from '../../services/course.service';
 
 import { formatDate } from '../../../../helpers/date-helper';
 
+const EDIT_MODE = 'Edit';
+const ADD_MODE = 'Add';
+
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
@@ -13,13 +16,14 @@ import { formatDate } from '../../../../helpers/date-helper';
 })
 export class AddCourseComponent implements OnInit {
   public courseData: ICourseListItem = {
+    id: null,
     title: '',
     description: '',
     duration: null,
     date: '',
     authors: '',
   };
-  public addCourseFormTitle: string;
+  public mode: string;
 
   constructor(
     private courseService: CourseService,
@@ -33,11 +37,12 @@ export class AddCourseComponent implements OnInit {
       if (id) {
         this.courseService.getItemById(id)
           .subscribe((courseData) => {
+            console.log('courseData', courseData);
             this.courseData = courseData;
         });
-        this.addCourseFormTitle = 'Edit course';
+        this.mode = EDIT_MODE;
       } else {
-        this.addCourseFormTitle = 'New course';
+        this.mode = ADD_MODE;
       }
     });
   }
@@ -55,12 +60,8 @@ export class AddCourseComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('add course form submitted');
-    console.log('courseTitle', new CourseListItem(this.courseData));
-    this.courseService.createCourse( new CourseListItem(this.courseData))
-      .subscribe(() =>  {
-        this.router.navigate(['courses']);
-      });
+    const courseItem: ICourseListItem = new CourseListItem(this.courseData);
+    this.mode === ADD_MODE ? this.createCourse(courseItem) : this.editCourse(courseItem);
   }
 
   closeAddForm() {
@@ -69,5 +70,19 @@ export class AddCourseComponent implements OnInit {
 
   get courseDate() {
     return formatDate(this.courseData.date);
+  }
+
+  createCourse(course: ICourseListItem): void {
+    this.courseService.createCourse(course)
+      .subscribe(() =>  {
+        this.router.navigate(['courses']);
+      });
+  }
+
+  editCourse(course: ICourseListItem): void {
+    this.courseService.updateItem(course)
+      .subscribe( () => {
+        this.router.navigate(['courses']);
+      });
   }
 }
