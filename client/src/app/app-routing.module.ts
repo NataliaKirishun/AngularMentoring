@@ -7,15 +7,21 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'courses',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    data: {
+      breadcrumb: 'Login'
+    },
   },
   {
     path: 'courses',
     loadChildren: './modules/courses/courses.module#CoursesModule',
+    data: {
+      breadcrumb: 'Courses',
+    },
   },
   {
     path: '**',

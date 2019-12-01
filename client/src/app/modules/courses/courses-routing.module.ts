@@ -9,19 +9,31 @@ const routes: Routes = [
   {
     path: '',
     component: CoursesComponent,
+    data: {
+      breadcrumb: null,
+    },
     children: [
       {
         path: '',
         component: CoursesListComponent,
+        data: {
+          breadcrumb: null,
+        },
       },
       {
         path: 'new',
         component: AddCourseComponent,
         pathMatch: 'full',
+        data: {
+          breadcrumb: 'New'
+        },
       },
       {
         path: ':id',
         component: AddCourseComponent,
+        data: {
+          breadcrumb: null,
+        },
       },
     ]
   }

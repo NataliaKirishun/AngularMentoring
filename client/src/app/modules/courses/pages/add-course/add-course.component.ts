@@ -19,6 +19,7 @@ export class AddCourseComponent implements OnInit {
     date: '',
     authors: '',
   };
+  public addCourseFormTitle: string;
 
   constructor(
     private courseService: CourseService,
@@ -28,11 +29,15 @@ export class AddCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe( (data) => {
-      if (data.id) {
-        this.courseService.getItemById(data['id'])
+      const id = data.id;
+      if (id) {
+        this.courseService.getItemById(id)
           .subscribe((courseData) => {
             this.courseData = courseData;
         });
+        this.addCourseFormTitle = 'Edit course';
+      } else {
+        this.addCourseFormTitle = 'New course';
       }
     });
   }
