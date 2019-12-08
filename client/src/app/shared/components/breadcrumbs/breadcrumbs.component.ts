@@ -60,7 +60,7 @@ export class BreadcrumbsComponent implements OnInit {
     child.params.subscribe((data) => {
       const id = data.id;
       if (id) {
-        const courseData = this.courseService.getItemById(id)
+        const courseData = this.courseService.getItemById(+id)
         label = courseData.name;
       } else {
         label = child.snapshot.data.breadcrumb;

@@ -38,8 +38,6 @@ export class CourseService {
         tap( (courses) => {
           if (courses.length) {
             this.courseList.push(...courses);
-            console.log(this.courseList);
-            console.log(courses);
           }
         })
       );
@@ -69,7 +67,7 @@ export class CourseService {
     return this.http.patch(AUTH_SERVICE_HOST, course);
   }
 
-  updateCurrentItem(course): void{
+  updateCurrentItem(course): void {
     const courseIndex = this.getCourseIndex(course.id);
     this.courseList.splice(courseIndex, 1, course);
   }

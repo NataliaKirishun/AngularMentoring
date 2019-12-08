@@ -63,7 +63,6 @@ export class AddCourseComponent implements OnInit {
 
   onSubmit() {
     const courseItem: ICourseListItem = new CourseListItem(this.courseData);
-    debugger;
     this.mode === ModeType.ADD ? this.createCourse(courseItem) : this.editCourse(courseItem);
   }
 

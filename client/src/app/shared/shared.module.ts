@@ -9,6 +9,8 @@ import { OrderByPipe } from './pipes/order-by/order-by.pipe';
 import { FilterPipe } from './pipes/filter/filter.pipe';
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { RouterModule } from '@angular/router';
+import { AuthInterceptor } from './interceptors/token.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,5 +35,8 @@ import { RouterModule } from '@angular/router';
     FilterPipe,
     DurationPipe,
   ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ]
 })
 export class SharedModule { }
