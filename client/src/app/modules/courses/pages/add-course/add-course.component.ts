@@ -6,8 +6,7 @@ import { CourseService } from '../../services/course.service';
 
 import { formatDate } from '../../../../helpers/date-helper';
 
-const EDIT_MODE = 'Edit';
-const ADD_MODE = 'Add';
+import { ModeType } from './constans/mode-type-enum';
 
 @Component({
   selector: 'app-add-course',
@@ -37,12 +36,11 @@ export class AddCourseComponent implements OnInit {
       if (id) {
         this.courseService.getItemById(id)
           .subscribe((courseData) => {
-            console.log('courseData', courseData);
             this.courseData = courseData;
         });
-        this.mode = EDIT_MODE;
+        this.mode = ModeType.EDIT;
       } else {
-        this.mode = ADD_MODE;
+        this.mode = ModeType.ADD;
       }
     });
   }
@@ -61,7 +59,7 @@ export class AddCourseComponent implements OnInit {
 
   onSubmit() {
     const courseItem: ICourseListItem = new CourseListItem(this.courseData);
-    this.mode === ADD_MODE ? this.createCourse(courseItem) : this.editCourse(courseItem);
+    this.mode === ModeType.ADD ? this.createCourse(courseItem) : this.editCourse(courseItem);
   }
 
   closeAddForm() {

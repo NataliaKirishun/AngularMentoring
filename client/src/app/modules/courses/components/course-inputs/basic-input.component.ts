@@ -1,4 +1,4 @@
-import {EventEmitter, Input, Output} from '@angular/core';
+import { EventEmitter, Input, Output } from '@angular/core';
 
 export class BasicInputComponent<T> {
   @Input() inputValue: T;
