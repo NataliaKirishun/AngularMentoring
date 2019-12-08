@@ -4,7 +4,7 @@ import { ICourseListItem } from '../models/course-list-item';
 import { SERVICES_CONFIG } from '../../../config/services.config';
 import { HttpClient } from '@angular/common/http';
 import { ICoursesQueryParams } from '../models/courses-query-params';
-import {tap} from 'rxjs/internal/operators';
+import { tap } from 'rxjs/internal/operators';
 
 const AUTH_SERVICE_HOST = `${SERVICES_CONFIG.API_GATEWAY.PROTOCOL}://${SERVICES_CONFIG.API_GATEWAY.HOST}/courses`;
 
@@ -74,10 +74,10 @@ export class CourseService {
     return of(course);
   }
 
-  removeItem(id: number): Observable<any> {
+  removeItem(id: number): Observable<{}> {
     const courseIndex = this.getCourseIndex(id);
     this.courseList.splice(courseIndex, 1);
-    return of('');
+    return this.http.delete(AUTH_SERVICE_HOST + `/${id}`);
   }
 
   private getCourseIndex(id: number): number {

@@ -90,14 +90,16 @@ export class CoursesListComponent implements
   public deleteCourse(deleteCourseEventData: IDeleteCourseEventData): void {
     this.courseIdToDelete = deleteCourseEventData.id;
     this.courseTitleToDelete = deleteCourseEventData.name;
-    console.log('course to delete', this.courseIdToDelete);
     this.openModal(this.modalType);
   }
 
   public removeCourse(): void {
-    this.courseService.removeItem(this.courseIdToDelete);
-    this.courseIdToDelete = null;
-    this.closeModal(this.modalType);
+    this.courseService.removeItem(this.courseIdToDelete)
+      .subscribe( () => {
+        this.filteredList = this.courseService.courseList;
+        this.courseIdToDelete = null;
+        this.closeModal(this.modalType);
+      });
   }
 
   public searchCourse(searchValue: string): void {
