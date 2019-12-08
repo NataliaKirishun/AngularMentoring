@@ -33,7 +33,6 @@ export class CoursesListComponent implements
   AfterViewInit,
   AfterViewChecked,
   OnDestroy {
-  public courseList: ICourseListItem[] = [];
   public filteredList: ICourseListItem[] = [];
   public sortField = 'date';
   public modalType = MODAL_TYPES.DELETE_CONFIRMATION;
@@ -50,14 +49,13 @@ export class CoursesListComponent implements
 
   ngOnChanges() {
     console.log('ngOnChanges');
-    this.courseList = this.orderByPipe.transform(this.courseService.courseList, this.sortField);
   }
 
   ngOnInit() {
     console.log('ngOnInit');
     this.courseService.getList()
       .subscribe(() => {
-        this.filteredList = this.orderByPipe.transform(this.courseService.courseList, this.sortField);
+        this.filteredList = this.courseService.courseList;
       });
   }
 
@@ -103,7 +101,11 @@ export class CoursesListComponent implements
   }
 
   public searchCourse(searchValue: string): void {
-    this.filteredList = this.filterPipe.transform(this.courseList, searchValue, 'name');
+    this.courseService.searchCourses(searchValue)
+      .subscribe( () => {
+        this.filteredList = this.courseService.courseList;
+      })
+    this.filteredList = this.filterPipe.transform(this.filteredList, searchValue, 'name');
   }
 
   public openModal(type: string) {
@@ -122,7 +124,7 @@ export class CoursesListComponent implements
   public loadCourses(): void {
     this.courseService.loadMoreCourses()
       .subscribe( () =>
-        this.filteredList = this.orderByPipe.transform(this.courseService.courseList, this.sortField));
+        this.filteredList = this.courseService.courseList);
   }
 }
 

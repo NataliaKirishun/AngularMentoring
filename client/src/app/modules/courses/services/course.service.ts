@@ -31,12 +31,15 @@ export class CourseService {
       params: {
         start: String(this.coursesParams.start),
         count: String(this.coursesParams.count),
+        textFragment: this.coursesParams.textFragment,
       }
     })
       .pipe(
         tap( (courses) => {
           if (courses.length) {
             this.courseList.push(...courses);
+            console.log(this.courseList);
+            console.log(courses);
           }
         })
       );
@@ -44,6 +47,13 @@ export class CourseService {
 
   loadMoreCourses(): Observable<ICourseListItem[]> {
     this.coursesParams.start = String(Number(this.coursesParams.start) + Number(this.pageAmount));
+    return this.getList();
+  }
+
+  searchCourses(searchStr: string): Observable<ICourseListItem[]> {
+    this.coursesParams.textFragment = searchStr;
+    this.coursesParams.start = '0';
+    this.courseList = [];
     return this.getList();
   }
 
