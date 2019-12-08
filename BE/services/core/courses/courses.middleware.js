@@ -8,7 +8,7 @@ module.exports = (server) => {
 	router.get('/courses', (req, res, next) => {
 		let url_parts = url.parse(req.originalUrl, true),
 			query = url_parts.query,
-			from = query.start || 0,
+			from = +query.start || 0,
 			to = +query.start + +query.count,
 			sort = query.sort,
 			queryStr = query.query,

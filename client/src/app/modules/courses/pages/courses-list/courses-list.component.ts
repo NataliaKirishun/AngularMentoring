@@ -50,14 +50,14 @@ export class CoursesListComponent implements
 
   ngOnChanges() {
     console.log('ngOnChanges');
+    this.courseList = this.orderByPipe.transform(this.courseService.courseList, this.sortField);
   }
 
   ngOnInit() {
     console.log('ngOnInit');
     this.courseService.getList()
-      .subscribe((courseList: ICourseListItem[]) => {
-        this.courseList = this.orderByPipe.transform(courseList, this.sortField);
-        this.filteredList = this.courseList;
+      .subscribe(() => {
+        this.filteredList = this.orderByPipe.transform(this.courseService.courseList, this.sortField);
       });
   }
 
@@ -86,7 +86,7 @@ export class CoursesListComponent implements
   }
 
   get courseListLength() {
-    return this.courseList.length;
+    return this.filteredList.length;
   }
 
   public deleteCourse(deleteCourseEventData: IDeleteCourseEventData): void {
@@ -117,6 +117,12 @@ export class CoursesListComponent implements
 
   public addNewCourse(): void {
     this.router.navigate(['/courses', 'new']);
+  }
+
+  public loadCourses(): void {
+    this.courseService.loadMoreCourses()
+      .subscribe( () =>
+        this.filteredList = this.orderByPipe.transform(this.courseService.courseList, this.sortField));
   }
 }
 

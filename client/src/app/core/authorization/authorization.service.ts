@@ -1,22 +1,13 @@
 import { Injectable } from '@angular/core';
-import {ILoginUserData, IUser, User} from '../models/user';
-import {Observable, observable, of} from 'rxjs';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { ILoginUserData, IUser, User } from '../models/user';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { SERVICES_CONFIG } from '../../config/services.config';
 import {tap} from 'rxjs/internal/operators';
 
 
 const L_STORAGE_AUTH_KEY = 'AUTH_TOKEN';
 const L_STORAGE_USER_KEY = 'USER_DATA';
-
-const MOCKED_USER = {
-  id: 'dsdkwo8ewe',
-  name: {
-    first: 'John',
-    last: 'Doe',
-  },
-  photo: 'https://im0-tub-ru.yandex.net/i?id=4293fa842466b4a7a939a126ce990ad0-l&n=13',
-};
 
 const AUTH_SERVICE_HOST = `${SERVICES_CONFIG.API_GATEWAY.PROTOCOL}://${SERVICES_CONFIG.API_GATEWAY.HOST}/auth`;
 

@@ -1,7 +1,7 @@
 <div class="course-item" [appCircleRound]="courseItem.date" [ngClass]="{'top-rated': isTopRated}">
   <div class="course-item__header">
     <h3 class="course-item__title">{{courseItem.name | uppercase}}
-      <fa-icon *ngIf="topRated" class="course-item__star-icon" [icon]="faStar"></fa-icon>
+      <fa-icon *ngIf="isTopRated" class="course-item__star-icon" [icon]="faStar"></fa-icon>
     </h3>
     <div class="course-item__info-wrapper">
       <fa-icon class="course-item__icon" [icon]="faClock"></fa-icon>
