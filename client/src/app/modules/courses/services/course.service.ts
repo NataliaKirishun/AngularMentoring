@@ -57,27 +57,30 @@ export class CourseService {
     return this.getList();
   }
 
-  createCourse(course: ICourseListItem): Observable<ICourseListItem> {
-    const newId = (new Date()).getTime();
-    this.courseList.push({...course, id: newId});
-    return of(this.courseList[this.courseList.length - 1]);
+  createCourse(course: ICourseListItem): Observable<{}> {
+    return this.http.post(AUTH_SERVICE_HOST, course);
   }
 
-  getItemById(id: number): Observable<ICourseListItem> {
-    console.log('this.courseList', this.courseList);
-    return of(this.courseList.find( item => item.id === id ));
+  getItemById(id: number): ICourseListItem {
+    return this.courseList.find( item => item.id === id );
   }
 
-  updateItem(course: ICourseListItem): Observable<ICourseListItem> {
+  updateItem(course: ICourseListItem): Observable<{}> {
+    return this.http.patch(AUTH_SERVICE_HOST, course);
+  }
+
+  updateCurrentItem(course): void{
     const courseIndex = this.getCourseIndex(course.id);
     this.courseList.splice(courseIndex, 1, course);
-    return of(course);
   }
 
   removeItem(id: number): Observable<{}> {
+    return this.http.delete(AUTH_SERVICE_HOST + `/${id}`);
+  }
+
+  removeCurrentItem(id: number): void {
     const courseIndex = this.getCourseIndex(id);
     this.courseList.splice(courseIndex, 1);
-    return this.http.delete(AUTH_SERVICE_HOST + `/${id}`);
   }
 
   private getCourseIndex(id: number): number {

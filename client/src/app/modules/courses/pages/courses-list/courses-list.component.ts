@@ -34,14 +34,12 @@ export class CoursesListComponent implements
   AfterViewChecked,
   OnDestroy {
   public filteredList: ICourseListItem[] = [];
-  public sortField = 'date';
   public modalType = MODAL_TYPES.DELETE_CONFIRMATION;
   private courseIdToDelete: number = null;
   public courseTitleToDelete: string = null;
 
   constructor(
     private courseService: CourseService,
-    private orderByPipe: OrderByPipe,
     private filterPipe: FilterPipe,
     private modalService: ModalService,
     private router: Router,
@@ -96,8 +94,12 @@ export class CoursesListComponent implements
   public removeCourse(): void {
     this.courseService.removeItem(this.courseIdToDelete)
       .subscribe( () => {
-        this.filteredList = this.courseService.courseList;
-        this.courseIdToDelete = null;
+        this.courseService.removeCurrentItem(this.courseIdToDelete);
+        this.courseService.getList()
+          .subscribe( () => {
+            this.filteredList = this.courseService.courseList;
+            this.courseIdToDelete = null;
+          });
         this.closeModal(this.modalType);
       });
   }

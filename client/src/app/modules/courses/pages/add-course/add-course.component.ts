@@ -37,10 +37,7 @@ export class AddCourseComponent implements OnInit {
     this.route.params.subscribe( (data) => {
       const id = +data.id;
       if (id) {
-        this.courseService.getItemById(id)
-          .subscribe((courseData) => {
-            this.courseData = courseData;
-        });
+        this.courseData = this.courseService.getItemById(id);
         this.mode = ModeType.EDIT;
       } else {
         this.mode = ModeType.ADD;
@@ -88,6 +85,7 @@ export class AddCourseComponent implements OnInit {
   editCourse(course: ICourseListItem): void {
     this.courseService.updateItem(course)
       .subscribe( () => {
+        this.courseService.updateCurrentItem(course);
         this.router.navigate(['courses']);
       });
   }
