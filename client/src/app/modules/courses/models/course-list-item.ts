@@ -1,34 +1,39 @@
+export interface IAuthors {
+  id: number;
+  name: string;
+}
+
 export interface ICourseListItem {
-  id?: string;
-  title: string;
-  duration: number;
+  id?: number;
+  name: string;
   date: string;
+  length: number;
   description: string;
-  topRated?: boolean;
-  authors?: string;
+  authors?: IAuthors;
+  isTopRated?: boolean;
 }
 
 export interface  IDeleteCourseEventData {
-  id: string;
-  title: string;
+  id: number;
+  name: string;
 }
 
 export class CourseListItem implements ICourseListItem {
   readonly id?;
-  public title;
-  public duration;
+  public name;
   public date;
+  public length;
   public description;
-  public topRated?;
   public authors?;
+  public isTopRated;
 
   constructor(courseItem: ICourseListItem) {
     this.id = courseItem.id;
-    this.title = courseItem.title;
-    this.description = courseItem.description;
-    this.duration = courseItem.duration;
+    this.name = courseItem.name;
     this.date = courseItem.date;
-    this.title = courseItem.title;
+    this.length = courseItem.length;
+    this.description = courseItem.description;
     this.authors = courseItem.authors;
+    this.isTopRated = courseItem.isTopRated;
   }
 }

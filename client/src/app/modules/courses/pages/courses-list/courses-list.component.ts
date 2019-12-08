@@ -37,7 +37,7 @@ export class CoursesListComponent implements
   public filteredList: ICourseListItem[] = [];
   public sortField = 'date';
   public modalType = MODAL_TYPES.DELETE_CONFIRMATION;
-  private courseIdToDelete: string = null;
+  private courseIdToDelete: number = null;
   public courseTitleToDelete: string = null;
 
   constructor(
@@ -91,7 +91,7 @@ export class CoursesListComponent implements
 
   public deleteCourse(deleteCourseEventData: IDeleteCourseEventData): void {
     this.courseIdToDelete = deleteCourseEventData.id;
-    this.courseTitleToDelete = deleteCourseEventData.title;
+    this.courseTitleToDelete = deleteCourseEventData.name;
     console.log('course to delete', this.courseIdToDelete);
     this.openModal(this.modalType);
   }
@@ -103,7 +103,7 @@ export class CoursesListComponent implements
   }
 
   public searchCourse(searchValue: string): void {
-    this.filteredList = this.filterPipe.transform(this.courseList, searchValue, 'title');
+    this.filteredList = this.filterPipe.transform(this.courseList, searchValue, 'name');
   }
 
   public openModal(type: string) {

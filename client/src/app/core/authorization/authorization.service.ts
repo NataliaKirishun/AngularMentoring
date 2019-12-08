@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ILoginUserData, User } from '../models/user';
+import {ILoginUserData, IUser, User} from '../models/user';
+import {Observable, observable, of} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { SERVICES_CONFIG } from '../../config/services.config';
+import {tap} from 'rxjs/internal/operators';
+
 
 const L_STORAGE_AUTH_KEY = 'AUTH_TOKEN';
 const L_STORAGE_USER_KEY = 'USER_DATA';
 
-const MOCKED_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50NUBnZ21haWwuY29tIiwiaWF0IjoxNTczODA3MTM1LCJleHAiOjE1NzM4NDMxMzV9';
 const MOCKED_USER = {
   id: 'dsdkwo8ewe',
   name: {
@@ -14,8 +18,14 @@ const MOCKED_USER = {
   photo: 'https://im0-tub-ru.yandex.net/i?id=4293fa842466b4a7a939a126ce990ad0-l&n=13',
 };
 
+const AUTH_SERVICE_HOST = `${SERVICES_CONFIG.API_GATEWAY.PROTOCOL}://${SERVICES_CONFIG.API_GATEWAY.HOST}/auth`;
+
 @Injectable()
 export class AuthorizationService {
+
+  constructor(
+    private http: HttpClient,
+  ) {}
 
   get authToken(): string {
     const authToken = localStorage.getItem(L_STORAGE_AUTH_KEY);
@@ -38,21 +48,23 @@ export class AuthorizationService {
     localStorage.setItem(L_STORAGE_USER_KEY, JSON.stringify(user));
   }
 
-  login({userEmail, userPassword}: ILoginUserData): void {
-    console.log('login');
-    // TODO: send post request to the server with email and password in body and get token in the response
-    this.setTokenToLocalStorage(MOCKED_TOKEN);
-    this.setUserInfo();
+  login({login, password}: ILoginUserData): Observable<{token: string}> {
+    return this.http.post<{token: string}>(AUTH_SERVICE_HOST + '/login', {login, password})
+      .pipe(
+        tap( ({token}) => {
+          this.setTokenToLocalStorage(token, (user: User) => {this.user = user; });
+        })
+      );
   }
 
-  setTokenToLocalStorage(token: string): void {
+  setTokenToLocalStorage(token: string, callback): void {
     localStorage.setItem(L_STORAGE_AUTH_KEY, JSON.stringify(token));
-    // TODO: after saving the token send emit sending get request in order to get all required information about the user
+    this.getUserInfo(token)
+      .subscribe((res: IUser) => callback(res));
   }
 
-  setUserInfo(): void {
-    // TODO: send get request in order to get user information from the server in the response
-    this.user = new User(MOCKED_USER);
+  getUserInfo(token: string): Observable<object> {
+    return this.http.post(AUTH_SERVICE_HOST + '/userinfo', {token});
   }
 
   logout(): void {

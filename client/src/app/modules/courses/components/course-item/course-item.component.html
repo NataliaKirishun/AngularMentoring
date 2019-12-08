@@ -1,11 +1,11 @@
-<div class="course-item" [appCircleRound]="courseItem.date" [ngClass]="{'top-rated': topRated}">
+<div class="course-item" [appCircleRound]="courseItem.date" [ngClass]="{'top-rated': isTopRated}">
   <div class="course-item__header">
-    <h3 class="course-item__title">{{courseItem.title | uppercase}}
+    <h3 class="course-item__title">{{courseItem.name | uppercase}}
       <fa-icon *ngIf="topRated" class="course-item__star-icon" [icon]="faStar"></fa-icon>
     </h3>
     <div class="course-item__info-wrapper">
       <fa-icon class="course-item__icon" [icon]="faClock"></fa-icon>
-      <span class="course-item__duration">{{courseItem.duration | duration}}</span>
+      <span class="course-item__duration">{{courseItem.length | duration}}</span>
       <fa-icon class="course-item__icon" [icon]="faCalendarAlt"></fa-icon>
       <span class="course-item__date">{{courseItem.date | date:'d MMM, y' }}</span>
     </div>

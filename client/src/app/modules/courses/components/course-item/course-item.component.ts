@@ -20,14 +20,14 @@ export class CourseItemComponent implements OnInit {
   public faStar = faStar;
 
   public color: string = null;
-  public topRated: boolean;
+  public isTopRated: boolean;
 
   constructor(
     private router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.topRated = this.courseItem.topRated;
+    this.isTopRated = this.courseItem.isTopRated;
   }
 
   public editCourse(): void {
@@ -38,6 +38,6 @@ export class CourseItemComponent implements OnInit {
   public deleteCourse(): void {
     this.delete.emit({
       id: this.courseItem.id,
-      title: this.courseItem.title });
+      name: this.courseItem.name });
   }
 }

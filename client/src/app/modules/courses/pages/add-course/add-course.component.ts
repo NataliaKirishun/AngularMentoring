@@ -16,11 +16,14 @@ import { ModeType } from './constans/mode-type-enum';
 export class AddCourseComponent implements OnInit {
   public courseData: ICourseListItem = {
     id: null,
-    title: '',
+    name: '',
     description: '',
-    duration: null,
+    length: null,
     date: '',
-    authors: '',
+    authors: {
+      name: null,
+      id: null,
+    },
   };
   public mode: string;
 
@@ -32,7 +35,7 @@ export class AddCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe( (data) => {
-      const id = data.id;
+      const id = +data.id;
       if (id) {
         this.courseService.getItemById(id)
           .subscribe((courseData) => {
@@ -45,20 +48,25 @@ export class AddCourseComponent implements OnInit {
     });
   }
 
-  handleDuration(duration: number) {
-    this.courseData.duration = duration;
+  handleDuration(length: number) {
+    this.courseData.length = length;
   }
 
   handleDate(date: string) {
     this.courseData.date = date;
   }
 
-  handleAuthors(authors: string) {
-    this.courseData.authors = authors;
+  handleAuthors(author: string) {
+    const authorId = (new Date()).getTime();
+    this.courseData.authors = {
+      id: authorId,
+      name: author,
+    };
   }
 
   onSubmit() {
     const courseItem: ICourseListItem = new CourseListItem(this.courseData);
+    debugger;
     this.mode === ModeType.ADD ? this.createCourse(courseItem) : this.editCourse(courseItem);
   }
 

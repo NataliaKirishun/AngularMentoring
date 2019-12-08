@@ -62,7 +62,7 @@ export class BreadcrumbsComponent implements OnInit {
       if (id) {
         this.courseService.getItemById(id)
           .subscribe((courseData) => {
-            label = courseData.title;
+            label = courseData.name;
           });
       } else {
         label = child.snapshot.data.breadcrumb;
