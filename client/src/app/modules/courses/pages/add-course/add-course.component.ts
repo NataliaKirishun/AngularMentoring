@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { CourseListItem, ICourseListItem } from '../../models/course-list-item';
@@ -7,13 +7,14 @@ import { CourseService } from '../../services/course.service';
 import { formatDate } from '../../../../helpers/date-helper';
 
 import { ModeType } from './constans/mode-type-enum';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.less']
 })
-export class AddCourseComponent implements OnInit {
+export class AddCourseComponent implements OnInit, OnDestroy {
   public courseData: ICourseListItem = {
     id: null,
     name: '',
@@ -26,6 +27,7 @@ export class AddCourseComponent implements OnInit {
     },
   };
   public mode: string;
+  private subscription: Subscription;
 
   constructor(
     private courseService: CourseService,
@@ -37,12 +39,22 @@ export class AddCourseComponent implements OnInit {
     this.route.params.subscribe( (data) => {
       const id = +data.id;
       if (id) {
-        // this.courseData = this.courseService.getItemById(id);
+        this.subscription = this.courseService.getItemById(id)
+          .subscribe(
+            (course: ICourseListItem) =>  this.courseData = course,
+            error => console.log(error)
+          );
         this.mode = ModeType.EDIT;
       } else {
         this.mode = ModeType.ADD;
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   handleDuration(length: number) {
