@@ -70,12 +70,4 @@ export class CourseService {
   removeItem(id: number): Observable<{}> {
     return this.http.delete(AUTH_SERVICE_HOST + `/${id}`);
   }
-
-  removeCurrentItem(id: number): void {
-    const courseIndex = this.getCourseIndex(id);
-  }
-
-  private getCourseIndex(id: number) {
-
-  }
 }

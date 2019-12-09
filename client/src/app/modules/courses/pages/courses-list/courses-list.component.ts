@@ -97,11 +97,16 @@ export class CoursesListComponent implements
   }
 
   public removeCourse(): void {
-    this.courseService.removeItem(this.courseIdToDelete)
-      .subscribe( () => {
-        this.courseService.removeCurrentItem(this.courseIdToDelete);
-        this.closeModal(this.modalType);
-      });
+    this.subscription.push(this.courseService.removeItem(this.courseIdToDelete)
+      .subscribe(
+        () => {
+          this.closeModal(this.modalType);
+          const index = this.getCourseIndex(this.courseIdToDelete);
+          this.filteredList.splice(index, 1);
+      },
+        error => console.log(error)
+      )
+    );
   }
 
   public searchCourse(searchValue: string): void {
@@ -136,7 +141,11 @@ export class CoursesListComponent implements
         }
       },
       error => console.log(error))
-  );
+    );
+  }
+
+  private getCourseIndex(id: number): number {
+    return this.filteredList.findIndex( (course: ICourseListItem) => course.id === id);
   }
 }
 
