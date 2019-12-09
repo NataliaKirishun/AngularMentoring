@@ -15,8 +15,8 @@ import { ModalService } from '../../../../shared/modules/modal/service/modal.ser
 import { OrderByPipe } from '../../../../shared/pipes/order-by/order-by.pipe';
 import { FilterPipe } from '../../../../shared/pipes/filter/filter.pipe';
 import { ICourseListItem, IDeleteCourseEventData } from '../../models/course-list-item';
-
 import { MODAL_TYPES } from '../../../../config/modal.config';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-courses-list',
@@ -37,6 +37,8 @@ export class CoursesListComponent implements
   public modalType = MODAL_TYPES.DELETE_CONFIRMATION;
   private courseIdToDelete: number = null;
   public courseTitleToDelete: string = null;
+  private isToLoadMoreCourses = true;
+  private subscription: Subscription[] = [];
 
   constructor(
     private courseService: CourseService,
@@ -51,10 +53,12 @@ export class CoursesListComponent implements
 
   ngOnInit() {
     console.log('ngOnInit');
-    this.courseService.getList()
-      .subscribe(() => {
-        this.filteredList = this.courseService.courseList;
-      });
+    this.subscription.push(this.courseService.getList()
+      .subscribe(
+        (courses: ICourseListItem[]) => {
+          this.filteredList = courses;
+      },
+        error => console.log(error)));
   }
 
   ngDoCheck() {
@@ -79,6 +83,7 @@ export class CoursesListComponent implements
 
   ngOnDestroy() {
     console.log('ngOnDestroy');
+    this.subscription.forEach( subscribtion => subscribtion.unsubscribe());
   }
 
   get courseListLength() {
@@ -95,11 +100,6 @@ export class CoursesListComponent implements
     this.courseService.removeItem(this.courseIdToDelete)
       .subscribe( () => {
         this.courseService.removeCurrentItem(this.courseIdToDelete);
-        this.courseService.getList()
-          .subscribe( () => {
-            this.filteredList = this.courseService.courseList;
-            this.courseIdToDelete = null;
-          });
         this.closeModal(this.modalType);
       });
   }
@@ -107,8 +107,8 @@ export class CoursesListComponent implements
   public searchCourse(searchValue: string): void {
     this.courseService.searchCourses(searchValue)
       .subscribe( () => {
-        this.filteredList = this.courseService.courseList;
-      })
+
+      });
     this.filteredList = this.filterPipe.transform(this.filteredList, searchValue, 'name');
   }
 
@@ -126,9 +126,17 @@ export class CoursesListComponent implements
   }
 
   public loadCourses(): void {
-    this.courseService.loadMoreCourses()
-      .subscribe( () =>
-        this.filteredList = this.courseService.courseList);
+    this.subscription.push(this.courseService.loadMoreCourses()
+      .subscribe( ( courses: ICourseListItem[]) => {
+        console.log(courses);
+        if (courses.length === Number(this.courseService.pageAmount)){
+          this.filteredList.push(...courses);
+        } else {
+          this.isToLoadMoreCourses = false;
+        }
+      },
+      error => console.log(error))
+  );
   }
 }
 

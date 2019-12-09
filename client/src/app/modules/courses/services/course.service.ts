@@ -12,13 +12,10 @@ const AUTH_SERVICE_HOST = `${SERVICES_CONFIG.API_GATEWAY.PROTOCOL}://${SERVICES_
   providedIn: 'root',
 })
 export class CourseService {
-  public courseList: ICourseListItem[] = [];
-  private pageAmount = '4';
+  public pageAmount = '4';
   private coursesParams: ICoursesQueryParams = {
     start: '0',
     count: this.pageAmount,
-    sort: null,
-    filter: null,
     textFragment: null,
   };
 
@@ -35,11 +32,7 @@ export class CourseService {
       }
     })
       .pipe(
-        tap( (courses) => {
-          if (courses.length) {
-            this.courseList.push(...courses);
-          }
-        })
+        map( courses => courses.map( course => new CourseListItem(course)))
       );
   }
 
@@ -51,7 +44,6 @@ export class CourseService {
   searchCourses(searchStr: string): Observable<ICourseListItem[]> {
     this.coursesParams.textFragment = searchStr;
     this.coursesParams.start = '0';
-    this.courseList = [];
     return this.getList();
   }
 
@@ -73,7 +65,6 @@ export class CourseService {
 
   updateCurrentItem(course): void {
     const courseIndex = this.getCourseIndex(course.id);
-    this.courseList.splice(courseIndex, 1, course);
   }
 
   removeItem(id: number): Observable<{}> {
@@ -82,10 +73,9 @@ export class CourseService {
 
   removeCurrentItem(id: number): void {
     const courseIndex = this.getCourseIndex(id);
-    this.courseList.splice(courseIndex, 1);
   }
 
-  private getCourseIndex(id: number): number {
-    return this.courseList.findIndex( item => item.id === id);
+  private getCourseIndex(id: number) {
+
   }
 }
