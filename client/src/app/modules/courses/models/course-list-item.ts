@@ -23,6 +23,7 @@ export class CourseListItem implements ICourseListItem {
   public authors?;
 
   constructor(courseItem: ICourseListItem) {
+    this.id = courseItem.id;
     this.title = courseItem.title;
     this.description = courseItem.description;
     this.duration = courseItem.duration;

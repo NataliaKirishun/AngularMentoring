@@ -8,6 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { OrderByPipe } from './pipes/order-by/order-by.pipe';
 import { FilterPipe } from './pipes/filter/filter.pipe';
 import { DurationPipe } from './pipes/duration/duration.pipe';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { DurationPipe } from './pipes/duration/duration.pipe';
   imports: [
     CommonModule,
     ModalModule,
+    RouterModule,
   ],
   exports: [
     ModalModule,

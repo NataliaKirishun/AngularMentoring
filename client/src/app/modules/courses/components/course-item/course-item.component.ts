@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faCalendarAlt, faClock, faPencilAlt, faStar, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-
+import { Router } from '@angular/router';
 import { ICourseListItem, IDeleteCourseEventData } from '../../models/course-list-item';
 
 @Component({
@@ -22,13 +22,16 @@ export class CourseItemComponent implements OnInit {
   public color: string = null;
   public topRated: boolean;
 
-  constructor() {}
+  constructor(
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.topRated = this.courseItem.topRated;
   }
 
   public editCourse(): void {
+    this.router.navigate(['courses', this.courseItem.id]);
     console.log('edit course');
   }
 
