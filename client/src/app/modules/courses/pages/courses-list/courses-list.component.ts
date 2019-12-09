@@ -105,11 +105,11 @@ export class CoursesListComponent implements
   }
 
   public searchCourse(searchValue: string): void {
-    this.courseService.searchCourses(searchValue)
-      .subscribe( () => {
-
-      });
-    this.filteredList = this.filterPipe.transform(this.filteredList, searchValue, 'name');
+    this.subscription.push(this.courseService.searchCourses(searchValue)
+      .subscribe( (courses: ICourseListItem[]) => {
+        this.filteredList = courses;
+      })
+  );
   }
 
   public openModal(type: string) {
