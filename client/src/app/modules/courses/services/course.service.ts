@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ICourseListItem } from '../models/course-list-item';
+import {CourseListItem, ICourseListItem} from '../models/course-list-item';
 import { SERVICES_CONFIG } from '../../../config/services.config';
 import { HttpClient } from '@angular/common/http';
 import { ICoursesQueryParams } from '../models/courses-query-params';
-import { tap } from 'rxjs/internal/operators';
+import { map, tap} from 'rxjs/internal/operators';
 
 const AUTH_SERVICE_HOST = `${SERVICES_CONFIG.API_GATEWAY.PROTOCOL}://${SERVICES_CONFIG.API_GATEWAY.HOST}/courses`;
 
@@ -59,8 +59,12 @@ export class CourseService {
     return this.http.post(AUTH_SERVICE_HOST, course);
   }
 
-  getItemById(id: number): ICourseListItem {
-    return this.courseList.find( item => item.id === id );
+  getItemById(id: number): Observable<ICourseListItem> {
+    return this.http.get(AUTH_SERVICE_HOST + `/${id}`)
+      .pipe(
+        map( (course: ICourseListItem) => new CourseListItem(course))
+      );
+    // return this.courseList.find( item => item.id === id );
   }
 
   updateItem(course: ICourseListItem): Observable<{}> {

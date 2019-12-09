@@ -5,6 +5,7 @@ import { CoursesComponent } from './courses.component';
 import { AddCourseComponent } from './pages/add-course/add-course.component';
 import { CoursesListComponent } from './pages/courses-list/courses-list.component';
 import { AuthGuard } from '../../shared/guards/auth/auth.guard';
+import { CourseDetailResolverService } from './services/course-detail-resolver.service';
 
 const routes: Routes = [
   {
@@ -35,8 +36,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: AddCourseComponent,
         data: {
-          breadcrumb: null,
+          breadcrumb: 'Edit Course',
         },
+        resolve: {
+          course: CourseDetailResolverService,
+        }
       },
     ]
   }

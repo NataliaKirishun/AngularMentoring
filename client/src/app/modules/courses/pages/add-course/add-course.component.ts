@@ -37,7 +37,7 @@ export class AddCourseComponent implements OnInit {
     this.route.params.subscribe( (data) => {
       const id = +data.id;
       if (id) {
-        this.courseData = this.courseService.getItemById(id);
+        // this.courseData = this.courseService.getItemById(id);
         this.mode = ModeType.EDIT;
       } else {
         this.mode = ModeType.ADD;
