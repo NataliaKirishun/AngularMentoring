@@ -3,7 +3,7 @@ import { ILoginUserData, IUser, User } from '../models/user';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SERVICES_CONFIG } from '../../config/services.config';
-import {tap} from 'rxjs/internal/operators';
+import { tap } from 'rxjs/internal/operators';
 
 
 const L_STORAGE_AUTH_KEY = 'AUTH_TOKEN';

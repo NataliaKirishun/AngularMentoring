@@ -42,7 +42,6 @@ export class CoursesListComponent implements
 
   constructor(
     private courseService: CourseService,
-    private filterPipe: FilterPipe,
     private modalService: ModalService,
     private router: Router,
   ) {}
@@ -55,9 +54,7 @@ export class CoursesListComponent implements
     console.log('ngOnInit');
     this.subscription.push(this.courseService.getList()
       .subscribe(
-        (courses: ICourseListItem[]) => {
-          this.filteredList = courses;
-      },
+        (courses: ICourseListItem[]) => this.filteredList = courses,
         error => console.log(error)));
   }
 
@@ -111,10 +108,11 @@ export class CoursesListComponent implements
 
   public searchCourse(searchValue: string): void {
     this.subscription.push(this.courseService.searchCourses(searchValue)
-      .subscribe( (courses: ICourseListItem[]) => {
-        this.filteredList = courses;
-      })
-  );
+      .subscribe(
+        (courses: ICourseListItem[]) => this.filteredList = courses,
+        error => console.log(error)
+      )
+    );
   }
 
   public openModal(type: string) {
@@ -133,8 +131,7 @@ export class CoursesListComponent implements
   public loadCourses(): void {
     this.subscription.push(this.courseService.loadMoreCourses()
       .subscribe( ( courses: ICourseListItem[]) => {
-        console.log(courses);
-        if (courses.length === Number(this.courseService.pageAmount)){
+        if (courses.length === Number(this.courseService.pageAmount)) {
           this.filteredList.push(...courses);
         } else {
           this.isToLoadMoreCourses = false;

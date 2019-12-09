@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import {CourseListItem, ICourseListItem} from '../models/course-list-item';
+import { Observable } from 'rxjs';
+import { CourseListItem, ICourseListItem } from '../models/course-list-item';
 import { SERVICES_CONFIG } from '../../../config/services.config';
 import { HttpClient } from '@angular/common/http';
 import { ICoursesQueryParams } from '../models/courses-query-params';
-import { map, tap} from 'rxjs/internal/operators';
+import { map } from 'rxjs/internal/operators';
 
 const AUTH_SERVICE_HOST = `${SERVICES_CONFIG.API_GATEWAY.PROTOCOL}://${SERVICES_CONFIG.API_GATEWAY.HOST}/courses`;
 
@@ -47,8 +47,11 @@ export class CourseService {
     return this.getList();
   }
 
-  createCourse(course: ICourseListItem): Observable<{}> {
-    return this.http.post(AUTH_SERVICE_HOST, course);
+  createCourse(course: ICourseListItem): Observable<ICourseListItem> {
+    return this.http.post(AUTH_SERVICE_HOST, course)
+      .pipe(
+        map( (course: ICourseListItem) => new CourseListItem(course))
+      );
   }
 
   getItemById(id: number): Observable<ICourseListItem> {
@@ -56,15 +59,13 @@ export class CourseService {
       .pipe(
         map( (course: ICourseListItem) => new CourseListItem(course))
       );
-    // return this.courseList.find( item => item.id === id );
   }
 
-  updateItem(course: ICourseListItem): Observable<{}> {
-    return this.http.patch(AUTH_SERVICE_HOST, course);
-  }
-
-  updateCurrentItem(course): void {
-    const courseIndex = this.getCourseIndex(course.id);
+  updateItem(course: ICourseListItem): Observable<ICourseListItem> {
+    return this.http.patch(AUTH_SERVICE_HOST, course)
+      .pipe (
+        map( (course: ICourseListItem) => new CourseListItem(course))
+      );
   }
 
   removeItem(id: number): Observable<{}> {

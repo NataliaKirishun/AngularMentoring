@@ -27,7 +27,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
     },
   };
   public mode: string;
-  private subscription: Subscription;
+  private subscription: Subscription[] = [];
 
   constructor(
     private courseService: CourseService,
@@ -39,11 +39,12 @@ export class AddCourseComponent implements OnInit, OnDestroy {
     this.route.params.subscribe( (data) => {
       const id = +data.id;
       if (id) {
-        this.subscription = this.courseService.getItemById(id)
+        this.subscription.push(this.courseService.getItemById(id)
           .subscribe(
             (course: ICourseListItem) =>  this.courseData = course,
             error => console.log(error)
-          );
+          )
+        );
         this.mode = ModeType.EDIT;
       } else {
         this.mode = ModeType.ADD;
@@ -52,8 +53,8 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this.subscription.length) {
+      this.subscription.forEach( subscribtion => subscribtion.unsubscribe());
     }
   }
 
@@ -87,17 +88,20 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   }
 
   createCourse(course: ICourseListItem): void {
-    this.courseService.createCourse(course)
-      .subscribe(() =>  {
-        this.router.navigate(['courses']);
-      });
+    this.subscription.push(this.courseService.createCourse(course)
+      .subscribe(
+        () => this.router.navigate(['courses']),
+        error => console.log(error)
+      )
+    );
   }
 
   editCourse(course: ICourseListItem): void {
-    this.courseService.updateItem(course)
-      .subscribe( () => {
-        this.courseService.updateCurrentItem(course);
-        this.router.navigate(['courses']);
-      });
+    this.subscription.push(this.courseService.updateItem(course)
+      .subscribe(
+      () => this.router.navigate(['courses']),
+      error => console.log(error)
+      )
+    );
   }
 }
