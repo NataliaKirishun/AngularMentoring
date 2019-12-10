@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CourseListItem, ICourseListItem } from '../models/course-list-item';
-import { SERVICES_CONFIG } from '../../../config/services.config';
+import { API_GATEWAY } from '../../../config/services.config';
 import { HttpClient } from '@angular/common/http';
 import { ICoursesQueryParams } from '../models/courses-query-params';
 import { map } from 'rxjs/internal/operators';
 
-const AUTH_SERVICE_HOST = `${SERVICES_CONFIG.API_GATEWAY.PROTOCOL}://${SERVICES_CONFIG.API_GATEWAY.HOST}/courses`;
+const AUTH_SERVICE_HOST = `${API_GATEWAY.PROTOCOL}://${API_GATEWAY.HOST}/courses`;
 
 @Injectable({
   providedIn: 'root',
