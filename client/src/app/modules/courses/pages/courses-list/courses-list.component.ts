@@ -37,7 +37,7 @@ export class CoursesListComponent implements
   public modalType = MODAL_TYPES.DELETE_CONFIRMATION;
   private courseIdToDelete: number = null;
   public courseTitleToDelete: string = null;
-  private isToLoadMoreCourses = true;
+  public isToLoadMoreCourses = true;
   private subscription: Subscription[] = [];
 
   constructor(

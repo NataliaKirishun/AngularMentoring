@@ -13,7 +13,6 @@ export class CourseDetailResolverService implements Resolve<ICourseListItem> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICourseListItem> {
     const id = Number(route.paramMap.get('id'));
-    console.log({ id });
     return this.courseService.getItemById(id);
   }
 }
