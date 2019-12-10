@@ -1,3 +1,3 @@
-export const MODAL_TYPES = {
-  DELETE_CONFIRMATION: 'delete-confirmation',
-};
+export enum ModalTypes {
+  DeleteConfirmation = 'delete-confirmation',
+}

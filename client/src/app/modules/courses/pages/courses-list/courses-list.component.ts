@@ -15,7 +15,7 @@ import { ModalService } from '../../../../shared/modules/modal/service/modal.ser
 import { OrderByPipe } from '../../../../shared/pipes/order-by/order-by.pipe';
 import { FilterPipe } from '../../../../shared/pipes/filter/filter.pipe';
 import { ICourseListItem, IDeleteCourseEventData } from '../../models/course-list-item';
-import { MODAL_TYPES } from '../../../../config/modal.config';
+import { ModalTypes } from '../../../../config/modal.config';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -34,7 +34,7 @@ export class CoursesListComponent implements
   AfterViewChecked,
   OnDestroy {
   public filteredList: ICourseListItem[] = [];
-  public modalType = MODAL_TYPES.DELETE_CONFIRMATION;
+  public modalType = ModalTypes.DeleteConfirmation;
   private courseIdToDelete: number = null;
   public courseTitleToDelete: string = null;
   public isToLoadMoreCourses = true;
