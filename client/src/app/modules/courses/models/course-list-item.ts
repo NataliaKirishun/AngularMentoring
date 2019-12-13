@@ -1,3 +1,5 @@
+import {IUser} from "../../../core/models/user";
+
 export interface IAuthors {
   id: number;
   name: string;
@@ -27,13 +29,7 @@ export class CourseListItem implements ICourseListItem {
   public authors?;
   public isTopRated;
 
-  constructor(courseItem: ICourseListItem) {
-    this.id = courseItem.id;
-    this.name = courseItem.name;
-    this.date = courseItem.date;
-    this.length = courseItem.length;
-    this.description = courseItem.description;
-    this.authors = courseItem.authors;
-    this.isTopRated = courseItem.isTopRated;
+  constructor(courseItem: Partial<ICourseListItem>) {
+    Object.assign(this, courseItem);
   }
 }

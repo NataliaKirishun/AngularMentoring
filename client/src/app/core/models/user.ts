@@ -24,12 +24,8 @@ export class User implements IUser {
   readonly login;
   readonly password;
 
-  constructor(user: IUser) {
-    this.id = user.id;
-    this.token = user.token;
-    this.name = user.name;
-    this.login = user.login;
-    this.password = user.password;
+  constructor(user: Partial<IUser>) {
+    Object.assign(this, user);
   }
 }
 
