@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ICoursesQueryParams } from '../models/courses-query-params';
 import { map } from 'rxjs/internal/operators';
 
-const AUTH_SERVICE_HOST = `${API_GATEWAY.PROTOCOL}://${API_GATEWAY.HOST}/courses`;
+const AUTH_SERVICE_HOST = `${API_GATEWAY}/courses`;
 
 @Injectable({
   providedIn: 'root',

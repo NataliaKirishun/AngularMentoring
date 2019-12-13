@@ -9,7 +9,7 @@ import { tap } from 'rxjs/internal/operators';
 const L_STORAGE_AUTH_KEY = 'AUTH_TOKEN';
 const L_STORAGE_USER_KEY = 'USER_DATA';
 
-const AUTH_SERVICE_HOST = `${API_GATEWAY.PROTOCOL}://${API_GATEWAY.HOST}/auth`;
+const AUTH_SERVICE_HOST = `${API_GATEWAY}/auth`;
 
 @Injectable()
 export class AuthorizationService {

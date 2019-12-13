@@ -1,4 +1,1 @@
-export const API_GATEWAY = {
-    PROTOCOL: 'http',
-    HOST: 'localhost:3004',
-};
+export const API_GATEWAY = 'http://localhost:3004';
