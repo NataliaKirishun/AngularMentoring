@@ -16,6 +16,7 @@ import { AddCourseComponent } from './pages/add-course/add-course.component';
 import { CourseAuthorsComponent } from './components/course-inputs/course-authors/course-authors.component';
 import { CourseDateComponent } from './components/course-inputs/course-date/course-date.component';
 import { CourseDurationComponent } from './components/course-inputs/course-duration/course-duration.component';
+import { CourseDetailResolverService } from './services/course-detail-resolver.service';
 
 @NgModule({
   declarations: [
@@ -37,5 +38,8 @@ import { CourseDurationComponent } from './components/course-inputs/course-durat
     SharedModule,
     CoursesRoutingModule,
   ],
+  providers: [
+    CourseDetailResolverService,
+  ]
 })
 export class CoursesModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { CourseListItem, ICourseListItem } from '../../models/course-list-item';
@@ -7,22 +7,27 @@ import { CourseService } from '../../services/course.service';
 import { formatDate } from '../../../../helpers/date-helper';
 
 import { ModeType } from './constans/mode-type-enum';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.less']
 })
-export class AddCourseComponent implements OnInit {
+export class AddCourseComponent implements OnInit, OnDestroy {
   public courseData: ICourseListItem = {
     id: null,
-    title: '',
+    name: '',
     description: '',
-    duration: null,
+    length: null,
     date: '',
-    authors: '',
+    authors: {
+      name: null,
+      id: null,
+    },
   };
   public mode: string;
+  private subscription: Subscription[] = [];
 
   constructor(
     private courseService: CourseService,
@@ -32,12 +37,14 @@ export class AddCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe( (data) => {
-      const id = data.id;
+      const id = +data.id;
       if (id) {
-        this.courseService.getItemById(id)
-          .subscribe((courseData) => {
-            this.courseData = courseData;
-        });
+        this.subscription.push(this.courseService.getItemById(id)
+          .subscribe(
+            (course: ICourseListItem) =>  this.courseData = course,
+            error => console.log(error)
+          )
+        );
         this.mode = ModeType.EDIT;
       } else {
         this.mode = ModeType.ADD;
@@ -45,16 +52,26 @@ export class AddCourseComponent implements OnInit {
     });
   }
 
-  handleDuration(duration: number) {
-    this.courseData.duration = duration;
+  ngOnDestroy() {
+    if (this.subscription.length) {
+      this.subscription.forEach( subscribtion => subscribtion.unsubscribe());
+    }
+  }
+
+  handleDuration(length: number) {
+    this.courseData.length = length;
   }
 
   handleDate(date: string) {
     this.courseData.date = date;
   }
 
-  handleAuthors(authors: string) {
-    this.courseData.authors = authors;
+  handleAuthors(author: string) {
+    const authorId = (new Date()).getTime();
+    this.courseData.authors = {
+      id: authorId,
+      name: author,
+    };
   }
 
   onSubmit() {
@@ -71,16 +88,20 @@ export class AddCourseComponent implements OnInit {
   }
 
   createCourse(course: ICourseListItem): void {
-    this.courseService.createCourse(course)
-      .subscribe(() =>  {
-        this.router.navigate(['courses']);
-      });
+    this.subscription.push(this.courseService.createCourse(course)
+      .subscribe(
+        () => this.router.navigate(['courses']),
+        error => console.log(error)
+      )
+    );
   }
 
   editCourse(course: ICourseListItem): void {
-    this.courseService.updateItem(course)
-      .subscribe( () => {
-        this.router.navigate(['courses']);
-      });
+    this.subscription.push(this.courseService.updateItem(course)
+      .subscribe(
+      () => this.router.navigate(['courses']),
+      error => console.log(error)
+      )
+    );
   }
 }

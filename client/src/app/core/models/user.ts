@@ -1,6 +1,6 @@
 export interface ILoginUserData {
-  userEmail: string;
-  userPassword: string;
+  login: string;
+  password: string;
 }
 
 export interface IName {
@@ -10,19 +10,22 @@ export interface IName {
 }
 
 export interface IUser {
-  id: string;
+  id: number;
+  token: string;
   name: IName;
-  photo?: string;
+  login: string;
+  password: string;
 }
 
 export class User implements IUser {
   readonly id;
+  readonly token;
   public name;
-  public photo;
+  readonly login;
+  readonly password;
 
-  constructor(user: IUser) {
-    this.id = user.id;
-    this.name = user.name;
-    this.photo = user.photo;
+  constructor(user: Partial<IUser>) {
+    Object.assign(this, user);
   }
 }
+

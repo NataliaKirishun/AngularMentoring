@@ -47,7 +47,7 @@ export class BreadcrumbsComponent implements OnInit {
       if (routeURL !== '') {
         url += `/${routeURL}`;
       }
-      const label = this.getLabel(child);
+      const label = this.getLabel(child.snapshot.data);
       if (label) {
         breadcrumbs.push({label, url});
       }
@@ -55,19 +55,10 @@ export class BreadcrumbsComponent implements OnInit {
     }
   }
 
-  private getLabel(child: ActivatedRoute): string {
-    let label;
-    child.params.subscribe((data) => {
-      const id = data.id;
-      if (id) {
-        this.courseService.getItemById(id)
-          .subscribe((courseData) => {
-            label = courseData.title;
-          });
-      } else {
-        label = child.snapshot.data.breadcrumb;
+  private getLabel(data): string {
+      if (data.course) {
+        return data.course.name;
       }
-    });
-    return label;
+      return data.breadcrumb;
   }
 }

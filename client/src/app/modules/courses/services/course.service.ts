@@ -1,67 +1,74 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { CourseListItem, ICourseListItem } from '../models/course-list-item';
+import { API_GATEWAY } from '../../../config/services.config';
+import { HttpClient } from '@angular/common/http';
+import { ICoursesQueryParams } from '../models/courses-query-params';
+import { map } from 'rxjs/internal/operators';
 
-import { ICourseListItem } from '../models/course-list-item';
+const AUTH_SERVICE_HOST = `${API_GATEWAY}/courses`;
 
 @Injectable({
   providedIn: 'root',
 })
 export class CourseService {
-  courseList: ICourseListItem[] = [
-    {
-      id: '9adged88',
-      title: 'Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag Video Course 1. Name tag',
-      duration: 88,
-      date: 'Tue Nov 05 2019 13:58:23 GMT',
-      description: 'about various components of a course description. Course descriptions report information about a university or college\'s classes. They\'re published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
-      topRated: true,
-      authors: 'John Doe',
-    },
-    {
-      id: '9adged87',
-      title: 'Hello hello hello',
-      duration: 88,
-      date: 'Sun Nov 12 2019 13:58:23 GMT',
-      description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college\'s classes. They\'re published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
-      topRated: true,
-    },
-    {
-      id: '9adged87',
-      title: 'Video Course 1. Name tag',
-      duration: 88,
-      date: 'Jan 09 2018 13:58:23 GMT',
-      description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college\'s classes. They\'re published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
-      topRated: false,
-    }
-  ];
+  public pageAmount = '4';
+  private coursesParams: ICoursesQueryParams = {
+    start: '0',
+    count: this.pageAmount,
+    textFragment: null,
+  };
+
+  constructor(
+    private http: HttpClient,
+  ){}
 
   getList(): Observable<ICourseListItem[]> {
-    return of(this.courseList);
+    return this.http.get<ICourseListItem[]>(AUTH_SERVICE_HOST, {
+      params: {
+        start: String(this.coursesParams.start),
+        count: String(this.coursesParams.count),
+        textFragment: this.coursesParams.textFragment,
+      }
+    })
+      .pipe(
+        map( courses => courses.map( course => new CourseListItem(course)))
+      );
+  }
+
+  loadMoreCourses(): Observable<ICourseListItem[]> {
+    this.coursesParams.start = String(Number(this.coursesParams.start) + Number(this.pageAmount));
+    return this.getList();
+  }
+
+  searchCourses(searchStr: string): Observable<ICourseListItem[]> {
+    this.coursesParams.textFragment = searchStr;
+    this.coursesParams.start = '0';
+    return this.getList();
   }
 
   createCourse(course: ICourseListItem): Observable<ICourseListItem> {
-    const newId = (new Date()).getTime().toString();
-    this.courseList.push({...course, id: newId});
-    return of(this.courseList[this.courseList.length - 1]);
+    return this.http.post(AUTH_SERVICE_HOST, course)
+      .pipe(
+        map( (course: ICourseListItem) => new CourseListItem(course))
+      );
   }
 
-  getItemById(id: string): Observable<ICourseListItem> {
-    return of(this.courseList.find( item => item.id === id ));
+  getItemById(id: number): Observable<ICourseListItem> {
+    return this.http.get(AUTH_SERVICE_HOST + `/${id}`)
+      .pipe(
+        map( (course: ICourseListItem) => new CourseListItem(course))
+      );
   }
 
   updateItem(course: ICourseListItem): Observable<ICourseListItem> {
-    const courseIndex = this.getCourseIndex(course.id);
-    this.courseList.splice(courseIndex, 1, course);
-    return of(course);
+    return this.http.patch(AUTH_SERVICE_HOST, course)
+      .pipe (
+        map( (course: ICourseListItem) => new CourseListItem(course))
+      );
   }
 
-  removeItem(id: string): Observable<any> {
-    const courseIndex = this.getCourseIndex(id);
-    this.courseList.splice(courseIndex, 1);
-    return of('');
-  }
-
-  private getCourseIndex(id: string): number {
-    return this.courseList.findIndex( item => item.id === id);
+  removeItem(id: number): Observable<{}> {
+    return this.http.delete(AUTH_SERVICE_HOST + `/${id}`);
   }
 }
