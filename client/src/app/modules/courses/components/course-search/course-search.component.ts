@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-search',
@@ -15,7 +16,11 @@ export class CourseSearchComponent {
       observer.next(searchValue);
     });
 
-    observable.subscribe((query: string) => {
+    observable
+      .pipe(
+        filter(query => !query || query.length >= 3),
+      )
+      .subscribe((query: string) => {
       this.search.emit(query);
     });
   }
