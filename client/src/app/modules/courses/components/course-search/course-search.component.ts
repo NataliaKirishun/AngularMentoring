@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-search',
@@ -19,6 +19,7 @@ export class CourseSearchComponent {
     observable
       .pipe(
         filter(query => !query || query.length >= 3),
+        debounceTime(200)
       )
       .subscribe((query: string) => {
       this.search.emit(query);
