@@ -18,7 +18,7 @@ export class CourseSearchComponent {
 
     observable
       .pipe(
-        filter(query => !query || query.length >= 3),
+        filter( (query: string) => !query || query.length >= 3),
         debounceTime(200)
       )
       .subscribe((query: string) => {

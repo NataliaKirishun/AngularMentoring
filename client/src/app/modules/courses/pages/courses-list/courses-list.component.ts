@@ -107,6 +107,7 @@ export class CoursesListComponent implements
   }
 
   public searchCourse(searchValue: string): void {
+    console.log('searchValue', searchValue);
     this.subscription.push(this.courseService.searchCourses(searchValue)
       .subscribe(
         (courses: ICourseListItem[]) => this.filteredList = courses,
