@@ -1,4 +1,4 @@
-<div class="loader-overlay" *ngIf="show">
+<div *ngIf="isLoading | async" class="loader-overlay">
   <div class="spinner">
     <div></div>
     <div></div>

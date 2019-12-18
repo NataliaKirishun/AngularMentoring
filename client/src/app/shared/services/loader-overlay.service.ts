@@ -3,17 +3,13 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class LoaderOverlayService {
-  private visibility: Subject<boolean> = new Subject<boolean>();
+  public isLoading: Subject<boolean> = new Subject<boolean>();
 
   public showLoader(): void {
-    this.visibility.next(true);
+    this.isLoading.next(true);
   }
 
   public hideLoader(): void {
-    this.visibility.next(false);
-  }
-
-  public shouldLoaderBeVisible(): Observable<boolean> {
-    return this.visibility.asObservable();
+    this.isLoading.next(false);
   }
 }
