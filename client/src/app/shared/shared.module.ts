@@ -10,7 +10,10 @@ import { FilterPipe } from './pipes/filter/filter.pipe';
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { RouterModule } from '@angular/router';
 import { AuthInterceptor } from './interceptors/token.interceptor';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderOverlayComponent } from './components/loader-overlay/loader-overlay.component';
+import { LoaderOverlayService } from './services/loader-overlay.service';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     OrderByPipe,
     FilterPipe,
     DurationPipe,
+    LoaderOverlayComponent,
   ],
   imports: [
     CommonModule,
@@ -31,12 +35,15 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     HeaderComponent,
     BreadcrumbsComponent,
     FooterComponent,
+    LoaderOverlayComponent,
     OrderByPipe,
     FilterPipe,
     DurationPipe,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    LoaderOverlayService,
   ]
 })
 export class SharedModule { }
