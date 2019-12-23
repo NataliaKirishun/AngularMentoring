@@ -8,6 +8,8 @@ import { CoursesModule } from './modules/courses/courses.module';
 import { LoginModule } from './modules/login/login.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RootStoreModule } from './store/root-store.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
     SharedModule,
     CoursesModule,
     LoginModule,
+    RootStoreModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: false,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

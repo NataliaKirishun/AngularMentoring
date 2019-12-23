@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorizationService } from '../../../core/authorization/authorization.service';
-import { CourseService } from '../../../modules/courses/services/course.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { IBreadcrumb } from '../../models/breadcrumb';
 import { filter } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/app.states';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -12,13 +13,15 @@ import { filter } from 'rxjs/operators';
 })
 export class BreadcrumbsComponent implements OnInit {
   public breadcrumbs: IBreadcrumb[] = [];
+  public isAuth: Observable<boolean>;
 
   constructor(
-    private authService: AuthorizationService,
-    private courseService: CourseService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    ) {}
+    private store: Store<AppState>
+    ) {
+    this.isAuth = this.store.select('authState', 'isAuthenticated');
+  }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -27,10 +30,6 @@ export class BreadcrumbsComponent implements OnInit {
         let root: ActivatedRoute = this.activatedRoute.root;
         this.breadcrumbs = this.getBreadcrumbs(root);
     });
-  }
-
-  get isAuth(): boolean {
-    return this.authService.isAuth();
   }
 
   get isPageExist(): boolean {
