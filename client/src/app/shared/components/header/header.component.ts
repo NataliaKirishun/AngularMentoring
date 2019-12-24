@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AuthorizationService } from '../../../core/authorization/authorization.service';
-import { User } from '../../../core/models/user';
+import { IName } from '../../../core/models/user';
 import { HEADER_CONFIG } from 'src/app/config/header.config';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { State } from '../../../store/root-state';
+import { LoginPageActions } from 'src/app/store/auth-store/actions';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +15,12 @@ import { HEADER_CONFIG } from 'src/app/config/header.config';
 export class HeaderComponent implements OnInit {
   public logoPath: string;
   public logoText: string;
+  public name: Observable<IName> = this.store.select( state => state.auth.name);
+  public isAuth: Observable<boolean>  = this.store.select( state => state.auth.isAuthenticated);
 
   constructor(
-    private authService: AuthorizationService,
     private router: Router,
+    private store: Store<State>
   ) {}
 
   ngOnInit(): void {
@@ -25,20 +29,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut(): void {
-    this.authService.logout();
-    this.router.navigate(['login']);
+    this.store.dispatch(LoginPageActions.logout());
   }
 
   logIn(): void {
-    console.log('login');
     this.router.navigate(['login']);
-  }
-
-  get isAuth(): boolean {
-    return this.authService.isAuth();
-  }
-
-  get user(): User {
-    return this.authService.user;
   }
 }
