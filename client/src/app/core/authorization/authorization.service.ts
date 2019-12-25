@@ -35,12 +35,7 @@ export class AuthorizationService {
   }
 
   login(login: string, password: string): Observable<{token: string}> {
-    return this.http.post<{token: string}>(AUTH_SERVICE_HOST + '/login', {login, password})
-      // .pipe(
-      //   tap( ({token}) => {
-      //     this.setTokenToLocalStorage(token, (user: User) => {this.user = user; });
-      //   })
-      // );
+    return this.http.post<{token: string}>(AUTH_SERVICE_HOST + '/login', {login, password});
   }
 
   setTokenToLocalStorage(token: string, callback): void {
