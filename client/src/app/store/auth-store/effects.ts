@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import { AuthorizationService } from '../../core/authorization/authorization.service';
-import { LoginPageActions, AuthApiActions } from 'src/app/store/auth-store/actions';
+import { LoginPageActions, AuthApiActions } from './actions';
 import { L_STORAGE_AUTH_KEY, L_STORAGE_USER_KEY } from '../../config/services.config';
 import { User } from '../../core/models/user';
 import { Router } from '@angular/router';

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { RootStoreState } from '../../store';
-import { LoginPageActions } from 'src/app/store/auth-store/actions';
+import { LoginPageActions } from '../../store/auth-store/actions';
 
 @Component({
   selector: 'app-login',
