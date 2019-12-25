@@ -10,6 +10,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { RootStoreState } from '../../../../store';
 import { CoursePageActions } from '../../../../store/course-store/actions';
+import { CourseStoreSelectors } from '../../../../store/course-store';
 
 @Component({
   selector: 'app-courses-list',
@@ -18,7 +19,7 @@ import { CoursePageActions } from '../../../../store/course-store/actions';
   providers: [ ModalService, OrderByPipe, FilterPipe ],
 })
 export class CoursesListComponent implements OnInit, OnDestroy {
-  public filteredList: Observable<ICourseListItem[]> = this.store.select( state => state.course.courses);
+  public filteredList: Observable<ICourseListItem[]> = this.store.select(CourseStoreSelectors.selectAllCourses)
   public modalType = ModalTypes.DeleteConfirmation;
   private courseIdToDelete: number = null;
   public courseTitleToDelete: string = null;
@@ -45,18 +46,10 @@ export class CoursesListComponent implements OnInit, OnDestroy {
     this.openModal(this.modalType);
   }
 
-  // public removeCourse(): void {
-  //   this.subscription.push(this.courseService.removeItem(this.courseIdToDelete)
-  //     .subscribe(
-  //       () => {
-  //         this.closeModal(this.modalType);
-  //         const index = this.getCourseIndex(this.courseIdToDelete);
-  //         this.filteredList.splice(index, 1);
-  //     },
-  //       error => console.log(error)
-  //     )
-  //   );
-  // }
+  public removeCourse(): void {
+    this.store.dispatch(CoursePageActions.deleteCourse({id: this.courseIdToDelete}));
+    this.closeModal(this.modalType);
+  }
 
   // public searchCourse(searchValue: string): void {
   //   this.subscription.push(this.courseService.searchCourses(searchValue)

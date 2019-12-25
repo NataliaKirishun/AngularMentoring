@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { CourseListItem, ICourseListItem } from '../../models/course-list-item';
 import { CourseService } from '../../services/course.service';
-
 import { formatDate } from '../../../../helpers/date-helper';
-
 import { ModeType } from './constans/mode-type-enum';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { RootStoreState } from '../../../../store';
+import { CoursePageActions } from '../../../../store/course-store/actions';
 
 @Component({
   selector: 'app-add-course',
@@ -33,6 +33,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
     private courseService: CourseService,
     private router: Router,
     private route: ActivatedRoute,
+    private store: Store<RootStoreState.State>
   ) {}
 
   ngOnInit(): void {
@@ -88,20 +89,10 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   }
 
   createCourse(course: ICourseListItem): void {
-    this.subscription.push(this.courseService.createCourse(course)
-      .subscribe(
-        () => this.router.navigate(['courses']),
-        error => console.log(error)
-      )
-    );
+    this.store.dispatch(CoursePageActions.createCourse({course}));
   }
 
   editCourse(course: ICourseListItem): void {
-    this.subscription.push(this.courseService.updateItem(course)
-      .subscribe(
-      () => this.router.navigate(['courses']),
-      error => console.log(error)
-      )
-    );
+    this.store.dispatch(CoursePageActions.editCourse({course}));
   }
 }
