@@ -62,10 +62,11 @@ export class CourseService {
   }
 
   updateItem(course: ICourseListItem): Observable<ICourseListItem> {
+    console.log(course, 'course');
     return this.http.patch(AUTH_SERVICE_HOST, course)
       .pipe (
         map( (course: ICourseListItem) => new CourseListItem(course))
-      );
+    );
   }
 
   removeItem(id: number): Observable<{}> {
