@@ -6,6 +6,8 @@ export enum ActionTypes {
   EDIT_COURSE = '[Course] Edit course',
   DELETE_COURSE = '[Course] Delete course',
   CREATE_COURSE = '[Course] Create course',
+  SEARCH_COURSE = '[Course] Search course',
+  LOAD_MORE_COURSES = '[Course] Load more courses',
 }
 
 export const loadCourses = createAction(
@@ -25,4 +27,13 @@ export const deleteCourse = createAction(
 export const createCourse = createAction(
   ActionTypes.CREATE_COURSE,
   props<{ course: ICourseListItem }>()
+);
+
+export const searchCourses = createAction(
+  ActionTypes.SEARCH_COURSE,
+  props<{ value: string }>()
+);
+
+export const loadMoreCourses = createAction(
+  ActionTypes.LOAD_MORE_COURSES,
 );

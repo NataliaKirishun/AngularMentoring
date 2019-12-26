@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { CourseStoreEffects } from './effects';
-import { courseReducer } from './reducers';
+import { CourseStoreEffects } from './course.effects';
+import { courseReducer } from './course.reducers';
 
 @NgModule({
   imports: [

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, catchError, switchMap, tap } from 'rxjs/operators';
+import { map, catchError, switchMap, tap, mergeAll } from 'rxjs/operators';
 import { AuthorizationService } from '../../core/authorization/authorization.service';
 import { LoginPageActions, AuthApiActions } from './actions';
 import { L_STORAGE_AUTH_KEY, L_STORAGE_USER_KEY } from '../../config/services.config';
 import { User } from '../../core/models/user';
 import { Router } from '@angular/router';
+import { CoursePageActions } from '../../store/course-store/actions';
+
 
 @Injectable()
 export class AuthStoreEffects {
@@ -45,7 +47,7 @@ export class AuthStoreEffects {
           localStorage.setItem(L_STORAGE_AUTH_KEY, JSON.stringify(user.token));
           this.router.navigate(['courses']);
           }
-        )
+        ),
       ),
 {dispatch: false}
   );

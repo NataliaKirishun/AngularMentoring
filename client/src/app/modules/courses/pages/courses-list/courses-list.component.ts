@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { CourseService } from '../../services/course.service';
 import { ModalService } from '../../../../shared/modules/modal/service/modal.service';
 import { OrderByPipe } from '../../../../shared/pipes/order-by/order-by.pipe';
 import { FilterPipe } from '../../../../shared/pipes/filter/filter.pipe';
@@ -18,7 +17,7 @@ import { CourseStoreSelectors } from '../../../../store/course-store';
   styleUrls: ['./courses-list.component.less'],
   providers: [ ModalService, OrderByPipe, FilterPipe ],
 })
-export class CoursesListComponent implements OnInit, OnDestroy {
+export class CoursesListComponent implements OnDestroy {
   public filteredList: Observable<ICourseListItem[]> = this.store.select(CourseStoreSelectors.selectAllCourses)
   public modalType = ModalTypes.DeleteConfirmation;
   private courseIdToDelete: number = null;
@@ -31,10 +30,6 @@ export class CoursesListComponent implements OnInit, OnDestroy {
     private router: Router,
     private store: Store<RootStoreState.State>
   ) {}
-
-  ngOnInit() {
-    this.store.dispatch(CoursePageActions.loadCourses());
-  }
 
   ngOnDestroy() {
     this.subscription.forEach( subscribtion => subscribtion.unsubscribe());
@@ -51,14 +46,9 @@ export class CoursesListComponent implements OnInit, OnDestroy {
     this.closeModal(this.modalType);
   }
 
-  // public searchCourse(searchValue: string): void {
-  //   this.subscription.push(this.courseService.searchCourses(searchValue)
-  //     .subscribe(
-  //       (courses: ICourseListItem[]) => this.filteredList = courses,
-  //       error => console.log(error)
-  //     )
-  //   );
-  // }
+  public searchCourse(searchValue: string): void {
+    this.store.dispatch(CoursePageActions.searchCourses({value: searchValue}));
+  }
 
   public openModal(type: string) {
     this.modalService.open(type);
@@ -73,20 +63,17 @@ export class CoursesListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/courses', 'new']);
   }
 
-  // public loadCourses(): void {
-  //   this.subscription.push(this.courseService.loadMoreCourses()
-  //     .subscribe( ( courses: ICourseListItem[]) => {
-  //       if (courses.length === Number(this.courseService.pageAmount)) {
-  //         this.filteredList.push(...courses);
-  //       } else {
-  //         this.isToLoadMoreCourses = false;
-  //       }
-  //     },
-  //     error => console.log(error))
-  //   );
-  // }
-
-  // private getCourseIndex(id: number): number {
-  //   return this.filteredList.findIndex( (course: ICourseListItem) => course.id === id);
-  // }
+  public loadCourses(): void {
+    this.store.dispatch(CoursePageActions.loadMoreCourses());
+    // this.subscription.push(this.courseService.loadMoreCourses()
+    //   .subscribe( ( courses: ICourseListItem[]) => {
+    //     if (courses.length === Number(this.courseService.pageAmount)) {
+    //       this.filteredList.push(...courses);
+    //     } else {
+    //       this.isToLoadMoreCourses = false;
+    //     }
+    //   },
+    //   error => console.log(error))
+    // );
+  }
 }

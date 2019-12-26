@@ -1,4 +1,4 @@
-import { courseAdapter, State } from './state';
+import { courseAdapter, State } from './course.state';
 import { createFeatureSelector, MemoizedSelector } from '@ngrx/store';
 import { ICourseListItem } from '../../modules/courses/models/course-list-item';
 

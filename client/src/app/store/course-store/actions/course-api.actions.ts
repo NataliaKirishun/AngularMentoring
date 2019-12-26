@@ -11,6 +11,10 @@ export enum ActionTypes {
   DELETE_COURSE_FAILURE = '[Course] Delete course failure',
   ADD_COURSE_SUCCESS = '[Course] Add course success',
   ADD_COURSE_FAILURE = '[Course] Add course failure',
+  SEARCH_COURSES_SUCCESS = '[Course] Search courses success',
+  SEARCH_COURSE_FAILURE = '[Course] Search courses failure',
+  LOAD_MORE_COURSES_SUCCESS = '[Course] Load more courses success',
+  LOAD_MORE_COURSES_FAILURE = '[Course] Load more courses failure',
 }
 
 export const loadCoursesSuccess = createAction(
@@ -50,6 +54,26 @@ export const addCourseSuccess = createAction(
 
 export const addCourseFailure = createAction(
   ActionTypes.ADD_COURSE_FAILURE,
+  props<{ message: string}>()
+);
+
+export const searchCoursesSuccess = createAction(
+  ActionTypes.SEARCH_COURSES_SUCCESS,
+  props<{courses: ICourseListItem[]}>()
+);
+
+export const searchCoursesFailure = createAction(
+  ActionTypes.SEARCH_COURSE_FAILURE,
+  props<{ message: string}>()
+);
+
+export const loadMoreCoursesSuccess = createAction(
+  ActionTypes.LOAD_MORE_COURSES_SUCCESS,
+  props<{courses: ICourseListItem[]}>()
+);
+
+export const loadMoreCoursesFailure = createAction(
+  ActionTypes.LOAD_MORE_COURSES_FAILURE,
   props<{ message: string}>()
 );
 

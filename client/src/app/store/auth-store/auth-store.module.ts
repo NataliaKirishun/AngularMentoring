@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { AuthStoreEffects } from './effects';
-import { authReducer } from './reducer';
+import { AuthStoreEffects } from './auth.effects';
+import { authReducer } from './auth.reducer';
 
 @NgModule({
   imports: [

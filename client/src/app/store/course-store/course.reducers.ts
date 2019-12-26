@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { initialState, State, courseAdapter } from './state';
-import { CoursePageActions, CourseApiActions } from './actions';
+import { initialState, State, courseAdapter } from './course.state';
+import { CourseApiActions } from './actions';
 
 const reducer = createReducer(
   initialState,
@@ -12,9 +12,12 @@ const reducer = createReducer(
   on( CourseApiActions.deleteCourseFailure, (state, error) => ({...state, errorMessage: error.message})),
   on( CourseApiActions.addCourseSuccess, (state, payload) => courseAdapter.addOne(payload.course, state)),
   on( CourseApiActions.addCourseFailure, (state, error) => ({...state, errorMessage: error.message})),
+  on( CourseApiActions.searchCoursesSuccess, (state, payload) => courseAdapter.addAll(payload.courses, state)),
+  on( CourseApiActions.searchCoursesFailure, (state, error) => ({...state, errorMessage: error.message})),
+  on( CourseApiActions.loadMoreCoursesSuccess, (state, payload) => courseAdapter.addMany(payload.courses, state)),
+  on( CourseApiActions.loadMoreCoursesFailure, (state, error) => ({...state, errorMessage: error.message})),
 );
 
 export function courseReducer(state: State | undefined, action: Action) {
   return reducer(state, action);
 }
-
