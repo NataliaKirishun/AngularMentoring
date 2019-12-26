@@ -65,15 +65,5 @@ export class CoursesListComponent implements OnDestroy {
 
   public loadCourses(): void {
     this.store.dispatch(CoursePageActions.loadMoreCourses());
-    // this.subscription.push(this.courseService.loadMoreCourses()
-    //   .subscribe( ( courses: ICourseListItem[]) => {
-    //     if (courses.length === Number(this.courseService.pageAmount)) {
-    //       this.filteredList.push(...courses);
-    //     } else {
-    //       this.isToLoadMoreCourses = false;
-    //     }
-    //   },
-    //   error => console.log(error))
-    // );
   }
 }

@@ -4,7 +4,7 @@ import { CourseListItem, ICourseListItem } from '../models/course-list-item';
 import { API_GATEWAY } from '../../../config/services.config';
 import { HttpClient } from '@angular/common/http';
 import { ICoursesQueryParams } from '../models/courses-query-params';
-import { map } from 'rxjs/internal/operators';
+import { map, debounceTime } from 'rxjs/internal/operators';
 
 const AUTH_SERVICE_HOST = `${API_GATEWAY}/courses`;
 
@@ -32,7 +32,8 @@ export class CourseService {
       }
     })
       .pipe(
-        map( courses => courses.map( course => new CourseListItem(course)))
+        map( courses => courses.map( course => new CourseListItem(course))),
+        debounceTime(10000)
       );
   }
 
