@@ -1,4 +1,4 @@
-import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
+import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import { ICourseListItem } from '../../modules/courses/models/course-list-item';
 
 export const courseAdapter = createEntityAdapter<ICourseListItem>();
