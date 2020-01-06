@@ -32,15 +32,6 @@
     &:last-of-type {
       margin-bottom: 24px;
     }
-
-    &::after {
-      content: '*required';
-      font: 12px Source Sans Pro, sans-serif;
-      color: @battleship-grey;
-      position: absolute;
-      right: 0;
-      top: 2px;
-    }
   }
 
   &__label {
@@ -65,8 +56,12 @@
     }
   }
 
-  &__input.required + &__label {
-    color: red;
+  &__error {
+    position: absolute;
+    right: 0;
+    top: 4px;
+    font: 12px Source Sans Pro, sans-serif;
+    color: @red;
   }
 
   &__recovery-link {

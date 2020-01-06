@@ -3,13 +3,34 @@
     <h3 class="login-form__title">Login</h3>
     <div class="login-form__field">
       <label class="login-form__label" for="login">Login:</label>
-      <input formControlName="login" class="login-form__input" name="login" placeholder="Enter login" required>
+      <input
+        formControlName="login"
+        class="login-form__input"
+        name="login"
+        placeholder="Enter login">
+      <span class="login-form__error" *ngIf="login.errors?.required && login.touched">
+        *required
+      </span>
     </div>
     <div class="login-form__field">
       <label class="login-form__label" for="password">Password:</label>
-      <input formControlName="password" type="password" class="login-form__input" name="password" placeholder="Enter password" required>
+      <input
+        formControlName="password"
+        type="password"
+        class="login-form__input"
+        name="password"
+        placeholder="Enter password"
+        required>
+      <span class="login-form__error" *ngIf="password.errors?.required && password.touched">
+        *required
+      </span>
     </div>
     <a class="login-form__recovery-link" href="">Forgot password?</a>
-    <button class="login-form__login-btn" type="submit" [disabled]="loginForm.invalid || loginForm.disabled">Login</button>
+    <button
+      class="login-form__login-btn"
+      type="submit"
+      [disabled]="loginForm.invalid || loginForm.disabled">
+      Login
+    </button>
   </form>
 </div>

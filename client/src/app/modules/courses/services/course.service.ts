@@ -63,8 +63,7 @@ export class CourseService {
   }
 
   updateItem(course: ICourseListItem): Observable<ICourseListItem> {
-    console.log(course, 'course');
-    return this.http.patch(AUTH_SERVICE_HOST, course)
+    return this.http.patch(AUTH_SERVICE_HOST + `/${course.id}`, course)
       .pipe (
         map( (course: ICourseListItem) => new CourseListItem(course))
     );

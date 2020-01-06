@@ -18,7 +18,7 @@ export class CourseStoreEffects {
         ofType(AuthApiActions.loginSuccess),
         switchMap(() =>
           this.courseService.getList().pipe(
-            map(courses => CourseApiActions.loadCoursesSuccess({courses: courses})),
+            map(courses => CourseApiActions.loadCoursesSuccess({courses})),
             catchError(error => of(CourseApiActions.loadCoursesFailure(error.message)))
           )
         )

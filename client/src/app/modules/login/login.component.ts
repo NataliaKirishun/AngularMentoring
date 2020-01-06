@@ -36,4 +36,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginForm.disable();
     this.store.dispatch(LoginPageActions.login(this.loginForm.value));
   }
+
+  get login() {
+    return this.loginForm.get('login');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
 }

@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-
-import { CourseService } from './services/course.service';
 import { CircleRoundDirective } from './directives/circle-round.directive';
-
 import { CourseSearchComponent } from './components/course-search/course-search.component';
 import { CourseItemComponent } from './components/course-item/course-item.component';
 import { CoursesComponent } from './courses.component';
@@ -34,6 +32,7 @@ import { CourseDetailResolverService } from './services/course-detail-resolver.s
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     FontAwesomeModule,
     SharedModule,
     CoursesRoutingModule,
