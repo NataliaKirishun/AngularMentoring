@@ -8,9 +8,9 @@
         class="login-form__input"
         name="login"
         placeholder="Enter login">
-      <span class="login-form__error" *ngIf="login.errors?.required && login.touched">
+      <div class="login-form__error" *ngIf="login.errors?.required && login.touched">
         *required
-      </span>
+      </div>
     </div>
     <div class="login-form__field">
       <label class="login-form__label" for="password">Password:</label>

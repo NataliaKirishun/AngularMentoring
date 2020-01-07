@@ -1,5 +1,12 @@
 <div class="duration-field">
   <label class="duration-field__label" for="duration">Duration:</label>
-  <input [(ngModel)]="inputValue" class="duration-field__input" (change)="handleChange()" type="number" name="duration" placeholder="minutes" required>
-  <div class="duration-field__full-duration">{{inputValue | duration}}</div>
+  <input
+    class="duration-field__input"
+    type="text"
+    [formControl]="duration"
+    (keyup)="writeValue()"
+    [ngClass]="ngClass"
+    placeholder="minutes"
+    [disabled]="isDisabled">
+  <div *ngIf="value && !validate(duration)" class="duration-field__full-duration">{{value | duration}}</div>
 </div>

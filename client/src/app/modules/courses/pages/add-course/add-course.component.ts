@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { RootStoreState } from '../../../../store';
 import { CoursePageActions } from '../../../../store/course-store/actions';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-course',
@@ -15,26 +16,34 @@ import { CoursePageActions } from '../../../../store/course-store/actions';
   styleUrls: ['./add-course.component.less']
 })
 export class AddCourseComponent implements OnInit, OnDestroy {
-  public courseData: ICourseListItem = {
-    id: null,
-    name: '',
-    description: '',
-    length: null,
-    date: '',
-    authors: {
-      name: null,
-      id: null,
-    },
-  };
+  // public courseData: ICourseListItem = {
+  //   id: null,
+  //   name: '',
+  //   description: '',
+  //   length: null,
+  //   date: '',
+  //   authors: {
+  //     name: null,
+  //     id: null,
+  //   },
+  // };
   public mode: string;
   private subscription: Subscription[] = [];
+  public addForm: FormGroup;
 
   constructor(
     private courseService: CourseService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<RootStoreState.State>
-  ) {}
+    private store: Store<RootStoreState.State>,
+    private fb: FormBuilder,
+  ) {
+    this.addForm = fb.group({
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(500)]],
+      length: ['', [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe( (data) => {
@@ -42,7 +51,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
       if (id) {
         this.subscription.push(this.courseService.getItemById(id)
           .subscribe(
-            (course: ICourseListItem) =>  this.courseData = course,
+            (course: ICourseListItem) =>  {},
             error => console.log(error)
           )
         );
@@ -55,28 +64,26 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.subscription.length) {
-      this.subscription.forEach( subscribtion => subscribtion.unsubscribe());
+      this.subscription.forEach( subscription => subscription.unsubscribe());
     }
   }
 
   handleDuration(length: number) {
-    this.courseData.length = length;
+
   }
 
   handleDate(date: string) {
-    this.courseData.date = date;
+
   }
 
   handleAuthors(author: string) {
     const authorId = (new Date()).getTime();
-    this.courseData.authors = {
-      id: authorId,
-      name: author,
-    };
+
   }
 
   onSubmit() {
-    const courseItem: ICourseListItem = new CourseListItem(this.courseData);
+    console.log('this.addForm', this.addForm);
+    const courseItem: ICourseListItem = new CourseListItem(this.addForm.value);
     this.mode === ModeType.ADD ? this.createCourse(courseItem) : this.editCourse(courseItem);
   }
 
@@ -84,9 +91,9 @@ export class AddCourseComponent implements OnInit, OnDestroy {
     this.router.navigate(['courses']);
   }
 
-  get courseDate() {
-    return formatDate(this.courseData.date);
-  }
+  // get courseDate() {
+  //   // return formatDate(this.courseData.date);
+  // }
 
   createCourse(course: ICourseListItem): void {
     this.store.dispatch(CoursePageActions.createCourse({course}));
@@ -94,5 +101,17 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
   editCourse(course: ICourseListItem): void {
     this.store.dispatch(CoursePageActions.editCourse({course}));
+  }
+
+  get name() {
+    return this.addForm.get('name');
+  }
+
+  get description() {
+    return this.addForm.get('description');
+  }
+
+  get length() {
+    return this.addForm.get('length');
   }
 }
