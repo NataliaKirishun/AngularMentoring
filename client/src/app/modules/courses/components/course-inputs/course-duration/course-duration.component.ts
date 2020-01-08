@@ -27,7 +27,6 @@ import {
   ]
 })
 export class CourseDurationComponent implements ControlValueAccessor, Validator {
-  @Input() ngClass: any;
   public isDisabled: boolean;
   public duration = new FormControl('');
 
@@ -35,7 +34,7 @@ export class CourseDurationComponent implements ControlValueAccessor, Validator 
     return this.duration.value;
   }
 
-  private onChange = (duration: number) => {};
+  private onChange = (duration?: number) => {};
   private onTouched = () => {};
 
   public registerOnChange(fn: any): void {

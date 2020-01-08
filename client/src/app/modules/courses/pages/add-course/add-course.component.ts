@@ -42,6 +42,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(500)]],
       length: ['', [Validators.required]],
+      date: ['', [Validators.required]],
     });
   }
 
@@ -68,17 +69,8 @@ export class AddCourseComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleDuration(length: number) {
-
-  }
-
-  handleDate(date: string) {
-
-  }
-
   handleAuthors(author: string) {
     const authorId = (new Date()).getTime();
-
   }
 
   onSubmit() {
@@ -90,10 +82,6 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   closeAddForm() {
     this.router.navigate(['courses']);
   }
-
-  // get courseDate() {
-  //   // return formatDate(this.courseData.date);
-  // }
 
   createCourse(course: ICourseListItem): void {
     this.store.dispatch(CoursePageActions.createCourse({course}));
@@ -113,5 +101,9 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
   get length() {
     return this.addForm.get('length');
+  }
+
+  get date() {
+    return this.addForm.get('date');
   }
 }

@@ -5,7 +5,7 @@
     type="text"
     [formControl]="duration"
     (keyup)="writeValue()"
-    [ngClass]="ngClass"
+    (click)="writeValue()"
     placeholder="minutes"
     [disabled]="isDisabled">
   <div *ngIf="value && !validate(duration)" class="duration-field__full-duration">{{value | duration}}</div>
