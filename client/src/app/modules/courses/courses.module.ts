@@ -15,6 +15,8 @@ import { CourseAuthorsComponent } from './components/course-inputs/course-author
 import { CourseDateComponent } from './components/course-inputs/course-date/course-date.component';
 import { CourseDurationComponent } from './components/course-inputs/course-duration/course-duration.component';
 import { CourseDetailResolverService } from './services/course-detail-resolver.service';
+import { AuthorService } from './services/author.service';
+import { AngularMaterialModule } from './coures-material.module';
 
 @NgModule({
   declarations: [
@@ -36,9 +38,11 @@ import { CourseDetailResolverService } from './services/course-detail-resolver.s
     FontAwesomeModule,
     SharedModule,
     CoursesRoutingModule,
+    AngularMaterialModule,
   ],
   providers: [
     CourseDetailResolverService,
+    AuthorService,
   ]
 })
 export class CoursesModule { }

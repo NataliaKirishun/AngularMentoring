@@ -2,6 +2,7 @@
   <label class="duration-field__label" for="duration">Duration:</label>
   <input
     class="duration-field__input"
+    [ngClass]="ngClass"
     type="text"
     [formControl]="duration"
     (keyup)="writeValue()"

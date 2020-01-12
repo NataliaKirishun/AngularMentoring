@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { CourseService } from '../../modules/courses/services/course.service';
 import { ICourseListItem } from '../../modules/courses/models/course-list-item';
 import { Update } from '@ngrx/entity';
+import { AuthorService } from '../../modules/courses/services/author.service';
 
 @Injectable()
 export class CourseStoreEffects {

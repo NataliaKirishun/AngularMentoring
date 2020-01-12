@@ -2,6 +2,7 @@
   <label class="date-field__label" for="date">Date:</label>
   <input
     class="date-field__input"
+    [ngClass]="ngClass"
     type="text"
     [formControl]="date"
     (keyup)="writeValue()"

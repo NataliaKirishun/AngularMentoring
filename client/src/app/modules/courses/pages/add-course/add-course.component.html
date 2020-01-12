@@ -19,7 +19,7 @@
       <label class="add-course-form__label" for="description">Description:</label>
       <textarea
         formControlName="description"
-        class="add-course-form__description">
+        class="add-course-form__description"
         [class.has-error]="description.touched && description.invalid"
         name="description"
         placeholder="Add description">
@@ -35,7 +35,8 @@
     <div class="add-course-form__field">
       <app-course-duration
         formControlName="length"
-        [class.has-error]="length.touched && length.invalid"></app-course-duration>
+        [ngClass]="{'error': length.invalid && (length.dirty || length.touched)}">
+      </app-course-duration>
       <div class="add-course-form__error" *ngIf="length.errors?.required && length.touched">*Duration is required</div>
       <div class="add-course-form__error" *ngIf="length.errors?.isNotNumber">*Is not a number</div>
     </div>
@@ -43,17 +44,22 @@
     <div class="add-course-form__field">
       <app-course-date
         formControlName="date"
-        [class.has-error]="date.touched && date.invalid"></app-course-date>
-        <div class="add-course-form__error" *ngIf="date.touched && date.errors?.required">*Date is required</div>
-        <div class="add-course-form__error" *ngIf="date.errors?.formatIncorrect">*Format should be dd/MM/YYYY</div>
+        [ngClass]="{'error': date.invalid && (date.dirty || date.touched)}"></app-course-date>
+      <div class="add-course-form__error" *ngIf="date.errors?.required && date.touched && !date.errors?.formatIncorrect">*Date is required</div>
+      <div class="add-course-form__error" *ngIf="date.errors?.formatIncorrect">*Format should be dd/MM/YYYY</div>
     </div>
 
-    <app-course-authors
-      (inputChange)="handleAuthors($event)">
-    </app-course-authors>
+    <div class="add-course-form__field">
+      <app-course-authors
+        formControlName="authors"
+        [ngClass]="{'error': authors.invalid && (authors.dirty || authors.touched)}"
+        (search)="searchAuthor($event)"></app-course-authors>
+      <div class="add-course-form__error" *ngIf="authors.touched && authors.errors?.required">*Author is required</div>
+    </div>
+
     <div class="add-course-form__btn-group">
       <button class="add-course-form__cancel-btn" type="reset" (click)="closeAddForm()">Cancel</button>
-      <button class="add-course-form__save-btn" type="submit">Save</button>
+      <button class="add-course-form__save-btn" type="submit" [disabled]="addForm.invalid">Save</button>
     </div>
   </form>
 </div>

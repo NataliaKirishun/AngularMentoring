@@ -12,7 +12,6 @@ import { LoginPageActions } from '../../store/auth-store/actions';
 })
 export class LoginComponent {
   public loginForm: FormGroup;
-  public aSub: Subscription;
 
   constructor(
     private fb: FormBuilder,

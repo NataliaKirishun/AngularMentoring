@@ -1,4 +1,27 @@
 <div class="authors-field">
   <label class="authors-field__label" for="authors">Authors:</label>
-  <input [(ngModel)]="inputValue" class="authors-field__input" (change)="handleChange()" name="authors" placeholder="Start typing" required>
+
+  <div class="authors-field__wrapper" [ngClass]="ngClass">
+    <div
+      *ngFor="let author of addedAuthors.value; let i"
+      class="authors-field__author-item">
+      <span>{{author.name}}</span>
+      <fa-icon [icon]="faTimes" (click)="deleteAuthor(i)"></fa-icon>
+    </div>
+
+    <input
+      [matAutocomplete]="auto"
+      class="authors-field__input"
+      type="text"
+      (keyup)="onAuthorSearch($event)"
+      (click)="writeValue()"
+      name="authors">
+
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let author of authorsList | async" (click)="addNewAuthor(author)">
+        {{author.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+
 </div>

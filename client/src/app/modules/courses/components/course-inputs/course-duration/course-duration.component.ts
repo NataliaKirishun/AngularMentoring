@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input} from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -27,6 +27,7 @@ import {
   ]
 })
 export class CourseDurationComponent implements ControlValueAccessor, Validator {
+  @Input() ngClass: string | null;
   public isDisabled: boolean;
   public duration = new FormControl('');
 

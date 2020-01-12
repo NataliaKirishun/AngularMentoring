@@ -1,4 +1,4 @@
-import {Component, forwardRef} from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
@@ -27,6 +27,7 @@ import * as moment from 'moment';
   ]
 })
 export class CourseDateComponent implements ControlValueAccessor, Validator {
+  @Input() ngClass: string | null;
   public isDisabled: boolean;
   public date = new FormControl('');
   private dateFormat = 'DD/MM/YYYY';
@@ -46,9 +47,10 @@ export class CourseDateComponent implements ControlValueAccessor, Validator {
     this.onTouched = fn;
   }
 
-  public writeValue(date?: number): void {
+  public writeValue(date?: string): void {
     if (date) {
-      this.date.setValue(date);
+      const value = moment(date).format(this.dateFormat);
+      this.date.setValue(value);
     } else {
       this.onTouched();
     }
