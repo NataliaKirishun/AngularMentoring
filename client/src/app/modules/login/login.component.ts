@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { AuthorizationService } from '../../core/authorization/authorization.service';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { RootStoreState } from '../../store';
+import { LoginPageActions } from '../../store/auth-store/actions';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthorizationService,
-    private router: Router,
+    private store: Store<RootStoreState.State>
   ) { }
 
   ngOnInit() {
@@ -35,9 +34,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.loginForm.disable();
-    this.aSub = this.authService.login(this.loginForm.value).subscribe(
-      () => this.router.navigate(['courses']),
-      () => this.loginForm.enable()
-  );
+    this.store.dispatch(LoginPageActions.login(this.loginForm.value));
   }
 }

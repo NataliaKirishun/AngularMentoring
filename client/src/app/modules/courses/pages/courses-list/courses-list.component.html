@@ -2,9 +2,9 @@
   <div class="courses-list__content">
     <app-course-search (search)="searchCourse($event)"></app-course-search>
     <button class="courses-list__add-btn" (click)="addNewCourse()">Add course</button>
-    <div *ngIf="!courseListLength; else elseBlock" class="course-page__empty-block">NO DATA, FELL FREE TO ADD NEW COURSE...</div>
+    <div *ngIf="!(filteredList | async).length; else elseBlock" class="course-page__empty-block">NO DATA, FELL FREE TO ADD NEW COURSE...</div>
   <ng-template #elseBlock>
-    <app-course-item *ngFor="let course of filteredList" [courseItem]="course" (delete)="deleteCourse($event)"></app-course-item>
+    <app-course-item *ngFor="let course of filteredList | async" [courseItem]="course" (delete)="deleteCourse($event)"></app-course-item>
     <button class="courses-list__load-btn" *ngIf="isToLoadMoreCourses" (click)="loadCourses()">Load more</button>
   </ng-template>
   </div>

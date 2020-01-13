@@ -1,22 +1,15 @@
-import {
-  Component,
-  OnChanges,
-  OnInit,
-  DoCheck,
-  AfterContentInit,
-  AfterContentChecked,
-  AfterViewInit,
-  AfterViewChecked,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { CourseService } from '../../services/course.service';
 import { ModalService } from '../../../../shared/modules/modal/service/modal.service';
 import { OrderByPipe } from '../../../../shared/pipes/order-by/order-by.pipe';
 import { FilterPipe } from '../../../../shared/pipes/filter/filter.pipe';
 import { ICourseListItem, IDeleteCourseEventData } from '../../models/course-list-item';
 import { ModalTypes } from '../../../../config/modal.config';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { RootStoreState } from '../../../../store';
+import { CoursePageActions } from '../../../../store/course-store/actions';
+import { CourseStoreSelectors } from '../../../../store/course-store';
 
 @Component({
   selector: 'app-courses-list',
@@ -24,16 +17,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./courses-list.component.less'],
   providers: [ ModalService, OrderByPipe, FilterPipe ],
 })
-export class CoursesListComponent implements
-  OnChanges,
-  OnInit,
-  DoCheck,
-  AfterContentInit,
-  AfterContentChecked,
-  AfterViewInit,
-  AfterViewChecked,
-  OnDestroy {
-  public filteredList: ICourseListItem[] = [];
+export class CoursesListComponent implements OnDestroy {
+  public filteredList: Observable<ICourseListItem[]> = this.store.select(CourseStoreSelectors.selectAllCourses)
   public modalType = ModalTypes.DeleteConfirmation;
   private courseIdToDelete: number = null;
   public courseTitleToDelete: string = null;
@@ -41,50 +26,13 @@ export class CoursesListComponent implements
   private subscription: Subscription[] = [];
 
   constructor(
-    private courseService: CourseService,
     private modalService: ModalService,
     private router: Router,
+    private store: Store<RootStoreState.State>
   ) {}
 
-  ngOnChanges() {
-    console.log('ngOnChanges');
-  }
-
-  ngOnInit() {
-    console.log('ngOnInit');
-    this.subscription.push(this.courseService.getList()
-      .subscribe(
-        (courses: ICourseListItem[]) => this.filteredList = courses,
-        error => console.log(error)));
-  }
-
-  ngDoCheck() {
-    console.log('ngDoCheck');
-  }
-
-  ngAfterContentInit() {
-    console.log('ngAfterContentInit');
-  }
-
-  ngAfterContentChecked() {
-    console.log('ngAfterContentChecked');
-  }
-
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit');
-  }
-
-  ngAfterViewChecked() {
-    console.log('ngAfterViewChecked');
-  }
-
   ngOnDestroy() {
-    console.log('ngOnDestroy');
     this.subscription.forEach( subscribtion => subscribtion.unsubscribe());
-  }
-
-  get courseListLength() {
-    return this.filteredList.length;
   }
 
   public deleteCourse(deleteCourseEventData: IDeleteCourseEventData): void {
@@ -94,25 +42,12 @@ export class CoursesListComponent implements
   }
 
   public removeCourse(): void {
-    this.subscription.push(this.courseService.removeItem(this.courseIdToDelete)
-      .subscribe(
-        () => {
-          this.closeModal(this.modalType);
-          const index = this.getCourseIndex(this.courseIdToDelete);
-          this.filteredList.splice(index, 1);
-      },
-        error => console.log(error)
-      )
-    );
+    this.store.dispatch(CoursePageActions.deleteCourse({id: this.courseIdToDelete}));
+    this.closeModal(this.modalType);
   }
 
   public searchCourse(searchValue: string): void {
-    this.subscription.push(this.courseService.searchCourses(searchValue)
-      .subscribe(
-        (courses: ICourseListItem[]) => this.filteredList = courses,
-        error => console.log(error)
-      )
-    );
+    this.store.dispatch(CoursePageActions.searchCourses({value: searchValue}));
   }
 
   public openModal(type: string) {
@@ -129,23 +64,6 @@ export class CoursesListComponent implements
   }
 
   public loadCourses(): void {
-    this.subscription.push(this.courseService.loadMoreCourses()
-      .subscribe( ( courses: ICourseListItem[]) => {
-        if (courses.length === Number(this.courseService.pageAmount)) {
-          this.filteredList.push(...courses);
-        } else {
-          this.isToLoadMoreCourses = false;
-        }
-      },
-      error => console.log(error))
-    );
-  }
-
-  private getCourseIndex(id: number): number {
-    return this.filteredList.findIndex( (course: ICourseListItem) => course.id === id);
+    this.store.dispatch(CoursePageActions.loadMoreCourses());
   }
 }
-
-
-
-

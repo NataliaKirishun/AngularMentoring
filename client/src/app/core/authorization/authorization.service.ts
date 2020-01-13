@@ -2,12 +2,7 @@ import { Injectable } from '@angular/core';
 import { ILoginUserData, IUser, User } from '../models/user';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { API_GATEWAY } from '../../config/services.config';
-import { tap } from 'rxjs/internal/operators';
-
-
-const L_STORAGE_AUTH_KEY = 'AUTH_TOKEN';
-const L_STORAGE_USER_KEY = 'USER_DATA';
+import { API_GATEWAY, L_STORAGE_AUTH_KEY, L_STORAGE_USER_KEY } from '../../config/services.config';
 
 const AUTH_SERVICE_HOST = `${API_GATEWAY}/auth`;
 
@@ -39,13 +34,8 @@ export class AuthorizationService {
     localStorage.setItem(L_STORAGE_USER_KEY, JSON.stringify(user));
   }
 
-  login({login, password}: ILoginUserData): Observable<{token: string}> {
-    return this.http.post<{token: string}>(AUTH_SERVICE_HOST + '/login', {login, password})
-      .pipe(
-        tap( ({token}) => {
-          this.setTokenToLocalStorage(token, (user: User) => {this.user = user; });
-        })
-      );
+  login(login: string, password: string): Observable<{token: string}> {
+    return this.http.post<{token: string}>(AUTH_SERVICE_HOST + '/login', {login, password});
   }
 
   setTokenToLocalStorage(token: string, callback): void {
@@ -59,7 +49,6 @@ export class AuthorizationService {
   }
 
   logout(): void {
-    console.log('logout');
     if (this.isAuth()) {
       localStorage.removeItem(L_STORAGE_AUTH_KEY);
       localStorage.removeItem(L_STORAGE_USER_KEY);
