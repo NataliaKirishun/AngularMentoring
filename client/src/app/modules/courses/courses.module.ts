@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-
-import { CourseService } from './services/course.service';
 import { CircleRoundDirective } from './directives/circle-round.directive';
-
 import { CourseSearchComponent } from './components/course-search/course-search.component';
 import { CourseItemComponent } from './components/course-item/course-item.component';
 import { CoursesComponent } from './courses.component';
@@ -17,6 +15,8 @@ import { CourseAuthorsComponent } from './components/course-inputs/course-author
 import { CourseDateComponent } from './components/course-inputs/course-date/course-date.component';
 import { CourseDurationComponent } from './components/course-inputs/course-duration/course-duration.component';
 import { CourseDetailResolverService } from './services/course-detail-resolver.service';
+import { AuthorService } from './services/author.service';
+import { AngularMaterialModule } from './coures-material.module';
 
 @NgModule({
   declarations: [
@@ -34,12 +34,15 @@ import { CourseDetailResolverService } from './services/course-detail-resolver.s
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     FontAwesomeModule,
     SharedModule,
     CoursesRoutingModule,
+    AngularMaterialModule,
   ],
   providers: [
     CourseDetailResolverService,
+    AuthorService,
   ]
 })
 export class CoursesModule { }

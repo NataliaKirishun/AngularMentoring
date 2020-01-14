@@ -24,6 +24,7 @@
 
     &__field {
       margin-top: 12px;
+      position: relative;
     }
 
     &__label {
@@ -34,26 +35,33 @@
     }
 
     &__title-input, &__description {
-      font: 14px/36px Source Sans Pro, sans-serif;
+      width: 680px;
+      font: 14px Source Sans Pro, sans-serif;
       border: solid 1px @grey;
       border-radius: 3px;
-      padding: 0 12px;
+      padding: 12px;
 
       &::placeholder {
         color: @silver;
       }
     }
 
-    &__title-input, &__description {
-      width: 680px;
+    &__error {
+      position: absolute;
+      right: 0;
+      top: 4px;
+      font: 12px Source Sans Pro, sans-serif;
+      color: @red;
     }
 
     &__description {
       resize: none;
+      min-height: 60px;
     }
 
     &__btn-group {
       float: right;
+      margin-top: 12px;
     }
 
     &__cancel-btn, &__save-btn {
@@ -68,6 +76,11 @@
       color: @white;
       background-color: @sick-green;
       margin-left: 12px;
+
+      &:disabled {
+        color: @slate-grey-two;
+        background-color: @grey;
+      }
     }
 
     &__cancel-btn {
@@ -75,6 +88,10 @@
       background-color: @grey;
     }
 
+  }
+
+  .has-error {
+    border-color: @red;
   }
 }
 

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { CourseService } from '../../modules/courses/services/course.service';
 import { ICourseListItem } from '../../modules/courses/models/course-list-item';
 import { Update } from '@ngrx/entity';
+import { AuthorService } from '../../modules/courses/services/author.service';
 
 @Injectable()
 export class CourseStoreEffects {
@@ -18,7 +19,7 @@ export class CourseStoreEffects {
         ofType(AuthApiActions.loginSuccess),
         switchMap(() =>
           this.courseService.getList().pipe(
-            map(courses => CourseApiActions.loadCoursesSuccess({courses: courses})),
+            map(courses => CourseApiActions.loadCoursesSuccess({courses})),
             catchError(error => of(CourseApiActions.loadCoursesFailure(error.message)))
           )
         )

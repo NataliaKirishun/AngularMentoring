@@ -2,7 +2,18 @@
 @import "~src/app/layout";
 
 .authors-field {
-  margin-top: 12px;
+
+  &__wrapper {
+    display: flex;
+    border: solid 1px @grey;
+    border-radius: 3px;
+    margin-top: 12px;
+    padding: 12px;
+
+    &.error {
+      border-color: @red;
+    }
+  }
 
   &__label {
     font: 600 14px Source Sans Pro, sans-serif;
@@ -10,15 +21,42 @@
     display: block;
   }
 
+  &__author-item {
+    display: flex;
+    background-color: @rose;
+    border-radius: 30px;
+    color: @white;
+    padding: 3px 5px;
+    height: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    margin: 0 2px;
+
+    fa-icon {
+      margin: 0 3px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
   &__input {
     font: 14px/36px Source Sans Pro, sans-serif;
-    border: solid 1px @grey;
-    border-radius: 3px;
-    padding: 0 12px;
-    margin-top: 9px;
+    border: 0;
+    outline: none;
 
     &::placeholder {
       color: @silver;
     }
+  }
+
+  &__author-list {
+    position: absolute;
+    list-style-type: none;
+    z-index: 2;
+    background-color: @grey;
+    margin: 0;
+    padding: 12px;
   }
 }

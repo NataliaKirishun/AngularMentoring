@@ -1,3 +1,8 @@
 <form class="course-search__form">
-  <input type="text" #search (keyup)="handleSearch(search.value)" class="course-search__input" placeholder="Text to search"/>
+  <input
+    type="text"
+    [formControl]="searchInput"
+    (keyup)="handleSearch(searchInput.value)"
+    class="course-search__input"
+    placeholder="Text to search"/>
 </form>

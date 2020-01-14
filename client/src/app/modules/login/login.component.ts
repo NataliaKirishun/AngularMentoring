@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -10,30 +10,29 @@ import { LoginPageActions } from '../../store/auth-store/actions';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent {
   public loginForm: FormGroup;
-  public aSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<RootStoreState.State>
-  ) { }
-
-  ngOnInit() {
-    this.loginForm = this.fb.group({
+  ) {
+    this.loginForm = fb.group({
       login: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
 
-  ngOnDestroy() {
-    if (this.aSub) {
-      this.aSub.unsubscribe();
-    }
-  }
-
   onSubmit() {
     this.loginForm.disable();
     this.store.dispatch(LoginPageActions.login(this.loginForm.value));
+  }
+
+  get login() {
+    return this.loginForm.get('login');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 }

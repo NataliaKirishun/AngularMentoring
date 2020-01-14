@@ -8,6 +8,7 @@ export enum ActionTypes {
   CREATE_COURSE = '[Course] Create course',
   SEARCH_COURSE = '[Course] Search course',
   LOAD_MORE_COURSES = '[Course] Load more courses',
+  SEARCH_AUTHOR = '[Course] Load authors',
 }
 
 export const loadCourses = createAction(

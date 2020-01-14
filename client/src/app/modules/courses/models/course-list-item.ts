@@ -1,8 +1,17 @@
 import {IUser} from "../../../core/models/user";
 
 export interface IAuthors {
-  id: number;
+  id?: number;
   name: string;
+}
+
+export class Author implements IAuthors {
+  readonly id?;
+  public name;
+
+  constructor(author: Partial<IAuthors>) {
+    Object.assign(this, author);
+  }
 }
 
 export interface ICourseListItem {

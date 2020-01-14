@@ -1,11 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../../shared/modules/modal/service/modal.service';
 import { OrderByPipe } from '../../../../shared/pipes/order-by/order-by.pipe';
 import { FilterPipe } from '../../../../shared/pipes/filter/filter.pipe';
 import { ICourseListItem, IDeleteCourseEventData } from '../../models/course-list-item';
 import { ModalTypes } from '../../../../config/modal.config';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { RootStoreState } from '../../../../store';
 import { CoursePageActions } from '../../../../store/course-store/actions';
@@ -17,23 +17,18 @@ import { CourseStoreSelectors } from '../../../../store/course-store';
   styleUrls: ['./courses-list.component.less'],
   providers: [ ModalService, OrderByPipe, FilterPipe ],
 })
-export class CoursesListComponent implements OnDestroy {
-  public filteredList: Observable<ICourseListItem[]> = this.store.select(CourseStoreSelectors.selectAllCourses)
+export class CoursesListComponent {
+  public filteredList: Observable<ICourseListItem[]> = this.store.select(CourseStoreSelectors.selectAllCourses);
   public modalType = ModalTypes.DeleteConfirmation;
   private courseIdToDelete: number = null;
   public courseTitleToDelete: string = null;
   public isToLoadMoreCourses = true;
-  private subscription: Subscription[] = [];
 
   constructor(
     private modalService: ModalService,
     private router: Router,
     private store: Store<RootStoreState.State>
   ) {}
-
-  ngOnDestroy() {
-    this.subscription.forEach( subscribtion => subscribtion.unsubscribe());
-  }
 
   public deleteCourse(deleteCourseEventData: IDeleteCourseEventData): void {
     this.courseIdToDelete = deleteCourseEventData.id;

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ICourseListItem } from '../../../modules/courses/models/course-list-item';
+import {IAuthors, ICourseListItem} from '../../../modules/courses/models/course-list-item';
 import { Update } from '@ngrx/entity';
 
 export enum ActionTypes {
@@ -15,6 +15,8 @@ export enum ActionTypes {
   SEARCH_COURSE_FAILURE = '[Course] Search courses failure',
   LOAD_MORE_COURSES_SUCCESS = '[Course] Load more courses success',
   LOAD_MORE_COURSES_FAILURE = '[Course] Load more courses failure',
+  SEARCH_AUTHORS_SUCCESS = '[Course] Search authors success',
+  SEARCH_AUTHORS_FAILURE = '[Course] Search authors failure',
 }
 
 export const loadCoursesSuccess = createAction(
@@ -76,4 +78,3 @@ export const loadMoreCoursesFailure = createAction(
   ActionTypes.LOAD_MORE_COURSES_FAILURE,
   props<{ message: string}>()
 );
-

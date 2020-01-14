@@ -1,20 +1,65 @@
 <div class="add-course">
-  <form class="add-course-form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="addForm" class="add-course-form" (ngSubmit)="onSubmit()">
     <h3 class="add-course-form__title">{{mode}} course</h3>
+
     <div class="add-course-form__field">
       <label class="add-course-form__label" for="title">Title:</label>
-      <input [(ngModel)]="courseData.name" class="add-course-form__title-input" type="text" name="title" placeholder="Add title" required>
+      <input
+        type="text"
+        formControlName="name"
+        [class.has-error]="name.touched && name.invalid"
+        class="add-course-form__title-input"
+        name="title"
+        placeholder="Add title">
+      <div class="add-course-form__error" *ngIf="name.errors?.maxlength">*Title should not exceed 50 symbols</div>
+      <div class="add-course-form__error" *ngIf="name.errors?.required && name.touched">*Title is required</div>
     </div>
+
     <div class="add-course-form__field">
       <label class="add-course-form__label" for="description">Description:</label>
-      <textarea [(ngModel)]="courseData.description" class="add-course-form__description" name="description" placeholder="Add description" required></textarea>
+      <textarea
+        formControlName="description"
+        class="add-course-form__description"
+        [class.has-error]="description.touched && description.invalid"
+        name="description"
+        placeholder="Add description">
+      </textarea>
+      <div class="add-course-form__error" *ngIf="description.errors?.maxlength">*Description should not exceed 500
+        symbols
+      </div>
+      <div class="add-course-form__error" *ngIf="description.errors?.required && description.touched">*Description is
+        required
+      </div>
     </div>
-    <app-course-duration (inputChange)="handleDuration($event)" [inputValue]="courseData.length"></app-course-duration>
-    <app-course-date (inputChange)="handleDate($event)" [inputValue]="courseDate"></app-course-date>
-    <app-course-authors (inputChange)="handleAuthors($event)" [inputValue]="courseData.authors.name"></app-course-authors>
+
+    <div class="add-course-form__field">
+      <app-course-duration
+        formControlName="length"
+        [ngClass]="{'error': length.invalid && (length.dirty || length.touched)}">
+      </app-course-duration>
+      <div class="add-course-form__error" *ngIf="length.errors?.required && length.touched">*Duration is required</div>
+      <div class="add-course-form__error" *ngIf="length.errors?.isNotNumber">*Is not a number</div>
+    </div>
+
+    <div class="add-course-form__field">
+      <app-course-date
+        formControlName="date"
+        [ngClass]="{'error': date.invalid && (date.dirty || date.touched)}"></app-course-date>
+      <div class="add-course-form__error" *ngIf="date.errors?.required && date.touched && !date.errors?.formatIncorrect">*Date is required</div>
+      <div class="add-course-form__error" *ngIf="date.errors?.formatIncorrect">*Format should be dd/MM/YYYY</div>
+    </div>
+
+    <div class="add-course-form__field">
+      <app-course-authors
+        formControlName="authors"
+        [ngClass]="{'error': authors.invalid && (authors.dirty || authors.touched)}"
+        (search)="searchAuthor($event)"></app-course-authors>
+      <div class="add-course-form__error" *ngIf="authors.touched && authors.errors?.required">*Author is required</div>
+    </div>
+
     <div class="add-course-form__btn-group">
       <button class="add-course-form__cancel-btn" type="reset" (click)="closeAddForm()">Cancel</button>
-      <button class="add-course-form__save-btn" type="submit">Save</button>
+      <button class="add-course-form__save-btn" type="submit" [disabled]="addForm.invalid">Save</button>
     </div>
   </form>
 </div>

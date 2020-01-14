@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { initialState, State } from './auth.state';
-import { AuthApiActions, LoginPageActions } from '../auth-store/actions';
+import { AuthApiActions, LoginPageActions } from './actions';
 
 const reducer = createReducer(
   initialState,
